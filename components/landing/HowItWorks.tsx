@@ -1,19 +1,19 @@
 export function HowItWorks() {
   const steps = [
     {
-      number: "01",
+      number: "1",
       title: "Select an algorithm",
       description:
         "Choose from graph search, heuristic pathfinding, local optimization, or adversarial game decision trees.",
     },
     {
-      number: "02",
+      number: "2",
       title: "Step through execution",
       description:
         "Pause, step forward or backward, and inspect active nodes, priority queues, and line-by-line pseudocode.",
     },
     {
-      number: "03",
+      number: "3",
       title: "Analyze metrics",
       description:
         "Track nodes visited, cost functions, memory bounds, and execution state in real time.",
@@ -41,8 +41,8 @@ export function HowItWorks() {
               key={step.number}
               className="p-6 rounded-xl bg-[#15181D] border border-[#292E36]"
             >
-              <div className="text-xs font-mono text-[#6C8CFF] font-semibold mb-3">
-                STEP {step.number}
+              <div className="text-xs font-semibold text-[#6C8CFF] mb-3">
+                Step {step.number}
               </div>
               <h3 className="text-lg font-semibold text-[#F1F3F5] mb-2">
                 {step.title}
