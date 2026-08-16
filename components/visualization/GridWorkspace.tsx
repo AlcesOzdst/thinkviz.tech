@@ -4,7 +4,6 @@ import React, { useState, useMemo, useCallback } from "react";
 import { GridCanvas } from "@/components/visualization/GridCanvas";
 import { PlaybackToolbar } from "@/components/visualization/PlaybackToolbar";
 import { StepExplanation } from "@/components/visualization/StepExplanation";
-import { MetricsPanel } from "@/components/visualization/MetricsPanel";
 import { Position, GridState } from "@/types/grid";
 import { createInitialGrid, generateAStarSteps } from "@/lib/algorithms/aStar";
 import { useVisualizerPlayback } from "@/hooks/useVisualizerPlayback";
@@ -46,9 +45,6 @@ export function GridWorkspace() {
     hasGenerated && playback.currentStep
       ? playback.currentStep.state
       : editableGridState;
-
-  // Active metrics snapshot
-  const activeMetrics = playback.currentStep ? playback.currentStep.metrics : null;
 
   // Generate A* step traces from user's current grid setup
   const handleVisualize = () => {
@@ -124,74 +120,81 @@ export function GridWorkspace() {
   );
 
   return (
-    <div className="w-full flex flex-col items-center space-y-4">
-      {/* Action Control Toolbar */}
-      <div className="w-full flex flex-wrap items-center justify-between gap-3 p-3 rounded-xl bg-[#15181D] border border-[#292E36]">
-        <div className="flex items-center gap-2 text-xs text-[#A7AFBB]">
-          <span className="h-2 w-2 rounded-full bg-[#6C8CFF]" />
-          <span>
-            {hasGenerated
-              ? `Step ${playback.currentStepIndex + 1} of ${playback.totalSteps}`
-              : "Edit mode: Click/drag to draw walls, drag Start (S) or Goal (G)"}
-          </span>
+    <div className="w-full">
+      {/* 2-Column Desktop Grid Layout / Stacking on Mobile & Tablet */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+        {/* Left Column: Visual Focal Point (Grid Canvas + Single Playback Toolbar below) */}
+        <div className="lg:col-span-7 xl:col-span-7 flex flex-col space-y-3">
+          {/* Action Control Toolbar */}
+          <div className="w-full flex flex-wrap items-center justify-between gap-3 p-3 rounded-xl bg-[#15181D] border border-[#292E36]">
+            <div className="flex items-center gap-2 text-xs text-[#A7AFBB]">
+              <span
+                className={`h-2 w-2 rounded-full ${
+                  hasGenerated ? "bg-[#55B89A]" : "bg-[#6C8CFF]"
+                }`}
+              />
+              <span className="font-medium">
+                {hasGenerated
+                  ? "Visualization Active"
+                  : "Interactive Edit Mode: Draw walls, drag S or G"}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2">
+              {!hasGenerated ? (
+                <>
+                  <button
+                    onClick={handleClearWalls}
+                    disabled={walls.length === 0}
+                    className="px-3 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#A7AFBB] hover:text-[#F1F3F5] border border-[#292E36] font-medium text-xs transition-colors disabled:opacity-30 disabled:cursor-not-allowed"
+                  >
+                    Clear Walls
+                  </button>
+                  <button
+                    onClick={handleVisualize}
+                    className="px-4 py-1.5 rounded-lg bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white font-medium text-xs transition-colors shadow-sm"
+                  >
+                    Visualize A*
+                  </button>
+                </>
+              ) : (
+                <>
+                  <button
+                    onClick={handleResetSearch}
+                    className="px-3 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#F1F3F5] border border-[#292E36] font-medium text-xs transition-colors"
+                  >
+                    Reset & Edit Grid
+                  </button>
+                  <button
+                    onClick={handleResetEntireGrid}
+                    className="px-3 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#A7AFBB] hover:text-[#F1F3F5] border border-[#292E36] font-medium text-xs transition-colors"
+                  >
+                    Clear Grid
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
+
+          {/* Grid Canvas Component */}
+          <GridCanvas
+            gridState={activeGridState}
+            onToggleWall={handleToggleWall}
+            onMoveStart={handleMoveStart}
+            onMoveGoal={handleMoveGoal}
+            isInteractive={!hasGenerated}
+          />
+
+          {/* Playback Control Toolbar Component - directly below grid */}
+          <PlaybackToolbar playback={playback} disabled={!hasGenerated} />
         </div>
 
-        <div className="flex items-center gap-2">
-          {!hasGenerated ? (
-            <>
-              <button
-                onClick={handleClearWalls}
-                disabled={walls.length === 0}
-                className="px-3 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#A7AFBB] border border-[#292E36] font-medium text-xs transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
-              >
-                Clear Walls
-              </button>
-              <button
-                onClick={handleVisualize}
-                className="px-4 py-1.5 rounded-lg bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white font-medium text-xs transition-colors"
-              >
-                Visualize A*
-              </button>
-            </>
-          ) : (
-            <>
-              <button
-                onClick={handleResetSearch}
-                className="px-4 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#F1F3F5] border border-[#292E36] font-medium text-xs transition-colors"
-              >
-                Reset & Edit Grid
-              </button>
-              <button
-                onClick={handleResetEntireGrid}
-                className="px-3 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#A7AFBB] border border-[#292E36] font-medium text-xs transition-colors"
-              >
-                Clear Grid
-              </button>
-            </>
-          )}
+        {/* Right Column: Unified Learning Panel (Step Narrative, g/h/f Cost Breakdown, Metrics, Pseudocode) */}
+        <div className="lg:col-span-5 xl:col-span-5 flex flex-col">
+          <StepExplanation step={playback.currentStep} />
         </div>
       </div>
-
-      {/* Grid Canvas Component */}
-      <GridCanvas
-        gridState={activeGridState}
-        onToggleWall={handleToggleWall}
-        onMoveStart={handleMoveStart}
-        onMoveGoal={handleMoveGoal}
-        isInteractive={!hasGenerated}
-      />
-
-      {/* Playback Control Toolbar Component */}
-      <PlaybackToolbar
-        playback={playback}
-        disabled={!hasGenerated}
-      />
-
-      {/* Real-time Algorithm Metrics Panel */}
-      <MetricsPanel metrics={activeMetrics} />
-
-      {/* Step Narrative & Pseudocode Explanation Component */}
-      <StepExplanation step={playback.currentStep} />
     </div>
   );
 }
+

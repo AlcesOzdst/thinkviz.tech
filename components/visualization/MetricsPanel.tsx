@@ -14,50 +14,57 @@ export function MetricsPanel({ metrics }: MetricsPanelProps) {
 
   let pathCostDisplay = "—";
   if (metrics && metrics.pathCost > 0 && metrics.pathCost !== Infinity) {
-    pathCostDisplay = metrics.pathCost.toFixed(2);
+    pathCostDisplay = metrics.pathCost.toFixed(1);
   }
 
   return (
-    <div className="w-full grid grid-cols-2 sm:grid-cols-4 gap-3">
-      {/* Nodes Explored Card */}
-      <div className="p-3.5 rounded-xl bg-[#15181D] border border-[#292E36] flex flex-col justify-between">
-        <span className="text-[11px] font-medium text-[#737C89] uppercase tracking-wide">
-          Nodes Explored
-        </span>
-        <span className="text-xl font-bold font-mono text-[#F1F3F5] mt-1">
-          {nodesExplored}
-        </span>
+    <div className="w-full space-y-2">
+      <div className="text-[11px] font-semibold text-[#A7AFBB] uppercase tracking-wider flex items-center justify-between">
+        <span>Search Metrics</span>
       </div>
 
-      {/* Frontier Size Card */}
-      <div className="p-3.5 rounded-xl bg-[#15181D] border border-[#292E36] flex flex-col justify-between">
-        <span className="text-[11px] font-medium text-[#737C89] uppercase tracking-wide">
-          Frontier Size
-        </span>
-        <span className="text-xl font-bold font-mono text-[#6C8CFF] mt-1">
-          {frontierSize}
-        </span>
-      </div>
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+        {/* Nodes Explored Card */}
+        <div className="p-2.5 rounded-lg bg-[#0D0F12] border border-[#292E36] flex flex-col justify-between">
+          <span className="text-[10px] font-medium text-[#737C89] uppercase tracking-wider">
+            Explored
+          </span>
+          <span className="text-base sm:text-lg font-bold font-mono text-[#F1F3F5] mt-0.5">
+            {nodesExplored}
+          </span>
+        </div>
 
-      {/* Path Cost Card */}
-      <div className="p-3.5 rounded-xl bg-[#15181D] border border-[#292E36] flex flex-col justify-between">
-        <span className="text-[11px] font-medium text-[#737C89] uppercase tracking-wide">
-          Path Cost g(n)
-        </span>
-        <span className="text-xl font-bold font-mono text-[#55B89A] mt-1">
-          {pathCostDisplay}
-        </span>
-      </div>
+        {/* Frontier Size Card */}
+        <div className="p-2.5 rounded-lg bg-[#0D0F12] border border-[#292E36] flex flex-col justify-between">
+          <span className="text-[10px] font-medium text-[#737C89] uppercase tracking-wider">
+            Frontier
+          </span>
+          <span className="text-base sm:text-lg font-bold font-mono text-[#6C8CFF] mt-0.5">
+            {frontierSize}
+          </span>
+        </div>
 
-      {/* Total Steps Card */}
-      <div className="p-3.5 rounded-xl bg-[#15181D] border border-[#292E36] flex flex-col justify-between">
-        <span className="text-[11px] font-medium text-[#737C89] uppercase tracking-wide">
-          Total Steps
-        </span>
-        <span className="text-xl font-bold font-mono text-[#F1F3F5] mt-1">
-          {totalSteps}
-        </span>
+        {/* Path Cost Card */}
+        <div className="p-2.5 rounded-lg bg-[#0D0F12] border border-[#292E36] flex flex-col justify-between">
+          <span className="text-[10px] font-medium text-[#737C89] uppercase tracking-wider">
+            Path Cost
+          </span>
+          <span className="text-base sm:text-lg font-bold font-mono text-[#55B89A] mt-0.5">
+            {pathCostDisplay}
+          </span>
+        </div>
+
+        {/* Total Steps Card */}
+        <div className="p-2.5 rounded-lg bg-[#0D0F12] border border-[#292E36] flex flex-col justify-between">
+          <span className="text-[10px] font-medium text-[#737C89] uppercase tracking-wider">
+            Total Steps
+          </span>
+          <span className="text-base sm:text-lg font-bold font-mono text-[#F1F3F5] mt-0.5">
+            {totalSteps}
+          </span>
+        </div>
       </div>
     </div>
   );
 }
+

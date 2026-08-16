@@ -30,20 +30,20 @@ export function PlaybackToolbar<TState>({
   const isControlsDisabled = disabled || totalSteps === 0;
 
   const speedPresets = [
-    { label: "Slow", valueMs: 500 },
-    { label: "Normal", valueMs: 250 },
-    { label: "Fast", valueMs: 80 },
+    { label: "0.5x", valueMs: 500 },
+    { label: "1.0x", valueMs: 250 },
+    { label: "2.0x", valueMs: 80 },
   ];
 
   return (
-    <div className="w-full p-3.5 rounded-xl bg-[#15181D] border border-[#292E36] flex flex-col md:flex-row items-center justify-between gap-4 select-none">
+    <div className="w-full p-3 rounded-xl bg-[#15181D] border border-[#292E36] flex flex-col sm:flex-row items-center justify-between gap-3 select-none">
       {/* Control Buttons Group */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5 w-full sm:w-auto justify-between sm:justify-start">
         {/* Reset Button */}
         <button
           onClick={reset}
           disabled={isControlsDisabled || isAtStart}
-          className="p-2 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#F1F3F5] border border-[#292E36] transition-colors disabled:opacity-40 disabled:cursor-not-allowed text-xs font-medium"
+          className="px-2.5 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#A7AFBB] hover:text-[#F1F3F5] border border-[#292E36] transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-xs font-medium"
           title="Reset to Step 0"
         >
           ⏮ Reset
@@ -53,7 +53,7 @@ export function PlaybackToolbar<TState>({
         <button
           onClick={stepBackward}
           disabled={isControlsDisabled || isAtStart}
-          className="p-2 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#F1F3F5] border border-[#292E36] transition-colors disabled:opacity-40 disabled:cursor-not-allowed text-xs font-medium"
+          className="px-2.5 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#A7AFBB] hover:text-[#F1F3F5] border border-[#292E36] transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-xs font-medium"
           title="Previous Step"
         >
           ◀ Prev
@@ -63,11 +63,11 @@ export function PlaybackToolbar<TState>({
         <button
           onClick={togglePlay}
           disabled={isControlsDisabled || (isAtEnd && !isPlaying)}
-          className={`px-4 py-2 rounded-lg font-medium text-xs transition-colors flex items-center justify-center gap-1.5 min-w-[95px] ${
+          className={`px-4 py-1.5 rounded-lg font-medium text-xs transition-colors flex items-center justify-center gap-1.5 min-w-[90px] ${
             isPlaying
               ? "bg-[#263352] text-[#6C8CFF] border border-[#6C8CFF]/50"
               : "bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white"
-          } disabled:opacity-40 disabled:cursor-not-allowed`}
+          } disabled:opacity-30 disabled:cursor-not-allowed`}
         >
           {isPlaying ? (
             <>
@@ -88,7 +88,7 @@ export function PlaybackToolbar<TState>({
         <button
           onClick={stepForward}
           disabled={isControlsDisabled || isAtEnd}
-          className="p-2 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#F1F3F5] border border-[#292E36] transition-colors disabled:opacity-40 disabled:cursor-not-allowed text-xs font-medium"
+          className="px-2.5 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#A7AFBB] hover:text-[#F1F3F5] border border-[#292E36] transition-colors disabled:opacity-30 disabled:cursor-not-allowed text-xs font-medium"
           title="Next Step"
         >
           Next ▶
@@ -96,7 +96,7 @@ export function PlaybackToolbar<TState>({
       </div>
 
       {/* Progress Slider & Step Counter */}
-      <div className="flex-1 w-full md:w-auto flex items-center gap-3 max-w-md">
+      <div className="flex-1 w-full sm:w-auto flex items-center gap-2.5 min-w-[140px]">
         <input
           type="range"
           min={0}
@@ -104,31 +104,34 @@ export function PlaybackToolbar<TState>({
           value={totalSteps === 0 ? 0 : currentStepIndex}
           onChange={(e) => jumpToStep(Number(e.target.value))}
           disabled={isControlsDisabled || totalSteps <= 1}
-          className="w-full h-1.5 bg-[#1B1F25] rounded-lg appearance-none cursor-pointer accent-[#6C8CFF] disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full h-1.5 bg-[#0D0F12] border border-[#292E36] rounded-lg appearance-none cursor-pointer accent-[#6C8CFF] disabled:opacity-30 disabled:cursor-not-allowed"
         />
-        <span className="text-xs font-mono text-[#A7AFBB] whitespace-nowrap min-w-[70px] text-right">
-          {totalSteps > 0 ? currentStepIndex + 1 : 0} / {totalSteps}
+        <span className="text-[11px] font-mono text-[#A7AFBB] whitespace-nowrap min-w-[55px] text-right">
+          {totalSteps > 0 ? currentStepIndex + 1 : 0}/{totalSteps}
         </span>
       </div>
 
       {/* Speed Presets */}
-      <div className="flex items-center gap-1.5 text-xs text-[#A7AFBB]">
-        <span className="mr-1 text-[#737C89]">Speed:</span>
-        {speedPresets.map((preset) => (
-          <button
-            key={preset.label}
-            onClick={() => setSpeedMs(preset.valueMs)}
-            disabled={disabled}
-            className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all ${
-              speedMs === preset.valueMs
-                ? "bg-[#6C8CFF] text-white"
-                : "bg-[#1B1F25] text-[#A7AFBB] hover:text-[#F1F3F5] hover:bg-[#292E36]"
-            } disabled:opacity-40 disabled:cursor-not-allowed`}
-          >
-            {preset.label}
-          </button>
-        ))}
+      <div className="flex items-center gap-1 text-xs text-[#A7AFBB] w-full sm:w-auto justify-end">
+        <span className="mr-1 text-[11px] text-[#737C89]">Speed:</span>
+        <div className="inline-flex rounded-lg bg-[#0D0F12] p-0.5 border border-[#292E36]">
+          {speedPresets.map((preset) => (
+            <button
+              key={preset.label}
+              onClick={() => setSpeedMs(preset.valueMs)}
+              disabled={disabled}
+              className={`px-2 py-0.5 rounded text-[11px] font-mono font-medium transition-all ${
+                speedMs === preset.valueMs
+                  ? "bg-[#6C8CFF] text-white"
+                  : "text-[#A7AFBB] hover:text-[#F1F3F5]"
+              } disabled:opacity-30 disabled:cursor-not-allowed`}
+            >
+              {preset.label}
+            </button>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
+
