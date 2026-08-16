@@ -4,14 +4,34 @@ import React, { useState, useMemo, useCallback } from "react";
 import { GridCanvas } from "@/components/visualization/GridCanvas";
 import { PlaybackToolbar } from "@/components/visualization/PlaybackToolbar";
 import { StepExplanation } from "@/components/visualization/StepExplanation";
-import { Position, GridState } from "@/types/grid";
+import { Position, GridNode, GridState } from "@/types/grid";
 import { createInitialGrid, generateAStarSteps } from "@/lib/algorithms/aStar";
+import { generateBFSSteps } from "@/lib/algorithms/bfs";
 import { useVisualizerPlayback } from "@/hooks/useVisualizerPlayback";
 import { AlgorithmStep } from "@/types/visualizer";
 
-export function GridWorkspace() {
+export interface GridWorkspaceProps {
+  algorithmId?: string;
+}
+
+const STEP_GENERATORS: Record<
+  string,
+  (
+    initialGrid: GridNode[][],
+    startPos: Position,
+    goalPos: Position
+  ) => AlgorithmStep<GridState>[]
+> = {
+  "a-star": generateAStarSteps,
+  bfs: generateBFSSteps,
+};
+
+export function GridWorkspace({ algorithmId = "a-star" }: GridWorkspaceProps) {
   const rows = 12;
   const cols = 22;
+
+  const isBFS = algorithmId === "bfs";
+  const algorithmDisplayName = isBFS ? "BFS" : "A*";
 
   // Persistent user grid configuration (preserved across search resets)
   const [startPos, setStartPos] = useState<Position>({ row: 5, col: 3 });
@@ -46,10 +66,11 @@ export function GridWorkspace() {
       ? playback.currentStep.state
       : editableGridState;
 
-  // Generate A* step traces from user's current grid setup
+  // Generate algorithm step traces from user's current grid setup
   const handleVisualize = () => {
     const initialGrid = createInitialGrid(rows, cols, startPos, goalPos, walls);
-    const generatedSteps = generateAStarSteps(initialGrid, startPos, goalPos);
+    const generator = STEP_GENERATORS[algorithmId] || generateAStarSteps;
+    const generatedSteps = generator(initialGrid, startPos, goalPos);
     setSteps(generatedSteps);
     setHasGenerated(true);
     playback.reset();
@@ -135,7 +156,7 @@ export function GridWorkspace() {
               />
               <span className="font-medium">
                 {hasGenerated
-                  ? "Visualization Active"
+                  ? `${algorithmDisplayName} Visualization Active`
                   : "Interactive Edit Mode: Draw walls, drag S or G"}
               </span>
             </div>
@@ -154,7 +175,7 @@ export function GridWorkspace() {
                     onClick={handleVisualize}
                     className="px-4 py-1.5 rounded-lg bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white font-medium text-xs transition-colors shadow-sm"
                   >
-                    Visualize A*
+                    Visualize {algorithmDisplayName}
                   </button>
                 </>
               ) : (
@@ -191,10 +212,14 @@ export function GridWorkspace() {
 
         {/* Right Column: Unified Learning Panel (Step Narrative, g/h/f Cost Breakdown, Metrics, Pseudocode) */}
         <div className="lg:col-span-5 xl:col-span-5 flex flex-col">
-          <StepExplanation step={playback.currentStep} />
+          <StepExplanation
+            step={playback.currentStep}
+            algorithmId={algorithmId}
+          />
         </div>
       </div>
     </div>
   );
 }
+
 

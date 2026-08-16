@@ -46,7 +46,7 @@ export const ALGORITHMS: AlgorithmMeta[] = [
     category: "Uninformed Search",
     description: "Explores nodes level-by-level using a FIFO queue. Guarantees shortest path on unweighted graphs.",
     longDescription:
-      "Breadth-First Search (BFS) traverses a graph systematically level by level starting from the root or source node. It utilizes a First-In-First-Out (FIFO) queue to track unexplored neighbor nodes.",
+      "BFS explores nodes level by level using a queue — it always visits every neighbor at the current distance before moving further. On a grid where every step costs the same, this guarantees finding the shortest possible path from start to goal.",
     timeComplexity: "O(V + E)",
     spaceComplexity: "O(V)",
     difficulty: "Beginner",

@@ -81,7 +81,7 @@ export default async function AlgorithmDetailPage({ params }: PageProps) {
         {/* Visualizer Container */}
         <div className="p-4 sm:p-6 bg-[#0D0F12] w-full">
           {algo.visualizerType === "grid" ? (
-            <GridWorkspace />
+            <GridWorkspace algorithmId={algorithmId} />
           ) : (
             <div className="max-w-md mx-auto my-12 p-6 rounded-xl bg-[#15181D] border border-[#292E36] text-center space-y-3">
               <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-lg bg-[#263352] text-[#6C8CFF]">
