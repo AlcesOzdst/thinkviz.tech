@@ -5,6 +5,7 @@ import { PlaybackToolbar } from "@/components/visualization/PlaybackToolbar";
 import { MetricsPanel } from "@/components/visualization/MetricsPanel";
 import { useVisualizerPlayback } from "@/hooks/useVisualizerPlayback";
 import { generateDefaultTree, generateMinimaxSteps } from "@/lib/algorithms/minimax";
+import { generateAlphaBetaSteps } from "@/lib/algorithms/alphaBeta";
 import { TreeNode, TreeState } from "@/types/tree";
 import { AlgorithmStep } from "@/types/visualizer";
 
@@ -23,7 +24,14 @@ export function GameTreeWorkspace({ algorithmId }: GameTreeWorkspaceProps) {
   const handleGenerate = () => {
     const tree = generateDefaultTree(depth);
     setInitialTree(tree);
-    const newSteps = generateMinimaxSteps(tree);
+    
+    let newSteps: AlgorithmStep<TreeState>[] = [];
+    if (algorithmId === "alpha-beta") {
+      newSteps = generateAlphaBetaSteps(tree);
+    } else {
+      newSteps = generateMinimaxSteps(tree);
+    }
+    
     setSteps(newSteps);
     setHasGenerated(true);
     playback.reset();
@@ -36,14 +44,22 @@ export function GameTreeWorkspace({ algorithmId }: GameTreeWorkspaceProps) {
   const TreeNodeComponent = ({ node }: { node: TreeNode }) => {
     const isCurrent = activeState?.currentNodeId === node.id;
     const evaluatedValue = activeState?.evaluatedNodes[node.id];
+    const isPruned = activeState?.prunedNodes.includes(node.id) ?? false;
     
     // Display value: if evaluated, show it. Else if it has a leaf value, show it. Else "?"
-    const displayValue = evaluatedValue !== undefined 
-      ? evaluatedValue 
-      : (node.value !== null ? node.value : "?");
+    let displayValue: string | number = "?";
+    if (evaluatedValue !== undefined) {
+      displayValue = evaluatedValue;
+    } else if (node.value !== null) {
+      displayValue = node.value;
+    }
+    
+    if (isPruned) {
+      displayValue = "X";
+    }
 
     return (
-      <div className="flex flex-col items-center">
+      <div className={`flex flex-col items-center ${isPruned ? 'opacity-30 grayscale transition-opacity duration-500' : ''}`}>
         {/* The Node Shape */}
         <div className="flex flex-col items-center relative">
           <div 
@@ -96,7 +112,7 @@ export function GameTreeWorkspace({ algorithmId }: GameTreeWorkspaceProps) {
                 onClick={handleGenerate}
                 className="px-4 py-1.5 rounded-lg bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white font-medium text-xs transition-colors"
               >
-                {hasGenerated ? "Regenerate Tree" : "Visualize Minimax"}
+                {hasGenerated ? "Regenerate Tree" : `Visualize ${algorithmId === "alpha-beta" ? "Alpha-Beta" : "Minimax"}`}
               </button>
             </div>
           </div>
