@@ -129,6 +129,7 @@ export const ALGORITHMS: AlgorithmMeta[] = [
     tags: ["Optimization", "Greedy", "Local Optima"],
     visualizerType: "optimization",
   },
+  /*
   {
     id: "minimax",
     name: "Minimax Algorithm",
@@ -144,6 +145,8 @@ export const ALGORITHMS: AlgorithmMeta[] = [
     tags: ["Game Theory", "Zero-Sum", "Game Tree"],
     visualizerType: "game-tree",
   },
+  */
+  /*
   {
     id: "alpha-beta",
     name: "Alpha-Beta Pruning",
@@ -159,6 +162,7 @@ export const ALGORITHMS: AlgorithmMeta[] = [
     tags: ["Pruning", "Optimization", "Game Tree"],
     visualizerType: "game-tree",
   },
+  */
   {
     id: "genetic-algorithm",
     name: "Genetic Algorithm",
