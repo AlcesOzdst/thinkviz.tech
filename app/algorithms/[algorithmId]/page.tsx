@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { ALGORITHMS } from "@/data/algorithms";
 import { GridWorkspace } from "@/components/visualization/GridWorkspace";
 import { GameTreeWorkspace } from "@/components/visualization/GameTreeWorkspace";
+import { OptimizationWorkspace } from "@/components/visualization/OptimizationWorkspace";
 
 interface PageProps {
   params: Promise<{
@@ -85,6 +86,8 @@ export default async function AlgorithmDetailPage({ params }: PageProps) {
             <GridWorkspace algorithmId={algo.id} />
           ) : algo.visualizerType === "game-tree" ? (
             <GameTreeWorkspace algorithmId={algo.id} />
+          ) : algo.visualizerType === "optimization" ? (
+            <OptimizationWorkspace algorithmId={algo.id} />
           ) : (
             <div className="max-w-md mx-auto my-12 p-6 rounded-xl bg-[#15181D] border border-[#292E36] text-center space-y-3">
               <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-lg bg-[#263352] text-[#6C8CFF]">
