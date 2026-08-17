@@ -13,7 +13,7 @@ export function Navbar() {
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <img src="/logo.jpg" alt="ThinkViz Logo" className="h-8 w-8 object-contain" />
+          <img src="/logo.png" alt="ThinkViz Logo" className="h-8 w-8 object-contain" />
           <span className="text-lg font-semibold tracking-tight text-[#F1F3F5]">
             Think<span className="text-[#6C8CFF]">Viz</span>
           </span>
