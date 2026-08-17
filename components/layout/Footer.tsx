@@ -83,14 +83,22 @@ export function Footer() {
           {/* Educational Purpose Notice */}
           <div>
             <h3 className="text-xs font-semibold text-[#F1F3F5] mb-4">
-              About ThinkViz
+              Created By
             </h3>
-            <p className="text-xs text-[#737C89] leading-relaxed mb-3">
-              Built for Computer Science & AI education. Interactive algorithm visualizations for classroom & self-study learning.
-            </p>
-            <div className="inline-flex items-center gap-2 rounded-md bg-[#15181D] px-3 py-1 text-xs text-[#A7AFBB] border border-[#292E36]">
-              Educational Project
-            </div>
+            <ul className="space-y-3 text-xs text-[#737C89]">
+              <li className="flex flex-col">
+                <span className="font-medium text-[#A7AFBB]">Parth Doshi</span>
+                <span>1262252384@mitwp.edu.in</span>
+              </li>
+              <li className="flex flex-col">
+                <span className="font-medium text-[#A7AFBB]">Arya Inamdar</span>
+                <span>1262243732@mitwpu.edu.in</span>
+              </li>
+              <li className="flex flex-col">
+                <span className="font-medium text-[#A7AFBB]">Param Gadiya</span>
+                <span>1262243350@mitwpu.edu.in</span>
+              </li>
+            </ul>
           </div>
         </div>
 
