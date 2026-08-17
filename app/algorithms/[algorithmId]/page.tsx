@@ -5,18 +5,32 @@ import { GridWorkspace } from "@/components/visualization/GridWorkspace";
 import { GameTreeWorkspace } from "@/components/visualization/GameTreeWorkspace";
 import { OptimizationWorkspace } from "@/components/visualization/OptimizationWorkspace";
 
+import { loadGrid } from "@/app/actions/grids";
+
 interface PageProps {
   params: Promise<{
     algorithmId: string;
   }>;
+  searchParams: Promise<{
+    gridId?: string;
+  }>;
 }
 
-export default async function AlgorithmDetailPage({ params }: PageProps) {
+export default async function AlgorithmDetailPage({ params, searchParams }: PageProps) {
   const { algorithmId } = await params;
+  const { gridId } = await searchParams;
   const algo = ALGORITHMS.find((a) => a.id === algorithmId);
 
   if (!algo) {
     notFound();
+  }
+
+  let initialGridData = null;
+  if (gridId && algo.visualizerType === "grid") {
+    const res = await loadGrid(gridId);
+    if (res.success && res.grid) {
+      initialGridData = res.grid.gridData;
+    }
   }
 
   return (
@@ -83,7 +97,7 @@ export default async function AlgorithmDetailPage({ params }: PageProps) {
         {/* Visualizer Container */}
         <div className="p-4 sm:p-6 bg-[#0D0F12] w-full">
           {algo.visualizerType === "grid" ? (
-            <GridWorkspace algorithmId={algo.id} />
+            <GridWorkspace algorithmId={algo.id} initialGridData={initialGridData} />
           ) : algo.visualizerType === "game-tree" ? (
             <GameTreeWorkspace algorithmId={algo.id} />
           ) : algo.visualizerType === "optimization" ? (

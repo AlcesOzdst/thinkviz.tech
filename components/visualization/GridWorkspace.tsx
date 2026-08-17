@@ -17,16 +17,17 @@ import { saveGrid } from "@/app/actions/grids";
 
 interface GridWorkspaceProps {
   algorithmId: string;
+  initialGridData?: any;
 }
 
-export function GridWorkspace({ algorithmId }: GridWorkspaceProps) {
+export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspaceProps) {
   const rows = 12;
   const cols = 22;
 
   // Persistent user grid configuration (preserved across search resets)
-  const [startPos, setStartPos] = useState<Position>({ row: 5, col: 3 });
-  const [goalPos, setGoalPos] = useState<Position>({ row: 5, col: 18 });
-  const [walls, setWalls] = useState<Position[]>([]);
+  const [startPos, setStartPos] = useState<Position>(initialGridData?.startPos || { row: 5, col: 3 });
+  const [goalPos, setGoalPos] = useState<Position>(initialGridData?.goalPos || { row: 5, col: 18 });
+  const [walls, setWalls] = useState<Position[]>(initialGridData?.walls || []);
 
   // Generated algorithm visualization steps
   const [steps, setSteps] = useState<AlgorithmStep<GridState>[]>([]);

@@ -2,8 +2,10 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { Session } from "next-auth";
+import { signOut } from "next-auth/react";
 
-export function Navbar() {
+export function Navbar({ session }: { session: Session | null }) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   return (
@@ -49,6 +51,30 @@ export function Navbar() {
 
         {/* Action Button */}
         <div className="hidden md:flex items-center gap-4">
+          {session?.user ? (
+            <>
+              <Link
+                href="/dashboard"
+                className="text-sm font-medium text-[#A7AFBB] hover:text-[#F1F3F5] transition-colors"
+              >
+                Dashboard
+              </Link>
+              <button
+                onClick={() => signOut()}
+                className="text-sm font-medium text-[#FF5A5A] hover:text-[#FF8080] transition-colors"
+              >
+                Sign Out
+              </button>
+            </>
+          ) : (
+            <Link
+              href="/api/auth/signin"
+              className="text-sm font-medium text-[#A7AFBB] hover:text-[#F1F3F5] transition-colors"
+            >
+              Sign In
+            </Link>
+          )}
+          
           <Link
             href="/algorithms"
             className="inline-flex items-center justify-center rounded-lg bg-[#6C8CFF] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#5A7BEF]"
@@ -112,6 +138,38 @@ export function Navbar() {
           >
             How It Works
           </a>
+          
+          <div className="border-t border-[#292E36] my-2 pt-2">
+            {session?.user ? (
+              <>
+                <Link
+                  href="/dashboard"
+                  className="block px-3 py-2 rounded-md font-medium text-[#A7AFBB] hover:bg-[#1B1F25] hover:text-[#F1F3F5]"
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  Dashboard
+                </Link>
+                <button
+                  onClick={() => {
+                    signOut();
+                    setIsMobileMenuOpen(false);
+                  }}
+                  className="block w-full text-left px-3 py-2 rounded-md font-medium text-[#FF5A5A] hover:bg-[#1B1F25] hover:text-[#FF8080]"
+                >
+                  Sign Out
+                </button>
+              </>
+            ) : (
+              <Link
+                href="/api/auth/signin"
+                className="block px-3 py-2 rounded-md font-medium text-[#A7AFBB] hover:bg-[#1B1F25] hover:text-[#F1F3F5]"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Sign In
+              </Link>
+            )}
+          </div>
+
           <Link
             href="/algorithms"
             className="block w-full text-center mt-2 rounded-lg bg-[#6C8CFF] py-2 font-medium text-white"

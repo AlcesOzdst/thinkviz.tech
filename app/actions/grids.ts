@@ -35,3 +35,21 @@ export async function loadGrid(gridId: string) {
     return { success: false, error: "Failed to load grid" };
   }
 }
+
+export async function getUserSavedGrids() {
+  try {
+    const session = await auth();
+    const userId = session?.user?.id;
+    if (!userId) return { success: false, error: "Not authenticated" };
+
+    const grids = await db.savedGrid.findMany({
+      where: { userId },
+      orderBy: { createdAt: "desc" },
+    });
+    
+    return { success: true, grids };
+  } catch (error) {
+    console.error("Failed to fetch user grids:", error);
+    return { success: false, error: "Failed to fetch grids" };
+  }
+}
