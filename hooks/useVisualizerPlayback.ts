@@ -3,6 +3,8 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { AlgorithmStep } from "@/types/visualizer";
 
+import { logTelemetryEvent } from "@/app/actions/telemetry";
+
 export interface PlaybackControls<TState> {
   currentStep: AlgorithmStep<TState> | null;
   currentStepIndex: number;
@@ -20,14 +22,26 @@ export interface PlaybackControls<TState> {
 }
 
 export function useVisualizerPlayback<TState>(
-  steps: AlgorithmStep<TState>[]
+  steps: AlgorithmStep<TState>[],
+  algorithmId: string = "unknown"
 ): PlaybackControls<TState> {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [speedMs, setSpeedMs] = useState(250);
+  const sessionIdRef = useRef(crypto.randomUUID());
 
   const stepsRef = useRef(steps);
   stepsRef.current = steps;
+
+  const logAction = useCallback((action: string) => {
+    if (algorithmId !== "unknown") {
+      logTelemetryEvent({
+        sessionId: sessionIdRef.current,
+        algorithmId,
+        action
+      }).catch(console.error); // Fire and forget
+    }
+  }, [algorithmId]);
 
   // Reset to step 0 whenever steps array changes
   useEffect(() => {
@@ -36,6 +50,7 @@ export function useVisualizerPlayback<TState>(
   }, [steps]);
 
   const stepForward = useCallback(() => {
+    logAction("STEP_FORWARD");
     setCurrentStepIndex((prevIndex) => {
       if (prevIndex < stepsRef.current.length - 1) {
         return prevIndex + 1;
@@ -43,28 +58,32 @@ export function useVisualizerPlayback<TState>(
       setIsPlaying(false);
       return prevIndex;
     });
-  }, []);
+  }, [logAction]);
 
   const stepBackward = useCallback(() => {
+    logAction("STEP_BACKWARD");
     setCurrentStepIndex((prevIndex) => Math.max(0, prevIndex - 1));
-  }, []);
+  }, [logAction]);
 
   const reset = useCallback(() => {
+    logAction("RESET");
     setIsPlaying(false);
     setCurrentStepIndex(0);
-  }, []);
+  }, [logAction]);
 
   const play = useCallback(() => {
+    logAction("PLAY");
     if (stepsRef.current.length === 0) return;
     if (currentStepIndex >= stepsRef.current.length - 1) {
       setCurrentStepIndex(0);
     }
     setIsPlaying(true);
-  }, [currentStepIndex]);
+  }, [currentStepIndex, logAction]);
 
   const pause = useCallback(() => {
+    logAction("PAUSE");
     setIsPlaying(false);
-  }, []);
+  }, [logAction]);
 
   const togglePlay = useCallback(() => {
     if (isPlaying) {
@@ -75,9 +94,10 @@ export function useVisualizerPlayback<TState>(
   }, [isPlaying, play, pause]);
 
   const jumpToStep = useCallback((index: number) => {
+    logAction(`JUMP_TO_STEP_${index}`);
     const clampedIndex = Math.max(0, Math.min(index, stepsRef.current.length - 1));
     setCurrentStepIndex(clampedIndex);
-  }, []);
+  }, [logAction]);
 
   // Timer loop for automatic step playback
   useEffect(() => {

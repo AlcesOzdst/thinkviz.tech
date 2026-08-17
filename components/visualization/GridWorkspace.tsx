@@ -7,10 +7,16 @@ import { StepExplanation } from "@/components/visualization/StepExplanation";
 import { MetricsPanel } from "@/components/visualization/MetricsPanel";
 import { Position, GridState } from "@/types/grid";
 import { createInitialGrid, generateAStarSteps } from "@/lib/algorithms/aStar";
+import { generateBfsSteps } from "@/lib/algorithms/bfs";
 import { useVisualizerPlayback } from "@/hooks/useVisualizerPlayback";
 import { AlgorithmStep } from "@/types/visualizer";
+import { saveGrid } from "@/app/actions/grids";
 
-export function GridWorkspace() {
+interface GridWorkspaceProps {
+  algorithmId: string;
+}
+
+export function GridWorkspace({ algorithmId }: GridWorkspaceProps) {
   const rows = 12;
   const cols = 22;
 
@@ -22,9 +28,10 @@ export function GridWorkspace() {
   // Generated algorithm visualization steps
   const [steps, setSteps] = useState<AlgorithmStep<GridState>[]>([]);
   const [hasGenerated, setHasGenerated] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
 
   // Playback controller hook
-  const playback = useVisualizerPlayback(steps);
+  const playback = useVisualizerPlayback(steps, algorithmId);
 
   // Re-build editable grid state based on user's current start, goal, and walls
   const editableGridState = useMemo<GridState>(() => {
@@ -50,10 +57,18 @@ export function GridWorkspace() {
   // Active metrics snapshot
   const activeMetrics = playback.currentStep ? playback.currentStep.metrics : null;
 
-  // Generate A* step traces from user's current grid setup
+  // Generate step traces from user's current grid setup dynamically
   const handleVisualize = () => {
     const initialGrid = createInitialGrid(rows, cols, startPos, goalPos, walls);
-    const generatedSteps = generateAStarSteps(initialGrid, startPos, goalPos);
+    
+    let generatedSteps: AlgorithmStep<GridState>[] = [];
+    if (algorithmId === "bfs") {
+      generatedSteps = generateBfsSteps(initialGrid, startPos, goalPos);
+    } else {
+      // Default to A*
+      generatedSteps = generateAStarSteps(initialGrid, startPos, goalPos);
+    }
+    
     setSteps(generatedSteps);
     setHasGenerated(true);
     playback.reset();
@@ -83,6 +98,18 @@ export function GridWorkspace() {
     setWalls([]);
     setSteps([]);
     setHasGenerated(false);
+  };
+
+  const handleSaveMaze = async () => {
+    setIsSaving(true);
+    const gridData = { startPos, goalPos, walls, rows, cols };
+    const res = await saveGrid(gridData, "Custom A* Maze");
+    setIsSaving(false);
+    if (res.success) {
+      alert(`Maze saved! ID: ${res.gridId}`);
+    } else {
+      alert("Failed to save maze. Make sure you are signed in.");
+    }
   };
 
   // Interactive wall toggle handler (disabled during active visualization)
@@ -140,6 +167,13 @@ export function GridWorkspace() {
           {!hasGenerated ? (
             <>
               <button
+                onClick={handleSaveMaze}
+                disabled={isSaving}
+                className="px-3 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#A7AFBB] border border-[#292E36] font-medium text-xs transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                {isSaving ? "Saving..." : "Save Maze"}
+              </button>
+              <button
                 onClick={handleClearWalls}
                 disabled={walls.length === 0}
                 className="px-3 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#A7AFBB] border border-[#292E36] font-medium text-xs transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
@@ -150,7 +184,7 @@ export function GridWorkspace() {
                 onClick={handleVisualize}
                 className="px-4 py-1.5 rounded-lg bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white font-medium text-xs transition-colors"
               >
-                Visualize A*
+                Visualize {algorithmId === "bfs" ? "BFS" : "A*"}
               </button>
             </>
           ) : (
