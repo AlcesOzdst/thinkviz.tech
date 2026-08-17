@@ -8,7 +8,7 @@ export function Footer() {
           {/* Brand Col */}
           <div className="space-y-4 md:col-span-1">
             <Link href="/" className="flex items-center gap-2">
-              <img src="/logo.jpg" alt="ThinkViz Logo" className="h-8 w-8 object-contain" />
+              <img src="/logo.png" alt="ThinkViz Logo" className="h-8 w-8 object-contain" />
               <span className="text-lg font-semibold tracking-tight text-[#F1F3F5]">
                 Think<span className="text-[#6C8CFF]">Viz</span>
               </span>
@@ -93,11 +93,11 @@ export function Footer() {
               </li>
               <li className="flex flex-col">
                 <span className="font-medium text-[#A7AFBB]">Arya Inamdar</span>
-                <span>1262243732@mitwpu.edu.in</span>
+                <span>arya.inamdar@mitwpu.edu.in</span>
               </li>
               <li className="flex flex-col">
                 <span className="font-medium text-[#A7AFBB]">Param Gadiya</span>
-                <span>1262243350@mitwpu.edu.in</span>
+                <span>param.gadiya@mitwpu.edu.in</span>
               </li>
             </ul>
           </div>
