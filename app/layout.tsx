@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
-import { auth } from "@/auth";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 
@@ -27,15 +26,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const session = await auth();
-
   return (
     <html
       lang="en"
       className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} dark h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-[#0D0F12] text-[#F1F3F5] selection:bg-[#6C8CFF]/30 selection:text-white">
-        <Navbar session={session} />
+        <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />
       </body>

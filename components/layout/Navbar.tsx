@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { useState } from "react";
-import { Session } from "next-auth";
-import { signOut } from "next-auth/react";
+import { usePathname } from "next/navigation";
 
-export function Navbar({ session }: { session: Session | null }) {
+export function Navbar() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-[#292E36] bg-[#0D0F12]/90 backdrop-blur-md">
@@ -49,31 +49,11 @@ export function Navbar({ session }: { session: Session | null }) {
           </a>
         </nav>
 
-        {/* Action Button */}
+        {/* Dashboard Link (Always visible now) */}
         <div className="hidden md:flex items-center gap-4">
-          {session?.user ? (
-            <>
-              <Link
-                href="/dashboard"
-                className="text-sm font-medium text-[#A7AFBB] hover:text-[#F1F3F5] transition-colors"
-              >
-                Dashboard
-              </Link>
-              <button
-                onClick={() => signOut()}
-                className="text-sm font-medium text-[#FF5A5A] hover:text-[#FF8080] transition-colors"
-              >
-                Sign Out
-              </button>
-            </>
-          ) : (
-            <Link
-              href="/api/auth/signin"
-              className="text-sm font-medium text-[#A7AFBB] hover:text-[#F1F3F5] transition-colors"
-            >
-              Sign In
-            </Link>
-          )}
+          <Link href="/dashboard" className="text-sm font-medium text-[#A7AFBB] hover:text-[#F1F3F5] transition-colors">
+            Dashboard
+          </Link>
           
           <Link
             href="/algorithms"
@@ -139,35 +119,14 @@ export function Navbar({ session }: { session: Session | null }) {
             How It Works
           </a>
           
-          <div className="border-t border-[#292E36] my-2 pt-2">
-            {session?.user ? (
-              <>
-                <Link
-                  href="/dashboard"
-                  className="block px-3 py-2 rounded-md font-medium text-[#A7AFBB] hover:bg-[#1B1F25] hover:text-[#F1F3F5]"
-                  onClick={() => setIsMobileMenuOpen(false)}
-                >
-                  Dashboard
-                </Link>
-                <button
-                  onClick={() => {
-                    signOut();
-                    setIsMobileMenuOpen(false);
-                  }}
-                  className="block w-full text-left px-3 py-2 rounded-md font-medium text-[#FF5A5A] hover:bg-[#1B1F25] hover:text-[#FF8080]"
-                >
-                  Sign Out
-                </button>
-              </>
-            ) : (
-              <Link
-                href="/api/auth/signin"
-                className="block px-3 py-2 rounded-md font-medium text-[#A7AFBB] hover:bg-[#1B1F25] hover:text-[#F1F3F5]"
-                onClick={() => setIsMobileMenuOpen(false)}
-              >
-                Sign In
-              </Link>
-            )}
+          <div className="flex flex-col gap-4 mt-6 pt-6 border-t border-[#292E36]">
+            <Link
+              href="/dashboard"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="text-sm font-medium text-[#F1F3F5]"
+            >
+              Dashboard
+            </Link>
           </div>
 
           <Link

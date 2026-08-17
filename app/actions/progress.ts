@@ -5,13 +5,13 @@ import { auth } from "@/auth"
 
 export async function markAlgorithmComplete(algorithmId: string, timeSpentSeconds: number) {
   try {
-    const session = await auth();
-    if (!session?.user?.id) return { success: false, error: "Unauthorized" };
+    // Bypassed auth for local testing
+    const userId = "local-guest-user-123";
 
     const progress = await db.userProgress.upsert({
       where: {
         userId_algorithmId: {
-          userId: session.user.id,
+          userId: userId,
           algorithmId
         }
       },
@@ -22,7 +22,7 @@ export async function markAlgorithmComplete(algorithmId: string, timeSpentSecond
         }
       },
       create: {
-        userId: session.user.id,
+        userId: userId,
         algorithmId,
         completed: true,
         timeSpentSeconds
@@ -38,12 +38,12 @@ export async function markAlgorithmComplete(algorithmId: string, timeSpentSecond
 
 export async function getUserProgress() {
   try {
-    const session = await auth();
-    if (!session?.user?.id) return { success: false, error: "Unauthorized" };
+    // Bypassed auth for local testing
+    const userId = "local-guest-user-123";
 
     const progress = await db.userProgress.findMany({
       where: {
-        userId: session.user.id
+        userId: userId
       },
       orderBy: {
         updatedAt: 'desc'

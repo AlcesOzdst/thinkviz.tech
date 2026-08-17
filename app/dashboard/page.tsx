@@ -1,4 +1,3 @@
-import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { getUserSavedGrids } from "@/app/actions/grids";
 import { getUserProgress } from "@/app/actions/progress";
@@ -7,11 +6,8 @@ import { ProgressCards } from "@/components/dashboard/ProgressCards";
 import { Grid, Award } from "lucide-react";
 
 export default async function DashboardPage() {
-  const session = await auth();
-  
-  if (!session?.user) {
-    redirect("/api/auth/signin?callbackUrl=/dashboard");
-  }
+  // Bypassed auth for local testing
+  const dummySession = { user: { name: "Guest User" } };
 
   const result = await getUserSavedGrids();
   const grids = result.success ? result.grids || [] : [];
@@ -26,7 +22,7 @@ export default async function DashboardPage() {
           Student Dashboard
         </h1>
         <p className="text-[#A7AFBB]">
-          Welcome back, {session.user.name || "Student"}. Manage your saved algorithmic scenarios.
+          Welcome back, {dummySession.user.name}. Manage your saved algorithmic scenarios.
         </p>
       </div>
 

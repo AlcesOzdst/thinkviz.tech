@@ -5,8 +5,8 @@ import { auth } from "@/auth"
 
 export async function saveGrid(gridData: any, name: string) {
   try {
-    const session = await auth();
-    const userId = session?.user?.id;
+    // Bypassed auth for local testing
+    const userId = "local-guest-user-123";
 
     const savedGrid = await db.savedGrid.create({
       data: {
@@ -38,8 +38,8 @@ export async function loadGrid(gridId: string) {
 
 export async function getUserSavedGrids() {
   try {
-    const session = await auth();
-    const userId = session?.user?.id;
+    // Bypassed auth for local testing
+    const userId = "local-guest-user-123";
     if (!userId) return { success: false, error: "Not authenticated" };
 
     const grids = await db.savedGrid.findMany({
