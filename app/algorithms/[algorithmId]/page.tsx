@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ALGORITHMS } from "@/data/algorithms";
 import { GridWorkspace } from "@/components/visualization/GridWorkspace";
+import { GameTreeWorkspace } from "@/components/visualization/GameTreeWorkspace";
 
 interface PageProps {
   params: Promise<{
@@ -82,6 +83,8 @@ export default async function AlgorithmDetailPage({ params }: PageProps) {
         <div className="p-4 sm:p-6 bg-[#0D0F12] w-full">
           {algo.visualizerType === "grid" ? (
             <GridWorkspace algorithmId={algo.id} />
+          ) : algo.visualizerType === "game-tree" ? (
+            <GameTreeWorkspace algorithmId={algo.id} />
           ) : (
             <div className="max-w-md mx-auto my-12 p-6 rounded-xl bg-[#15181D] border border-[#292E36] text-center space-y-3">
               <div className="mx-auto flex h-10 w-10 items-center justify-center rounded-lg bg-[#263352] text-[#6C8CFF]">
