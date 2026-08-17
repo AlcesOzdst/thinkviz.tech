@@ -1,8 +1,10 @@
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
 import { getUserSavedGrids } from "@/app/actions/grids";
+import { getUserProgress } from "@/app/actions/progress";
 import { SavedGridsList } from "@/components/dashboard/SavedGridsList";
-import { Grid } from "lucide-react";
+import { ProgressCards } from "@/components/dashboard/ProgressCards";
+import { Grid, Award } from "lucide-react";
 
 export default async function DashboardPage() {
   const session = await auth();
@@ -13,6 +15,9 @@ export default async function DashboardPage() {
 
   const result = await getUserSavedGrids();
   const grids = result.success ? result.grids || [] : [];
+
+  const progressResult = await getUserProgress();
+  const progressRecords = progressResult.success ? progressResult.progress || [] : [];
 
   return (
     <div className="container mx-auto px-4 py-8 sm:py-12 max-w-7xl">
@@ -41,14 +46,19 @@ export default async function DashboardPage() {
           <SavedGridsList grids={grids} />
         </section>
         
-        {/* Progress Section (Coming Soon) */}
+        {/* Progress Section */}
         <section>
-           <div className="w-full p-10 rounded-xl bg-[#15181D]/50 border border-[#292E36] border-dashed text-center">
-             <h3 className="text-lg font-medium text-[#737C89] mb-2">Algorithm Progress Tracking</h3>
-             <p className="text-[#737C89] text-sm max-w-md mx-auto">
-               In the future, you will be able to track your completion rates, quiz scores, and time spent learning each algorithm.
-             </p>
+           <div className="flex items-center gap-3 mb-6 border-b border-[#292E36] pb-4">
+             <div className="p-2 rounded-lg bg-[#20C997]/20 text-[#20C997]">
+               <Award size={20} />
+             </div>
+             <div>
+               <h2 className="text-xl font-semibold text-[#F1F3F5]">Algorithm Progress</h2>
+               <p className="text-xs text-[#A7AFBB] mt-1">Algorithms you have fully completed visualizing.</p>
+             </div>
            </div>
+           
+           <ProgressCards progressRecords={progressRecords} />
         </section>
       </div>
     </div>

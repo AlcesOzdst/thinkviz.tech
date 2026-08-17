@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback, useRef } from "react";
 import { AlgorithmStep } from "@/types/visualizer";
-
 import { logTelemetryEvent } from "@/app/actions/telemetry";
+import { markAlgorithmComplete } from "@/app/actions/progress";
 
 export interface PlaybackControls<TState> {
   currentStep: AlgorithmStep<TState> | null;
@@ -29,6 +29,10 @@ export function useVisualizerPlayback<TState>(
   const [isPlaying, setIsPlaying] = useState(false);
   const [speedMs, setSpeedMs] = useState(250);
   const sessionIdRef = useRef(crypto.randomUUID());
+  
+  // Track total time spent running this visualization
+  const activeTimeMsRef = useRef(0);
+  const isCompletedRef = useRef(false);
 
   const stepsRef = useRef(steps);
   stepsRef.current = steps;
@@ -104,9 +108,18 @@ export function useVisualizerPlayback<TState>(
     if (!isPlaying) return;
 
     const timer = setInterval(() => {
+      activeTimeMsRef.current += speedMs;
+      
       setCurrentStepIndex((prevIndex) => {
         if (prevIndex >= stepsRef.current.length - 1) {
           setIsPlaying(false);
+          
+          // Fire completion action if reaching the end and haven't fired yet for this session
+          if (!isCompletedRef.current && algorithmId !== "unknown") {
+            isCompletedRef.current = true;
+            markAlgorithmComplete(algorithmId, Math.floor(activeTimeMsRef.current / 1000)).catch(console.error);
+          }
+          
           return prevIndex;
         }
         return prevIndex + 1;
@@ -114,7 +127,7 @@ export function useVisualizerPlayback<TState>(
     }, speedMs);
 
     return () => clearInterval(timer);
-  }, [isPlaying, speedMs]);
+  }, [isPlaying, speedMs, algorithmId]);
 
   const currentStep = steps[currentStepIndex] || null;
 

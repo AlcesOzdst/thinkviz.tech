@@ -35,3 +35,24 @@ export async function markAlgorithmComplete(algorithmId: string, timeSpentSecond
     return { success: false, error: "Failed to save progress" };
   }
 }
+
+export async function getUserProgress() {
+  try {
+    const session = await auth();
+    if (!session?.user?.id) return { success: false, error: "Unauthorized" };
+
+    const progress = await db.userProgress.findMany({
+      where: {
+        userId: session.user.id
+      },
+      orderBy: {
+        updatedAt: 'desc'
+      }
+    });
+
+    return { success: true, progress };
+  } catch (error) {
+    console.error("Failed to fetch progress:", error);
+    return { success: false, error: "Failed to fetch progress" };
+  }
+}
