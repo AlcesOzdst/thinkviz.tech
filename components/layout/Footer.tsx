@@ -86,18 +86,32 @@ export function Footer() {
             <h3 className="text-xs font-semibold text-[#F1F3F5] mb-4">
               Created By
             </h3>
-            <ul className="space-y-3 text-xs text-[#737C89]">
-              <li className="flex flex-col">
+            <ul className="space-y-4 text-xs text-[#737C89]">
+              <li className="flex flex-col space-y-1.5">
                 <span className="font-medium text-[#A7AFBB]">Parth Doshi</span>
-                <span>1262252384@mitwp.edu.in</span>
+                <div className="flex flex-wrap items-center gap-2">
+                  <a href="mailto:1262252384@mitwp.edu.in" className="hover:text-[#6C8CFF] transition-colors">Email</a>
+                  <span>&bull;</span>
+                  <a href="https://github.com/AlcesOzdst" target="_blank" rel="noopener noreferrer" className="hover:text-[#6C8CFF] transition-colors">GitHub</a>
+                  <span>&bull;</span>
+                  <a href="https://parthdoshi.me" target="_blank" rel="noopener noreferrer" className="hover:text-[#6C8CFF] transition-colors">Website</a>
+                </div>
               </li>
-              <li className="flex flex-col">
+              <li className="flex flex-col space-y-1.5">
                 <span className="font-medium text-[#A7AFBB]">Arya Inamdar</span>
-                <span>arya.inamdar@mitwpu.edu.in</span>
+                <div className="flex flex-wrap items-center gap-2">
+                  <a href="mailto:1262243732@mitwpu.edu.in" className="hover:text-[#6C8CFF] transition-colors">Email</a>
+                  <span>&bull;</span>
+                  <a href="https://github.com/AIelecwala" target="_blank" rel="noopener noreferrer" className="hover:text-[#6C8CFF] transition-colors">GitHub</a>
+                </div>
               </li>
-              <li className="flex flex-col">
+              <li className="flex flex-col space-y-1.5">
                 <span className="font-medium text-[#A7AFBB]">Param Gadiya</span>
-                <span>param.gadiya@mitwpu.edu.in</span>
+                <div className="flex flex-wrap items-center gap-2">
+                  <a href="mailto:1262243350@mitwpu.edu.in" className="hover:text-[#6C8CFF] transition-colors">Email</a>
+                  <span>&bull;</span>
+                  <a href="https://github.com/paramgadiya" target="_blank" rel="noopener noreferrer" className="hover:text-[#6C8CFF] transition-colors">GitHub</a>
+                </div>
               </li>
             </ul>
           </div>
