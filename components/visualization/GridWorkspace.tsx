@@ -8,6 +8,7 @@ import { MetricsPanel } from "@/components/visualization/MetricsPanel";
 import { Position, GridState } from "@/types/grid";
 import { createInitialGrid, generateAStarSteps } from "@/lib/algorithms/aStar";
 import { generateBfsSteps } from "@/lib/algorithms/bfs";
+import { generateDfsSteps } from "@/lib/algorithms/dfs";
 import { useVisualizerPlayback } from "@/hooks/useVisualizerPlayback";
 import { AlgorithmStep } from "@/types/visualizer";
 import { saveGrid } from "@/app/actions/grids";
@@ -64,6 +65,8 @@ export function GridWorkspace({ algorithmId }: GridWorkspaceProps) {
     let generatedSteps: AlgorithmStep<GridState>[] = [];
     if (algorithmId === "bfs") {
       generatedSteps = generateBfsSteps(initialGrid, startPos, goalPos);
+    } else if (algorithmId === "dfs") {
+      generatedSteps = generateDfsSteps(initialGrid, startPos, goalPos);
     } else {
       // Default to A*
       generatedSteps = generateAStarSteps(initialGrid, startPos, goalPos);
@@ -184,7 +187,7 @@ export function GridWorkspace({ algorithmId }: GridWorkspaceProps) {
                 onClick={handleVisualize}
                 className="px-4 py-1.5 rounded-lg bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white font-medium text-xs transition-colors"
               >
-                Visualize {algorithmId === "bfs" ? "BFS" : "A*"}
+                Visualize {algorithmId === "bfs" ? "BFS" : algorithmId === "dfs" ? "DFS" : "A*"}
               </button>
             </>
           ) : (
