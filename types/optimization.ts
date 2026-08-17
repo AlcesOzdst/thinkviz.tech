@@ -12,6 +12,7 @@ export interface OptimizationLandscape {
 export interface OptimizationState {
   currentX: number;
   currentY: number;
-  visitedX: number[]; // History of the path taken
+  visitedX: number[]; // History of the path taken (primarily for hill climbing)
   consideredX: number[]; // Neighbor points currently being evaluated
+  population?: number[]; // The current swarm of points (for genetic algorithms)
 }

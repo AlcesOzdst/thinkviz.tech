@@ -10,6 +10,7 @@ import {
   OPTIMIZATION_RESOLUTION,
   generateHillClimbingSteps
 } from "@/lib/algorithms/hillClimbing";
+import { generateGeneticAlgorithmSteps } from "@/lib/algorithms/genetic";
 import { OptimizationState } from "@/types/optimization";
 import { AlgorithmStep } from "@/types/visualizer";
 
@@ -36,6 +37,8 @@ export function OptimizationWorkspace({ algorithmId }: OptimizationWorkspaceProp
     let newSteps: AlgorithmStep<OptimizationState>[] = [];
     if (algorithmId === "hill-climbing") {
       newSteps = generateHillClimbingSteps(initialX, 0.5);
+    } else if (algorithmId === "genetic-algorithm") {
+      newSteps = generateGeneticAlgorithmSteps();
     }
     setSteps(newSteps);
     setHasGenerated(true);
@@ -99,14 +102,16 @@ export function OptimizationWorkspace({ algorithmId }: OptimizationWorkspaceProp
         {/* Left: Canvas */}
         <div className="flex-1 bg-[#15181D] rounded-xl border border-[#292E36] p-6 min-h-[500px] flex flex-col">
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-            <div>
+              <div>
               <h2 className="text-sm font-semibold text-[#F1F3F5]">Optimization Landscape</h2>
               <p className="text-xs text-[#A7AFBB] mt-1">
-                Drag the slider to set initial starting point. Hill Climbing will only move uphill!
+                {algorithmId === "hill-climbing" 
+                  ? "Drag the slider to set initial starting point. Hill Climbing will only move uphill!" 
+                  : "Watch the population swarm evolve over generations via Selection, Crossover, and Mutation."}
               </p>
             </div>
             <div className="flex gap-4 items-center">
-              {!hasGenerated && (
+              {!hasGenerated && algorithmId === "hill-climbing" && (
                 <div className="flex items-center gap-2">
                   <span className="text-xs text-[#A7AFBB]">Start:</span>
                   <input 
@@ -124,7 +129,7 @@ export function OptimizationWorkspace({ algorithmId }: OptimizationWorkspaceProp
                 onClick={handleGenerate}
                 className="px-4 py-1.5 rounded-lg bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white font-medium text-xs transition-colors"
               >
-                {hasGenerated ? "Reset Landscape" : "Start Hill Climbing"}
+                {hasGenerated ? "Reset Landscape" : `Start ${algorithmId === "genetic-algorithm" ? "Genetic Evolution" : "Hill Climbing"}`}
               </button>
             </div>
           </div>
@@ -170,15 +175,42 @@ export function OptimizationWorkspace({ algorithmId }: OptimizationWorkspaceProp
                 />
               ))}
 
-              {/* Draw Climber */}
-              <circle 
-                cx={mapXToSvg(currentMathX)} 
-                cy={mapYToSvg(currentMathY)} 
-                r="8" 
-                fill="#6C8CFF" 
-                className="transition-all duration-300"
-                style={{ filter: "drop-shadow(0px 0px 8px rgba(108,140,255,0.8))" }}
-              />
+              {/* Draw Population Swarm (Genetic Algorithm) */}
+              {activeState?.population?.map((nx, i) => (
+                <circle 
+                  key={`pop-${i}`}
+                  cx={mapXToSvg(nx)} 
+                  cy={mapYToSvg(getLandscapeY(nx))} 
+                  r="6" 
+                  fill="#10B981" 
+                  opacity="0.7"
+                  className="transition-all duration-300"
+                  style={{ filter: "drop-shadow(0px 0px 5px rgba(16,185,129,0.5))" }}
+                />
+              ))}
+
+              {/* Draw Climber / Best Individual */}
+              {(!activeState?.population) ? (
+                <circle 
+                  cx={mapXToSvg(currentMathX)} 
+                  cy={mapYToSvg(currentMathY)} 
+                  r="8" 
+                  fill="#6C8CFF" 
+                  className="transition-all duration-300 shadow-[0_0_15px_rgba(108,140,255,0.5)]"
+                />
+              ) : (
+                // Highlight the absolute best member of the current generation swarm
+                <circle 
+                  cx={mapXToSvg(currentMathX)} 
+                  cy={mapYToSvg(currentMathY)} 
+                  r="10" 
+                  fill="transparent"
+                  stroke="#F1F3F5"
+                  strokeWidth="3"
+                  className="transition-all duration-300"
+                  style={{ filter: "drop-shadow(0px 0px 10px rgba(241,243,245,0.8))" }}
+                />
+              )}
               
               {/* Value Label */}
               <text 
