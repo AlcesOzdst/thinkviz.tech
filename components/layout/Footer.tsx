@@ -8,7 +8,7 @@ export function Footer() {
           {/* Brand Col */}
           <div className="space-y-4 md:col-span-1">
             <Link href="/" className="flex items-center gap-2">
-              <img src="/logo.png" alt="ThinkViz Logo" className="h-8 w-8 object-contain" />
+              <img src="/logo.jpg" alt="ThinkViz Logo" className="h-8 w-8 object-contain" />
               <span className="text-lg font-semibold tracking-tight text-[#F1F3F5]">
                 Think<span className="text-[#6C8CFF]">Viz</span>
               </span>
