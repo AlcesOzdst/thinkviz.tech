@@ -9,9 +9,10 @@ This project was built for our TY Semester 5 Artificial Intelligence coursework.
 - **Interactive Sandboxes**: Draw custom grid mazes (walls, start, target) and save them to the database.
 - **Algorithm Visualization**: Watch the exact search paths of algorithms as they explore.
 - **Supported Algorithms**: 
-  - Uninformed Search (BFS, DFS)
-  - Informed Search (A* Search)
+  - Uninformed Search (BFS, DFS, UCS)
+  - Informed Search (A* Search, Greedy BFS)
   - Local Search (Hill Climbing, Genetic Algorithms)
+  - Rule-Based Systems (Forward Chaining, Backward Chaining)
 - **Progress Tracking**: The system tracks which algorithms you have fully watched and awards completion badges on your dashboard.
 
 ## Tech Stack

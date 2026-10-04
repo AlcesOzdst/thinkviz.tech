@@ -3,7 +3,8 @@ export type AlgorithmCategory =
   | "Informed Search"
   | "Local Search"
   | "Constraint Satisfaction"
-  | "Adversarial Search";
+  | "Adversarial Search"
+  | "Rule-Based Systems";
 
 export type AlgorithmDifficulty = "Beginner" | "Intermediate" | "Advanced";
 
@@ -19,7 +20,7 @@ export interface AlgorithmMeta {
   difficulty: AlgorithmDifficulty;
   featured: boolean;
   tags: string[];
-  visualizerType: "grid" | "graph" | "tree" | "game-tree" | "optimization";
+  visualizerType: "grid" | "graph" | "tree" | "game-tree" | "optimization" | "rule-based";
 }
 
 export interface CategoryInfo {

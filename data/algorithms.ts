@@ -36,6 +36,13 @@ export const CATEGORIES: CategoryInfo[] = [
     algorithmCount: 2,
     iconName: "Swords",
   },
+  {
+    name: "Rule-Based Systems",
+    slug: "rule-based-systems",
+    description: "Knowledge stored as IF-THEN rules, reasoned over by an inference engine.",
+    algorithmCount: 2,
+    iconName: "ListChecks",
+  },
 ];
 
 export const ALGORITHMS: AlgorithmMeta[] = [
@@ -177,5 +184,35 @@ export const ALGORITHMS: AlgorithmMeta[] = [
     featured: false,
     tags: ["Population", "Evolution", "Mutation", "Crossover"],
     visualizerType: "optimization",
+  },
+  {
+    id: "forward-chaining",
+    name: "Forward Chaining",
+    shortName: "Forward Chaining",
+    category: "Rule-Based Systems",
+    description: "Data-driven inference starting with known facts and repeatedly firing rules to deduce conclusions.",
+    longDescription:
+      "Forward Chaining is a data-driven reasoning approach. It starts with known facts in working memory, matches rule conditions (IF parts), resolves conflicts between candidate rules, and fires actions to infer new facts until no further conclusions can be drawn.",
+    timeComplexity: "O(R * F)",
+    spaceComplexity: "O(F)",
+    difficulty: "Beginner",
+    featured: true,
+    tags: ["Inference", "Production Rules", "Data-Driven", "Working Memory", "Conflict Resolution"],
+    visualizerType: "rule-based",
+  },
+  {
+    id: "backward-chaining",
+    name: "Backward Chaining",
+    shortName: "Backward Chaining",
+    category: "Rule-Based Systems",
+    description: "Goal-driven inference working backwards from a hypothesis to find supporting rules and facts.",
+    longDescription:
+      "Backward Chaining is a goal-driven reasoning approach. Starting from a target hypothesis or goal, it identifies rules that can conclude this goal and recursively attempts to prove their preconditions as subgoals.",
+    timeComplexity: "O(b^d)",
+    spaceComplexity: "O(d)",
+    difficulty: "Beginner",
+    featured: true,
+    tags: ["Inference", "Goal-Driven", "Recursion", "Subgoals", "Hypothesis"],
+    visualizerType: "rule-based",
   },
 ];
