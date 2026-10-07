@@ -17,7 +17,7 @@ const ibmPlexMono = IBM_Plex_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "ThinkViz — Interactive AI Algorithm Visualization",
+  title: "ThinkViz, Interactive AI Algorithm Visualization",
   description: "Understand artificial intelligence and computer science algorithms through step-by-step interactive visualizations.",
 };
 

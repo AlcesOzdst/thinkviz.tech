@@ -392,7 +392,7 @@ export function RuleWorkspace({ algorithmId }: RuleWorkspaceProps) {
           <div className="flex items-center justify-between border-b border-[#292E36] pb-3 text-xs">
             <span className="font-semibold text-[#F1F3F5]">Step Trace & Explanation</span>
             <span className="font-mono text-[#A7AFBB]">
-              {activeStep ? `Step ${activeStep.stepIndex + 1} of ${activeStep.metrics.totalSteps}` : "—"}
+              {activeStep ? `Step ${activeStep.stepIndex + 1} of ${activeStep.metrics.totalSteps}` : "-"}
             </span>
           </div>
 

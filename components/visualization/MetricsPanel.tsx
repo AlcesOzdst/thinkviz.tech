@@ -12,7 +12,7 @@ export function MetricsPanel({ metrics }: MetricsPanelProps) {
   const frontierSize = metrics ? metrics.frontierSize : 0;
   const totalSteps = metrics ? metrics.totalSteps : 0;
 
-  let pathCostDisplay = "—";
+  let pathCostDisplay = "-";
   if (metrics && metrics.pathCost > 0 && metrics.pathCost !== Infinity) {
     pathCostDisplay = metrics.pathCost.toFixed(2);
   }

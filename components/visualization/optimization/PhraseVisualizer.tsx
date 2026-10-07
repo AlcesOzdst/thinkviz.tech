@@ -110,7 +110,7 @@ export function PhraseVisualizer({
           <div className="flex items-center justify-between text-xs">
             <span className="text-[#10B981] font-semibold flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-[#10B981] animate-pulse" />
-              Evolving Generation Champion ({champion?.id || "—"})
+              Evolving Generation Champion ({champion?.id || "-"})
             </span>
             <span className="text-[11px] font-mono text-[#10B981]">{accuracy}% Match</span>
           </div>

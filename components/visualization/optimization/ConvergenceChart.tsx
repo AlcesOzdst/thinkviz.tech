@@ -115,14 +115,14 @@ export function ConvergenceChart({
             <span className="w-2.5 h-2.5 rounded-full bg-[#10B981] inline-block shadow-[0_0_8px_rgba(16,185,129,0.5)]" />
             <span className="text-[#A7AFBB]">Best Fitness:</span>
             <span className="font-mono font-medium text-[#10B981]">
-              {latestStat ? latestStat.bestFitness.toFixed(2) : "—"}
+              {latestStat ? latestStat.bestFitness.toFixed(2) : "-"}
             </span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="w-2.5 h-2.5 rounded-full bg-[#6C8CFF] inline-block shadow-[0_0_8px_rgba(108,140,255,0.5)]" />
             <span className="text-[#A7AFBB]">Mean Fitness:</span>
             <span className="font-mono font-medium text-[#6C8CFF]">
-              {latestStat ? latestStat.avgFitness.toFixed(2) : "—"}
+              {latestStat ? latestStat.avgFitness.toFixed(2) : "-"}
             </span>
           </div>
         </div>
