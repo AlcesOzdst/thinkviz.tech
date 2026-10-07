@@ -1,15 +1,21 @@
 import { OptimizationState } from "@/types/optimization";
 import { AlgorithmStep } from "@/types/visualizer";
+import { getLandscape, DEFAULT_LANDSCAPE_ID } from "./landscapes";
 
-export const OPTIMIZATION_DOMAIN = { minX: 0, maxX: 20 };
-export const OPTIMIZATION_RESOLUTION = 100; // Number of points to sample for SVG rendering
+const defaultLandscape = getLandscape(DEFAULT_LANDSCAPE_ID);
+export const OPTIMIZATION_DOMAIN = { minX: defaultLandscape.minX, maxX: defaultLandscape.maxX };
+export const OPTIMIZATION_RESOLUTION = 120; // Number of points to sample for SVG rendering
 
-export const getLandscapeY = (x: number) => {
-  // A bumpy function carefully crafted to have deceptive local maxima and a distinct global maximum.
-  return Math.sin(x) + 0.5 * Math.sin(3 * x) + (x * 0.15);
+export const getLandscapeY = (x: number, landscapeId: string = DEFAULT_LANDSCAPE_ID) => {
+  return getLandscape(landscapeId).getY(x);
 };
 
-export function generateHillClimbingSteps(initialX: number, stepSize: number = 0.5): AlgorithmStep<OptimizationState>[] {
+export function generateHillClimbingSteps(
+  initialX: number, 
+  stepSize: number = 0.5,
+  landscapeId: string = DEFAULT_LANDSCAPE_ID
+): AlgorithmStep<OptimizationState>[] {
+  const landscape = getLandscape(landscapeId);
   const steps: AlgorithmStep<OptimizationState>[] = [];
   let stepCounter = 0;
   
@@ -23,14 +29,15 @@ export function generateHillClimbingSteps(initialX: number, stepSize: number = 0
       highlightedLine: line,
       state: {
         currentX: current,
-        currentY: getLandscapeY(current),
+        currentY: landscape.getY(current),
         visitedX: [...visitedX],
         consideredX: considered,
+        landscapeId,
       },
       metrics: {
         nodesExplored: visitedX.length,
         frontierSize: considered.length,
-        pathCost: 0,
+        pathCost: parseFloat(landscape.getY(current).toFixed(2)),
         totalSteps: 0,
       }
     });
@@ -38,7 +45,6 @@ export function generateHillClimbingSteps(initialX: number, stepSize: number = 0
 
   pushStep(`Initialized Hill Climbing at starting position x = ${currentX.toFixed(2)}.`, 1, currentX);
 
-  // Hard cap to prevent infinite loops from floating point issues
   const maxIterations = 100;
   let iterations = 0;
 
@@ -46,20 +52,20 @@ export function generateHillClimbingSteps(initialX: number, stepSize: number = 0
     iterations++;
     visitedX.push(currentX);
     
-    // Define bounds-checked neighbors
+    // Bounds-checked neighbors
     const leftX = currentX - stepSize;
     const rightX = currentX + stepSize;
-    const neighbors = [];
-    if (leftX >= OPTIMIZATION_DOMAIN.minX) neighbors.push(leftX);
-    if (rightX <= OPTIMIZATION_DOMAIN.maxX) neighbors.push(rightX);
+    const neighbors: number[] = [];
+    if (leftX >= landscape.minX) neighbors.push(leftX);
+    if (rightX <= landscape.maxX) neighbors.push(rightX);
     
     pushStep(`Evaluating adjacent state neighbors.`, 2, currentX, neighbors);
     
     let bestNextX = currentX;
-    let bestY = getLandscapeY(currentX);
+    let bestY = landscape.getY(currentX);
     
     for (const nx of neighbors) {
-      const ny = getLandscapeY(nx);
+      const ny = landscape.getY(nx);
       if (ny > bestY) {
         bestNextX = nx;
         bestY = ny;
@@ -67,10 +73,10 @@ export function generateHillClimbingSteps(initialX: number, stepSize: number = 0
     }
     
     if (bestNextX === currentX) {
-      pushStep(`Peak reached. All immediate neighbors lead downhill. Local Maximum found!`, 3, currentX);
+      pushStep(`Peak reached. All immediate neighbors lead downhill. Trapped in Local Maximum at x = ${currentX.toFixed(2)} (f = ${bestY.toFixed(2)})!`, 3, currentX);
       break;
     } else {
-      pushStep(`Higher evaluation found at x = ${bestNextX.toFixed(2)}. Moving uphill.`, 4, currentX, [bestNextX]);
+      pushStep(`Higher evaluation found at x = ${bestNextX.toFixed(2)} (f = ${bestY.toFixed(2)}). Moving uphill.`, 4, currentX, [bestNextX]);
       currentX = bestNextX;
     }
   }
