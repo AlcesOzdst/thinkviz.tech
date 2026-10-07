@@ -4,6 +4,8 @@ export interface OptimizationLandscape {
   maxX: number;
 }
 
+export type GAMode = "tsp" | "phrase" | "landscape";
+
 export type GAPhase =
   | "init"
   | "evaluate"
@@ -16,6 +18,7 @@ export type GAPhase =
 
 export type SelectionStrategy = "tournament" | "roulette" | "rank";
 
+// Mathematical 1D Continuous Individual
 export interface Individual {
   id: string;
   x: number; // Phenotype (real-valued search coordinate)
@@ -79,7 +82,80 @@ export interface GAConfig {
   landscapeId: string;
 }
 
-// Represents the state of the search at a specific moment in time
+// ==========================================
+// Traveling Salesperson Problem (TSP) Types
+// ==========================================
+export interface TSPCity {
+  id: number;
+  label: string;
+  x: number;
+  y: number;
+}
+
+export interface TSPIndividual {
+  id: string;
+  tour: number[]; // Permutation of city IDs [0, 4, 1, 3, ...]
+  distance: number; // Total Euclidean tour distance
+  fitness: number; // Normalized fitness (higher is better)
+  rank: number;
+  role: "elite" | "parent" | "offspring" | "mutated" | "normal";
+}
+
+export interface TSPCrossoverEvent {
+  parent1Id: string;
+  parent2Id: string;
+  parent1Tour: number[];
+  parent2Tour: number[];
+  cutStart: number;
+  cutEnd: number;
+  childTour: number[];
+  childDistance: number;
+}
+
+export interface TSPMutationEvent {
+  individualId: string;
+  beforeTour: number[];
+  afterTour: number[];
+  swappedIdx1: number;
+  swappedIdx2: number;
+  oldDistance: number;
+  newDistance: number;
+}
+
+// ==========================================
+// Target Phrase Evolution Types
+// ==========================================
+export interface PhraseIndividual {
+  id: string;
+  phrase: string;
+  matches: number;
+  accuracy: number; // Percentage 0 - 100%
+  fitness: number;
+  rank: number;
+  role: "elite" | "parent" | "offspring" | "mutated" | "normal";
+}
+
+export interface PhraseCrossoverEvent {
+  parent1Id: string;
+  parent2Id: string;
+  parent1Phrase: string;
+  parent2Phrase: string;
+  splitPoint: number;
+  childPhrase: string;
+}
+
+export interface PhraseMutationEvent {
+  individualId: string;
+  beforePhrase: string;
+  afterPhrase: string;
+  mutatedIndex: number;
+  oldChar: string;
+  newChar: string;
+}
+
+// ==========================================
+// Main Unified Optimization State
+// ==========================================
 export interface OptimizationState {
   currentX: number;
   currentY: number;
@@ -87,17 +163,37 @@ export interface OptimizationState {
   consideredX: number[]; // Neighbor points currently being evaluated
   population?: number[]; // Legacy array of raw X positions for basic scatter plotting
   
-  // Rich Genetic Algorithm state properties
-  individuals?: Individual[];
+  // General GA state
+  gaMode?: GAMode;
   generation?: number;
   maxGenerations?: number;
   phase?: GAPhase;
+  diversity?: number;
+
+  // Continuous 1D GA properties
+  individuals?: Individual[];
   activeParents?: [Individual, Individual];
   activeCrossover?: CrossoverEvent | null;
   activeMutation?: MutationEvent | null;
   historyStats?: GenerationStat[];
   globalBest?: { x: number; fitness: number; generation: number; chromosome: string };
   landscapeId?: string;
-  diversity?: number;
   hcComparisonPath?: number[]; // Optional Hill Climbing trajectory for comparison
+
+  // TSP Specific properties
+  tspCities?: TSPCity[];
+  tspIndividuals?: TSPIndividual[];
+  tspBestTour?: number[];
+  tspInitialDistance?: number;
+  tspBestDistance?: number;
+  tspActiveCrossover?: TSPCrossoverEvent | null;
+  tspActiveMutation?: TSPMutationEvent | null;
+  tspHistoryDistances?: { generation: number; bestDist: number; avgDist: number }[];
+
+  // Phrase Evolution properties
+  phraseTarget?: string;
+  phraseIndividuals?: PhraseIndividual[];
+  phraseActiveCrossover?: PhraseCrossoverEvent | null;
+  phraseActiveMutation?: PhraseMutationEvent | null;
+  phraseHistoryAccuracies?: { generation: number; bestAcc: number; avgAcc: number }[];
 }
