@@ -1,0 +1,26 @@
+{
+  "matrix_name": "Romania Map Heuristic Distance Matrix to Bucharest",
+  "metric": "Straight Line Distance (SLD)",
+  "nodes": [
+    { "city": "Arad", "h_cost": 366 },
+    { "city": "Bucharest", "h_cost": 0 },
+    { "city": "Craiova", "h_cost": 160 },
+    { "city": "Dobreta", "h_cost": 242 },
+    { "city": "Eforie", "h_cost": 161 },
+    { "city": "Fagaras", "h_cost": 176 },
+    { "city": "Giurgiu", "h_cost": 77 },
+    { "city": "Hirsova", "h_cost": 151 },
+    { "city": "Iasi", "h_cost": 226 },
+    { "city": "Lugoj", "h_cost": 244 },
+    { "city": "Mehadia", "h_cost": 241 },
+    { "city": "Neamt", "h_cost": 234 },
+    { "city": "Oradea", "h_cost": 380 },
+    { "city": "Pitesti", "h_cost": 100 },
+    { "city": "Rimnicu Vilcea", "h_cost": 193 },
+    { "city": "Sibiu", "h_cost": 253 },
+    { "city": "Timisoara", "h_cost": 329 },
+    { "city": "Urziceni", "h_cost": 80 },
+    { "city": "Vaslui", "h_cost": 199 },
+    { "city": "Zerind", "h_cost": 374 }
+  ]
+}

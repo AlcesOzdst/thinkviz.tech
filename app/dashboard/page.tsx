@@ -1,13 +1,13 @@
-import { redirect } from "next/navigation";
+import Link from "next/link";
+import { getCurrentUser } from "@/lib/dms/auth";
 import { getUserSavedGrids } from "@/app/actions/grids";
 import { getUserProgress } from "@/app/actions/progress";
 import { SavedGridsList } from "@/components/dashboard/SavedGridsList";
 import { ProgressCards } from "@/components/dashboard/ProgressCards";
-import { Grid, Award } from "lucide-react";
+import { Grid, Award, LogIn, Shield } from "lucide-react";
 
 export default async function DashboardPage() {
-  // Bypassed auth for local testing
-  const dummySession = { user: { name: "Guest User" } };
+  const user = await getCurrentUser();
 
   const result = await getUserSavedGrids();
   const grids = result.success ? result.grids || [] : [];
@@ -17,14 +17,51 @@ export default async function DashboardPage() {
 
   return (
     <div className="container mx-auto px-4 py-8 sm:py-12 max-w-7xl">
-      <div className="mb-10">
-        <h1 className="text-3xl font-bold text-[#F1F3F5] mb-2">
-          Student Dashboard
-        </h1>
-        <p className="text-[#A7AFBB]">
-          Welcome back, {dummySession.user.name}. Manage your saved algorithmic scenarios.
-        </p>
+      <div className="mb-8 flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+          <div className="flex items-center gap-2.5 mb-1">
+            <h1 className="text-3xl font-bold text-[#F1F3F5]">
+              {user ? `${user.name}'s Dashboard` : "Algorithmic Workspace"}
+            </h1>
+            {user && (
+              <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase font-semibold bg-[#6C8CFF]/15 text-[#6C8CFF] border border-[#6C8CFF]/30">
+                {user.role}
+              </span>
+            )}
+          </div>
+          <p className="text-xs sm:text-sm text-[#A7AFBB]">
+            {user
+              ? `Manage your custom algorithm obstacle courses and learning velocity.`
+              : `Viewing local browser session. Sign in to sync your custom mazes across devices.`}
+          </p>
+        </div>
+
+        {!user && (
+          <Link
+            href="/login?callbackUrl=/dashboard"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white text-xs font-semibold shadow-sm transition-colors self-start md:self-auto"
+          >
+            <LogIn className="w-3.5 h-3.5" />
+            Sign In to Save Progress
+          </Link>
+        )}
       </div>
+
+      {!user && (
+        <div className="mb-8 p-4 rounded-xl bg-[#181C22] border border-[#292E36] flex items-center justify-between gap-4 text-xs">
+          <div className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg bg-[#111418] border border-[#292E36] flex items-center justify-center text-[#6C8CFF] shrink-0">
+              <Shield className="w-4 h-4" />
+            </div>
+            <div>
+              <span className="font-semibold text-[#F1F3F5]">Guest Privacy Active</span>
+              <p className="text-[#717885] mt-0.5 text-[11px]">
+                Your mazes and progress are isolated to this browser session and never shared with other users.
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="space-y-12">
         {/* Saved Mazes Section */}

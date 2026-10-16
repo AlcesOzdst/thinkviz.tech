@@ -15,12 +15,23 @@ model User {
   email         String?   @unique
   emailVerified DateTime?
   image         String?
+  role          String    @default("STUDENT") // ADMIN, EDUCATOR, STUDENT, RESEARCHER
   createdAt     DateTime  @default(now())
 
-  accounts    Account[]
-  sessions    Session[]
-  progress    UserProgress[]
-  savedGrids  SavedGrid[]
+  accounts       Account[]
+  sessions       Session[]
+  progress       UserProgress[]
+  savedGrids     SavedGrid[]
+
+  // DMS Relations
+  files          DmsFile[]
+  collections    DmsCollection[]
+  datasets       DmsDataset[]
+  ownedProjects  DmsProject[]
+  projectMembers DmsProjectMember[]
+  assignedTasks  DmsTask[]
+  aiRuns         DmsAiRun[]
+  activities     DmsActivityEvent[]
 }
 
 model Account {
@@ -87,4 +98,246 @@ model TelemetryEvent {
   algorithmId String
   action      String
   timestamp   DateTime @default(now())
+}
+
+// ==========================================
+// Thinkwis Data Management System (DMS)
+// ==========================================
+
+model DmsFile {
+  id           String   @id @default(cuid())
+  name         String
+  originalName String
+  mimeType     String
+  sizeBytes    Int
+  storagePath  String
+  fileType     String   @default("DOCUMENT") // DOCUMENT, DATASET, CODE, IMAGE, OTHER
+  status       String   @default("READY")    // READY, PROCESSING, INDEXED, FAILED
+  version      Int      @default(1)
+  metadata     Json?
+  userId       String
+  collectionId String?
+  isDeleted    Boolean  @default(false)
+  deletedAt    DateTime?
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  user        User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  collection  DmsCollection? @relation(fields: [collectionId], references: [id], onDelete: SetNull)
+  versions    DmsFileVersion[]
+  sourceRefs  DmsAiSourceRef[]
+
+  @@index([userId, isDeleted])
+  @@index([collectionId])
+}
+
+model DmsFileVersion {
+  id            String   @id @default(cuid())
+  fileId        String
+  version       Int
+  sizeBytes     Int
+  storagePath   String
+  changeSummary String?
+  createdAt     DateTime @default(now())
+
+  file DmsFile @relation(fields: [fileId], references: [id], onDelete: Cascade)
+
+  @@unique([fileId, version])
+}
+
+model DmsCollection {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  color       String   @default("#6C8CFF")
+  icon        String   @default("Folder")
+  userId      String
+  isPrivate   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  user  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  files DmsFile[]
+
+  @@index([userId])
+}
+
+model DmsShare {
+  id              String   @id @default(cuid())
+  resourceType    String   // FILE, DATASET, PROJECT
+  resourceId      String
+  sharedWithEmail String?
+  sharedWithId    String?
+  permission      String   @default("VIEW") // VIEW, EDIT, ADMIN
+  createdAt       DateTime @default(now())
+
+  @@index([resourceType, resourceId])
+}
+
+model DmsDataset {
+  id               String   @id @default(cuid())
+  name             String
+  description      String?
+  category         String   @default("General")
+  format           String   @default("CSV") // CSV, JSON
+  rowCount         Int      @default(0)
+  columnCount      Int      @default(0)
+  schemaDefinition Json     // Array of { name: string, type: string, nullable: boolean }
+  dataQualityScore Float    @default(100.0) // 0 - 100%
+  userId           String
+  isDeleted        Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  user    User               @relation(fields: [userId], references: [id], onDelete: Cascade)
+  records DmsDatasetRecord[]
+  jobs    DmsImportJob[]
+
+  @@index([userId, isDeleted])
+}
+
+model DmsDatasetRecord {
+  id        String   @id @default(cuid())
+  datasetId String
+  rowIndex  Int
+  data      Json
+  createdAt DateTime @default(now())
+
+  dataset DmsDataset @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+
+  @@index([datasetId, rowIndex])
+}
+
+model DmsImportJob {
+  id            String    @id @default(cuid())
+  datasetId     String
+  status        String    @default("QUEUED") // QUEUED, PROCESSING, COMPLETED, FAILED
+  totalRows     Int       @default(0)
+  processedRows Int       @default(0)
+  errorCount    Int       @default(0)
+  errors        Json?
+  startedAt     DateTime?
+  completedAt   DateTime?
+  createdAt     DateTime  @default(now())
+
+  dataset DmsDataset @relation(fields: [datasetId], references: [id], onDelete: Cascade)
+}
+
+model DmsProject {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  status      String   @default("ACTIVE") // ACTIVE, ARCHIVED, COMPLETED
+  color       String   @default("#6C8CFF")
+  deadline    DateTime?
+  ownerId     String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  owner   User               @relation(fields: [ownerId], references: [id], onDelete: Cascade)
+  members DmsProjectMember[]
+  tasks   DmsTask[]
+
+  @@index([ownerId])
+}
+
+model DmsProjectMember {
+  id        String   @id @default(cuid())
+  projectId String
+  userId    String
+  role      String   @default("EDITOR") // OWNER, EDITOR, VIEWER
+  joinedAt  DateTime @default(now())
+
+  project DmsProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  user    User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([projectId, userId])
+}
+
+model DmsTask {
+  id          String    @id @default(cuid())
+  projectId   String
+  title       String
+  description String?
+  status      String    @default("TODO") // TODO, IN_PROGRESS, DONE
+  priority    String    @default("MEDIUM") // LOW, MEDIUM, HIGH, URGENT
+  assigneeId  String?
+  dueDate     DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  project  DmsProject @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  assignee User?       @relation(fields: [assigneeId], references: [id], onDelete: SetNull)
+
+  @@index([projectId, status])
+}
+
+model DmsAiRun {
+  id          String   @id @default(cuid())
+  userId      String
+  operation   String   // SUMMARIZATION, EXTRACTION, ANALYSIS, RAG_QUERY
+  model       String   @default("gemini-1.5-flash")
+  tokensUsed  Int      @default(0)
+  latencyMs   Int      @default(0)
+  status      String   @default("SUCCESS") // SUCCESS, FAILED
+  error       String?
+  createdAt   DateTime @default(now())
+
+  user      User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  artifacts DmsAiArtifact[]
+
+  @@index([userId])
+}
+
+model DmsAiArtifact {
+  id              String   @id @default(cuid())
+  runId           String
+  userId          String
+  title           String
+  artifactType    String   // SUMMARY, REPORT, INSIGHT, CODE
+  content         String   @db.Text
+  confidenceScore Float    @default(0.95)
+  createdAt       DateTime @default(now())
+
+  run        DmsAiRun         @relation(fields: [runId], references: [id], onDelete: Cascade)
+  sourceRefs DmsAiSourceRef[]
+
+  @@index([userId])
+}
+
+model DmsAiSourceRef {
+  id              String   @id @default(cuid())
+  artifactId      String
+  fileId          String?
+  citationText    String
+  pageNumber      Int?
+  similarityScore Float    @default(1.0)
+
+  artifact DmsAiArtifact @relation(fields: [artifactId], references: [id], onDelete: Cascade)
+  file     DmsFile?       @relation(fields: [fileId], references: [id], onDelete: SetNull)
+}
+
+model DmsActivityEvent {
+  id              String   @id @default(cuid())
+  userId          String
+  action          String   // UPLOAD, DOWNLOAD, DELETE, SHARE, IMPORT, EXPORT, AI_RUN, TASK_UPDATE
+  resourceType    String   // FILE, DATASET, PROJECT, AI_ARTIFACT, TASK, SYSTEM
+  resourceId      String?
+  resourceName    String
+  details         Json?
+  isSecurityAudit Boolean  @default(false)
+  ipAddress       String?
+  timestamp       DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId, timestamp])
+  @@index([isSecurityAudit])
+}
+
+model DmsSystemConfig {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     Json
+  updatedAt DateTime @updatedAt
 }

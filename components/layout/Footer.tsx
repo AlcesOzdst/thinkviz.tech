@@ -98,6 +98,9 @@ export function Footer() {
                 </div>
               </li>
               <li className="flex flex-col space-y-1.5">
+                <span className="font-medium text-[#A7AFBB]">Shaunak Apte</span>
+              </li>
+              <li className="flex flex-col space-y-1.5">
                 <span className="font-medium text-[#A7AFBB]">Arya Inamdar</span>
                 <div className="flex flex-wrap items-center gap-2">
                   <a href="mailto:1262243732@mitwpu.edu.in" className="hover:text-[#6C8CFF] transition-colors">Email</a>

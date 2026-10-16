@@ -32,6 +32,7 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
 
 # vercel
 .vercel
@@ -41,3 +42,19 @@ yarn-error.log*
 next-env.d.ts
 
 /lib/generated/prisma
+
+# DMS local storage
+/.data/storage/files/*
+!/.data/storage/files/seed_*
+!/.data/storage/files/.gitkeep
+
+# AI Agent, Assistant, IDE and Personal Workspace Files
+.agents/
+.claude/
+.windsurf/
+CLAUDE.md
+AGENTS.md
+LOGBOOK.md
+skills-lock.json
+*.log
+

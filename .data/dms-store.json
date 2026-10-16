@@ -1,0 +1,3086 @@
+{
+  "files": [
+    {
+      "id": "file-1",
+      "name": "Lecture_04_AStar_Optimality_Proof.pdf",
+      "originalName": "Lecture_04_AStar_Optimality_Proof.pdf",
+      "mimeType": "application/pdf",
+      "sizeBytes": 1240500,
+      "storagePath": "seed_astar_proof.pdf",
+      "fileType": "DOCUMENT",
+      "status": "INDEXED",
+      "version": 1,
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "collectionId": "col-1",
+      "collectionName": "AI Search Syllabus",
+      "isDeleted": false,
+      "createdAt": "2026-10-13T06:19:45.033Z",
+      "updatedAt": "2026-10-13T06:19:45.033Z"
+    },
+    {
+      "id": "file-2",
+      "name": "Genetic_Algorithm_TSP_Benchmark.csv",
+      "originalName": "Genetic_Algorithm_TSP_Benchmark.csv",
+      "mimeType": "text/csv",
+      "sizeBytes": 84320,
+      "storagePath": "seed_ga_tsp.csv",
+      "fileType": "DATASET",
+      "status": "INDEXED",
+      "version": 2,
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "collectionId": "col-2",
+      "collectionName": "Heuristic Benchmark Datasets",
+      "isDeleted": false,
+      "createdAt": "2026-10-14T06:19:45.033Z",
+      "updatedAt": "2026-10-14T06:19:45.033Z"
+    },
+    {
+      "id": "file-3",
+      "name": "Minimax_AlphaBeta_Decision_Trees.md",
+      "originalName": "Minimax_AlphaBeta_Decision_Trees.md",
+      "mimeType": "text/markdown",
+      "sizeBytes": 42100,
+      "storagePath": "seed_minimax_notes.md",
+      "fileType": "DOCUMENT",
+      "status": "INDEXED",
+      "version": 1,
+      "userId": "user-educator-1",
+      "userName": "Prof. Sarah Jenkins",
+      "collectionId": "col-1",
+      "collectionName": "AI Search Syllabus",
+      "isDeleted": false,
+      "createdAt": "2026-10-13T06:19:45.033Z",
+      "updatedAt": "2026-10-13T06:19:45.033Z"
+    },
+    {
+      "id": "file-4",
+      "name": "Heuristic_Distance_Matrix.json",
+      "originalName": "Heuristic_Distance_Matrix.json",
+      "mimeType": "application/json",
+      "sizeBytes": 189400,
+      "storagePath": "seed_matrix.json",
+      "fileType": "DATASET",
+      "status": "READY",
+      "version": 1,
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "collectionId": "col-2",
+      "collectionName": "Heuristic Benchmark Datasets",
+      "isDeleted": false,
+      "createdAt": "2026-10-14T06:19:45.033Z",
+      "updatedAt": "2026-10-14T06:19:45.033Z"
+    }
+  ],
+  "fileVersions": [
+    {
+      "id": "ver-1",
+      "fileId": "file-2",
+      "version": 1,
+      "sizeBytes": 78200,
+      "storagePath": "seed_ga_tsp_v1.csv",
+      "changeSummary": "Initial 10-city test coordinates",
+      "createdAt": "2026-10-13T06:19:45.033Z"
+    },
+    {
+      "id": "ver-2",
+      "fileId": "file-2",
+      "version": 2,
+      "sizeBytes": 84320,
+      "storagePath": "seed_ga_tsp.csv",
+      "changeSummary": "Added 12-city circular and clustered topology benchmark rows",
+      "createdAt": "2026-10-14T06:19:45.033Z"
+    }
+  ],
+  "collections": [
+    {
+      "id": "col-2",
+      "name": "Heuristic Benchmark Datasets",
+      "description": "Grid maps and test scenarios for A* and Greedy BFS benchmarks",
+      "color": "#10B981",
+      "icon": "Database",
+      "userId": "user-admin-1",
+      "fileCount": 2,
+      "isPrivate": false,
+      "createdAt": "2026-10-14T06:19:45.033Z",
+      "updatedAt": "2026-10-14T06:19:45.033Z"
+    },
+    {
+      "id": "col-1",
+      "name": "AI Search Syllabus",
+      "description": "Semester 5 Artificial Intelligence lecture notes and problem sets",
+      "color": "#6C8CFF",
+      "icon": "BookOpen",
+      "userId": "user-admin-1",
+      "fileCount": 3,
+      "isPrivate": false,
+      "createdAt": "2026-10-13T06:19:45.033Z",
+      "updatedAt": "2026-10-13T06:19:45.033Z"
+    },
+    {
+      "id": "col-3",
+      "name": "Research & Publications",
+      "description": "Draft papers and evolutionary computing algorithm comparisons",
+      "color": "#F59E0B",
+      "icon": "Folder",
+      "userId": "user-admin-1",
+      "fileCount": 1,
+      "isPrivate": true,
+      "createdAt": "2026-10-13T06:19:45.033Z",
+      "updatedAt": "2026-10-15T06:19:45.031Z"
+    }
+  ],
+  "datasets": [
+    {
+      "name": "A* Heuristic Exploration Benchmark",
+      "description": "Automated benchmark import test",
+      "category": "Algorithm Metrics",
+      "format": "CSV",
+      "rowCount": 3,
+      "columnCount": 4,
+      "schemaDefinition": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "schema": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "dataQualityScore": 100,
+      "qualityIssues": [],
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "isDeleted": false,
+      "id": "ds-1792131863895",
+      "createdAt": "2026-10-16T06:24:23.895Z",
+      "updatedAt": "2026-10-16T06:24:24.097Z"
+    },
+    {
+      "name": "A* Heuristic Exploration Benchmark",
+      "description": "Automated benchmark import test",
+      "category": "Algorithm Metrics",
+      "format": "CSV",
+      "rowCount": 3,
+      "columnCount": 4,
+      "schemaDefinition": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "schema": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "dataQualityScore": 100,
+      "qualityIssues": [],
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "isDeleted": false,
+      "id": "ds-1792131838194",
+      "createdAt": "2026-10-16T06:23:58.194Z",
+      "updatedAt": "2026-10-16T06:23:58.483Z"
+    },
+    {
+      "name": "A* Heuristic Exploration Benchmark",
+      "description": "Automated benchmark import test",
+      "category": "Algorithm Metrics",
+      "format": "CSV",
+      "rowCount": 3,
+      "columnCount": 4,
+      "schemaDefinition": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "schema": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "dataQualityScore": 100,
+      "qualityIssues": [],
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "isDeleted": false,
+      "id": "ds-1792130724371",
+      "createdAt": "2026-10-16T06:05:24.371Z",
+      "updatedAt": "2026-10-16T06:05:27.554Z"
+    },
+    {
+      "name": "A* Heuristic Exploration Benchmark",
+      "description": "Automated benchmark import test",
+      "category": "Algorithm Metrics",
+      "format": "CSV",
+      "rowCount": 3,
+      "columnCount": 4,
+      "schemaDefinition": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "schema": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "dataQualityScore": 100,
+      "qualityIssues": [],
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "isDeleted": false,
+      "id": "ds-1792089363275",
+      "createdAt": "2026-10-15T18:36:03.275Z",
+      "updatedAt": "2026-10-15T18:36:03.666Z"
+    },
+    {
+      "name": "A* Heuristic Exploration Benchmark",
+      "description": "Automated benchmark import test",
+      "category": "Algorithm Metrics",
+      "format": "CSV",
+      "rowCount": 3,
+      "columnCount": 4,
+      "schemaDefinition": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "schema": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "dataQualityScore": 100,
+      "qualityIssues": [],
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "isDeleted": false,
+      "id": "ds-1792086623724",
+      "createdAt": "2026-10-15T17:50:23.724Z",
+      "updatedAt": "2026-10-15T17:50:24.092Z"
+    },
+    {
+      "name": "A* Heuristic Exploration Benchmark",
+      "description": "Automated benchmark import test",
+      "category": "Algorithm Metrics",
+      "format": "CSV",
+      "rowCount": 3,
+      "columnCount": 4,
+      "schemaDefinition": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "schema": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "dataQualityScore": 100,
+      "qualityIssues": [],
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "isDeleted": false,
+      "id": "ds-1792056855147",
+      "createdAt": "2026-10-15T09:34:15.147Z",
+      "updatedAt": "2026-10-15T09:34:16.271Z"
+    },
+    {
+      "name": "A* Heuristic Exploration Benchmark",
+      "description": "Automated benchmark import test",
+      "category": "Algorithm Metrics",
+      "format": "CSV",
+      "rowCount": 3,
+      "columnCount": 4,
+      "schemaDefinition": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "schema": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "dataQualityScore": 100,
+      "qualityIssues": [],
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "isDeleted": false,
+      "id": "ds-1792053123368",
+      "createdAt": "2026-10-15T08:32:03.368Z",
+      "updatedAt": "2026-10-15T08:32:07.851Z"
+    },
+    {
+      "name": "A* Heuristic Exploration Benchmark",
+      "description": "Automated benchmark import test",
+      "category": "Algorithm Metrics",
+      "format": "CSV",
+      "rowCount": 3,
+      "columnCount": 4,
+      "schemaDefinition": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "schema": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "dataQualityScore": 100,
+      "qualityIssues": [],
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "isDeleted": false,
+      "id": "ds-1792053042797",
+      "createdAt": "2026-10-15T08:30:42.797Z",
+      "updatedAt": "2026-10-15T08:30:42.797Z"
+    },
+    {
+      "name": "A* Heuristic Exploration Benchmark",
+      "description": "Automated benchmark import test",
+      "category": "Algorithm Metrics",
+      "format": "CSV",
+      "rowCount": 3,
+      "columnCount": 4,
+      "schemaDefinition": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "schema": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "dataQualityScore": 100,
+      "qualityIssues": [],
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "isDeleted": false,
+      "id": "ds-1792048999361",
+      "createdAt": "2026-10-15T07:23:19.361Z",
+      "updatedAt": "2026-10-15T07:23:19.361Z"
+    },
+    {
+      "name": "A* Heuristic Exploration Benchmark",
+      "description": "Automated benchmark import test",
+      "category": "Algorithm Metrics",
+      "format": "CSV",
+      "rowCount": 3,
+      "columnCount": 4,
+      "schemaDefinition": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "schema": [
+        {
+          "name": "iteration",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "heuristic_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "explored_nodes",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "branching_factor",
+          "type": "number",
+          "nullable": false
+        }
+      ],
+      "dataQualityScore": 100,
+      "qualityIssues": [],
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "isDeleted": false,
+      "id": "ds-1792048959582",
+      "createdAt": "2026-10-15T07:22:39.582Z",
+      "updatedAt": "2026-10-15T07:22:39.582Z"
+    },
+    {
+      "id": "ds-1",
+      "name": "Search Algorithm Execution Benchmarks",
+      "description": "Performance metrics across BFS, DFS, UCS, Greedy BFS, and A* on 100 random grid mazes",
+      "category": "Machine Learning & AI",
+      "format": "CSV",
+      "rowCount": 5,
+      "columnCount": 6,
+      "schemaDefinition": [
+        {
+          "name": "algorithm",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "maze_density",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "nodes_explored",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "path_cost",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "execution_time_ms",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "optimal",
+          "type": "boolean",
+          "nullable": false
+        }
+      ],
+      "dataQualityScore": 98.4,
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "isDeleted": false,
+      "createdAt": "2026-10-13T06:19:45.033Z",
+      "updatedAt": "2026-10-14T06:19:45.033Z"
+    },
+    {
+      "id": "ds-2",
+      "name": "Student Exam Performance & Study Metrics",
+      "description": "Correlation between interactive visualization time and AI test scores",
+      "category": "Education & Learning",
+      "format": "JSON",
+      "rowCount": 4,
+      "columnCount": 5,
+      "schemaDefinition": [
+        {
+          "name": "student_id",
+          "type": "string",
+          "nullable": false
+        },
+        {
+          "name": "study_hours",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "simulations_run",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "exam_score",
+          "type": "number",
+          "nullable": false
+        },
+        {
+          "name": "grade",
+          "type": "string",
+          "nullable": false
+        }
+      ],
+      "dataQualityScore": 94.2,
+      "userId": "user-educator-1",
+      "userName": "Prof. Sarah Jenkins",
+      "isDeleted": false,
+      "createdAt": "2026-10-14T06:19:45.033Z",
+      "updatedAt": "2026-10-14T06:19:45.033Z"
+    }
+  ],
+  "datasetRecords": {
+    "ds-1": [
+      {
+        "id": "rec-1",
+        "datasetId": "ds-1",
+        "rowIndex": 0,
+        "data": {
+          "algorithm": "A* Search",
+          "maze_density": 0.3,
+          "nodes_explored": 42,
+          "path_cost": 28.5,
+          "execution_time_ms": 4.2,
+          "optimal": true
+        },
+        "createdAt": "2026-10-13T06:19:45.033Z"
+      },
+      {
+        "id": "rec-2",
+        "datasetId": "ds-1",
+        "rowIndex": 1,
+        "data": {
+          "algorithm": "Greedy BFS",
+          "maze_density": 0.3,
+          "nodes_explored": 24,
+          "path_cost": 34,
+          "execution_time_ms": 2.1,
+          "optimal": false
+        },
+        "createdAt": "2026-10-13T06:19:45.033Z"
+      },
+      {
+        "id": "rec-3",
+        "datasetId": "ds-1",
+        "rowIndex": 2,
+        "data": {
+          "algorithm": "Uniform Cost",
+          "maze_density": 0.3,
+          "nodes_explored": 96,
+          "path_cost": 28.5,
+          "execution_time_ms": 8.7,
+          "optimal": true
+        },
+        "createdAt": "2026-10-13T06:19:45.033Z"
+      },
+      {
+        "id": "rec-4",
+        "datasetId": "ds-1",
+        "rowIndex": 3,
+        "data": {
+          "algorithm": "BFS",
+          "maze_density": 0.3,
+          "nodes_explored": 120,
+          "path_cost": 28.5,
+          "execution_time_ms": 9.4,
+          "optimal": true
+        },
+        "createdAt": "2026-10-13T06:19:45.033Z"
+      },
+      {
+        "id": "rec-5",
+        "datasetId": "ds-1",
+        "rowIndex": 4,
+        "data": {
+          "algorithm": "DFS",
+          "maze_density": 0.3,
+          "nodes_explored": 184,
+          "path_cost": 72,
+          "execution_time_ms": 11.2,
+          "optimal": false
+        },
+        "createdAt": "2026-10-13T06:19:45.033Z"
+      }
+    ],
+    "ds-2": [
+      {
+        "id": "rec-6",
+        "datasetId": "ds-2",
+        "rowIndex": 0,
+        "data": {
+          "student_id": "ST-101",
+          "study_hours": 14.5,
+          "simulations_run": 38,
+          "exam_score": 94,
+          "grade": "A+"
+        },
+        "createdAt": "2026-10-14T06:19:45.033Z"
+      },
+      {
+        "id": "rec-7",
+        "datasetId": "ds-2",
+        "rowIndex": 1,
+        "data": {
+          "student_id": "ST-102",
+          "study_hours": 11,
+          "simulations_run": 25,
+          "exam_score": 86,
+          "grade": "A"
+        },
+        "createdAt": "2026-10-14T06:19:45.033Z"
+      },
+      {
+        "id": "rec-8",
+        "datasetId": "ds-2",
+        "rowIndex": 2,
+        "data": {
+          "student_id": "ST-103",
+          "study_hours": 6.5,
+          "simulations_run": 12,
+          "exam_score": 72,
+          "grade": "B"
+        },
+        "createdAt": "2026-10-14T06:19:45.033Z"
+      },
+      {
+        "id": "rec-9",
+        "datasetId": "ds-2",
+        "rowIndex": 3,
+        "data": {
+          "student_id": "ST-104",
+          "study_hours": 3,
+          "simulations_run": 4,
+          "exam_score": 58,
+          "grade": "C"
+        },
+        "createdAt": "2026-10-14T06:19:45.033Z"
+      }
+    ],
+    "ds-1792048959582": [
+      {
+        "id": "rec-ds-1792048959582-0",
+        "datasetId": "ds-1792048959582",
+        "rowIndex": 0,
+        "data": {
+          "iteration": 1,
+          "heuristic_cost": 14.5,
+          "explored_nodes": 12,
+          "branching_factor": 2.4
+        },
+        "createdAt": "2026-10-15T07:22:39.582Z"
+      },
+      {
+        "id": "rec-ds-1792048959582-1",
+        "datasetId": "ds-1792048959582",
+        "rowIndex": 1,
+        "data": {
+          "iteration": 2,
+          "heuristic_cost": 11.2,
+          "explored_nodes": 28,
+          "branching_factor": 2.6
+        },
+        "createdAt": "2026-10-15T07:22:39.582Z"
+      },
+      {
+        "id": "rec-ds-1792048959582-2",
+        "datasetId": "ds-1792048959582",
+        "rowIndex": 2,
+        "data": {
+          "iteration": 3,
+          "heuristic_cost": 8,
+          "explored_nodes": 45,
+          "branching_factor": 2.7
+        },
+        "createdAt": "2026-10-15T07:22:39.582Z"
+      }
+    ],
+    "ds-1792048999361": [
+      {
+        "id": "rec-ds-1792048999361-0",
+        "datasetId": "ds-1792048999361",
+        "rowIndex": 0,
+        "data": {
+          "iteration": 1,
+          "heuristic_cost": 14.5,
+          "explored_nodes": 12,
+          "branching_factor": 2.4
+        },
+        "createdAt": "2026-10-15T07:23:19.361Z"
+      },
+      {
+        "id": "rec-ds-1792048999361-1",
+        "datasetId": "ds-1792048999361",
+        "rowIndex": 1,
+        "data": {
+          "iteration": 2,
+          "heuristic_cost": 11.2,
+          "explored_nodes": 28,
+          "branching_factor": 2.6
+        },
+        "createdAt": "2026-10-15T07:23:19.361Z"
+      },
+      {
+        "id": "rec-ds-1792048999361-2",
+        "datasetId": "ds-1792048999361",
+        "rowIndex": 2,
+        "data": {
+          "iteration": 3,
+          "heuristic_cost": 8,
+          "explored_nodes": 45,
+          "branching_factor": 2.7
+        },
+        "createdAt": "2026-10-15T07:23:19.361Z"
+      }
+    ],
+    "ds-1792053042797": [
+      {
+        "id": "rec-ds-1792053042797-0",
+        "datasetId": "ds-1792053042797",
+        "rowIndex": 0,
+        "data": {
+          "iteration": 1,
+          "heuristic_cost": 14.5,
+          "explored_nodes": 12,
+          "branching_factor": 2.4
+        },
+        "createdAt": "2026-10-15T08:30:42.797Z"
+      },
+      {
+        "id": "rec-ds-1792053042797-1",
+        "datasetId": "ds-1792053042797",
+        "rowIndex": 1,
+        "data": {
+          "iteration": 2,
+          "heuristic_cost": 11.2,
+          "explored_nodes": 28,
+          "branching_factor": 2.6
+        },
+        "createdAt": "2026-10-15T08:30:42.797Z"
+      },
+      {
+        "id": "rec-ds-1792053042797-2",
+        "datasetId": "ds-1792053042797",
+        "rowIndex": 2,
+        "data": {
+          "iteration": 3,
+          "heuristic_cost": 8,
+          "explored_nodes": 45,
+          "branching_factor": 2.7
+        },
+        "createdAt": "2026-10-15T08:30:42.797Z"
+      }
+    ],
+    "ds-1792053123368": [
+      {
+        "id": "rec-ds-1792053123368-0",
+        "datasetId": "ds-1792053123368",
+        "rowIndex": 0,
+        "data": {
+          "iteration": 1,
+          "heuristic_cost": 14.5,
+          "explored_nodes": 12,
+          "branching_factor": 2.4
+        },
+        "createdAt": "2026-10-15T08:32:03.368Z"
+      },
+      {
+        "id": "rec-ds-1792053123368-1",
+        "datasetId": "ds-1792053123368",
+        "rowIndex": 1,
+        "data": {
+          "iteration": 2,
+          "heuristic_cost": 11.2,
+          "explored_nodes": 28,
+          "branching_factor": 2.6
+        },
+        "createdAt": "2026-10-15T08:32:03.368Z"
+      },
+      {
+        "id": "rec-ds-1792053123368-2",
+        "datasetId": "ds-1792053123368",
+        "rowIndex": 2,
+        "data": {
+          "iteration": 3,
+          "heuristic_cost": 8,
+          "explored_nodes": 45,
+          "branching_factor": 2.7
+        },
+        "createdAt": "2026-10-15T08:32:03.368Z"
+      }
+    ],
+    "ds-1792056855147": [
+      {
+        "id": "rec-ds-1792056855147-0",
+        "datasetId": "ds-1792056855147",
+        "rowIndex": 0,
+        "data": {
+          "iteration": 1,
+          "heuristic_cost": 14.5,
+          "explored_nodes": 12,
+          "branching_factor": 2.4
+        },
+        "createdAt": "2026-10-15T09:34:15.147Z"
+      },
+      {
+        "id": "rec-ds-1792056855147-1",
+        "datasetId": "ds-1792056855147",
+        "rowIndex": 1,
+        "data": {
+          "iteration": 2,
+          "heuristic_cost": 11.2,
+          "explored_nodes": 28,
+          "branching_factor": 2.6
+        },
+        "createdAt": "2026-10-15T09:34:15.147Z"
+      },
+      {
+        "id": "rec-ds-1792056855147-2",
+        "datasetId": "ds-1792056855147",
+        "rowIndex": 2,
+        "data": {
+          "iteration": 3,
+          "heuristic_cost": 8,
+          "explored_nodes": 45,
+          "branching_factor": 2.7
+        },
+        "createdAt": "2026-10-15T09:34:15.147Z"
+      }
+    ],
+    "ds-1792086623724": [
+      {
+        "id": "rec-ds-1792086623724-0",
+        "datasetId": "ds-1792086623724",
+        "rowIndex": 0,
+        "data": {
+          "iteration": 1,
+          "heuristic_cost": 14.5,
+          "explored_nodes": 12,
+          "branching_factor": 2.4
+        },
+        "createdAt": "2026-10-15T17:50:23.724Z"
+      },
+      {
+        "id": "rec-ds-1792086623724-1",
+        "datasetId": "ds-1792086623724",
+        "rowIndex": 1,
+        "data": {
+          "iteration": 2,
+          "heuristic_cost": 11.2,
+          "explored_nodes": 28,
+          "branching_factor": 2.6
+        },
+        "createdAt": "2026-10-15T17:50:23.724Z"
+      },
+      {
+        "id": "rec-ds-1792086623724-2",
+        "datasetId": "ds-1792086623724",
+        "rowIndex": 2,
+        "data": {
+          "iteration": 3,
+          "heuristic_cost": 8,
+          "explored_nodes": 45,
+          "branching_factor": 2.7
+        },
+        "createdAt": "2026-10-15T17:50:23.724Z"
+      }
+    ],
+    "ds-1792089363275": [
+      {
+        "id": "rec-ds-1792089363275-0",
+        "datasetId": "ds-1792089363275",
+        "rowIndex": 0,
+        "data": {
+          "iteration": 1,
+          "heuristic_cost": 14.5,
+          "explored_nodes": 12,
+          "branching_factor": 2.4
+        },
+        "createdAt": "2026-10-15T18:36:03.275Z"
+      },
+      {
+        "id": "rec-ds-1792089363275-1",
+        "datasetId": "ds-1792089363275",
+        "rowIndex": 1,
+        "data": {
+          "iteration": 2,
+          "heuristic_cost": 11.2,
+          "explored_nodes": 28,
+          "branching_factor": 2.6
+        },
+        "createdAt": "2026-10-15T18:36:03.275Z"
+      },
+      {
+        "id": "rec-ds-1792089363275-2",
+        "datasetId": "ds-1792089363275",
+        "rowIndex": 2,
+        "data": {
+          "iteration": 3,
+          "heuristic_cost": 8,
+          "explored_nodes": 45,
+          "branching_factor": 2.7
+        },
+        "createdAt": "2026-10-15T18:36:03.275Z"
+      }
+    ],
+    "ds-1792130724371": [
+      {
+        "id": "rec-ds-1792130724371-0",
+        "datasetId": "ds-1792130724371",
+        "rowIndex": 0,
+        "data": {
+          "iteration": 1,
+          "heuristic_cost": 14.5,
+          "explored_nodes": 12,
+          "branching_factor": 2.4
+        },
+        "createdAt": "2026-10-16T06:05:24.371Z"
+      },
+      {
+        "id": "rec-ds-1792130724371-1",
+        "datasetId": "ds-1792130724371",
+        "rowIndex": 1,
+        "data": {
+          "iteration": 2,
+          "heuristic_cost": 11.2,
+          "explored_nodes": 28,
+          "branching_factor": 2.6
+        },
+        "createdAt": "2026-10-16T06:05:24.371Z"
+      },
+      {
+        "id": "rec-ds-1792130724371-2",
+        "datasetId": "ds-1792130724371",
+        "rowIndex": 2,
+        "data": {
+          "iteration": 3,
+          "heuristic_cost": 8,
+          "explored_nodes": 45,
+          "branching_factor": 2.7
+        },
+        "createdAt": "2026-10-16T06:05:24.371Z"
+      }
+    ],
+    "ds-1792131838194": [
+      {
+        "id": "rec-ds-1792131838194-0",
+        "datasetId": "ds-1792131838194",
+        "rowIndex": 0,
+        "data": {
+          "iteration": 1,
+          "heuristic_cost": 14.5,
+          "explored_nodes": 12,
+          "branching_factor": 2.4
+        },
+        "createdAt": "2026-10-16T06:23:58.194Z"
+      },
+      {
+        "id": "rec-ds-1792131838194-1",
+        "datasetId": "ds-1792131838194",
+        "rowIndex": 1,
+        "data": {
+          "iteration": 2,
+          "heuristic_cost": 11.2,
+          "explored_nodes": 28,
+          "branching_factor": 2.6
+        },
+        "createdAt": "2026-10-16T06:23:58.194Z"
+      },
+      {
+        "id": "rec-ds-1792131838194-2",
+        "datasetId": "ds-1792131838194",
+        "rowIndex": 2,
+        "data": {
+          "iteration": 3,
+          "heuristic_cost": 8,
+          "explored_nodes": 45,
+          "branching_factor": 2.7
+        },
+        "createdAt": "2026-10-16T06:23:58.194Z"
+      }
+    ],
+    "ds-1792131863895": [
+      {
+        "id": "rec-ds-1792131863895-0",
+        "datasetId": "ds-1792131863895",
+        "rowIndex": 0,
+        "data": {
+          "iteration": 1,
+          "heuristic_cost": 14.5,
+          "explored_nodes": 12,
+          "branching_factor": 2.4
+        },
+        "createdAt": "2026-10-16T06:24:23.895Z"
+      },
+      {
+        "id": "rec-ds-1792131863895-1",
+        "datasetId": "ds-1792131863895",
+        "rowIndex": 1,
+        "data": {
+          "iteration": 2,
+          "heuristic_cost": 11.2,
+          "explored_nodes": 28,
+          "branching_factor": 2.6
+        },
+        "createdAt": "2026-10-16T06:24:23.895Z"
+      },
+      {
+        "id": "rec-ds-1792131863895-2",
+        "datasetId": "ds-1792131863895",
+        "rowIndex": 2,
+        "data": {
+          "iteration": 3,
+          "heuristic_cost": 8,
+          "explored_nodes": 45,
+          "branching_factor": 2.7
+        },
+        "createdAt": "2026-10-16T06:24:23.895Z"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "name": "Automated Research Sprint",
+      "description": "Benchmarking new heuristic algorithms",
+      "color": "#6C8CFF",
+      "status": "ACTIVE",
+      "deadline": null,
+      "ownerId": "user-admin-1",
+      "ownerName": "Platform Administrator",
+      "id": "proj-1792131864145",
+      "memberCount": 1,
+      "taskCount": 1,
+      "completedTaskCount": 0,
+      "createdAt": "2026-10-16T06:24:24.145Z",
+      "updatedAt": "2026-10-16T06:24:24.145Z"
+    },
+    {
+      "name": "Automated Research Sprint",
+      "description": "Benchmarking new heuristic algorithms",
+      "color": "#6C8CFF",
+      "status": "ACTIVE",
+      "deadline": null,
+      "ownerId": "user-admin-1",
+      "ownerName": "Platform Administrator",
+      "id": "proj-1792131838542",
+      "memberCount": 1,
+      "taskCount": 1,
+      "completedTaskCount": 0,
+      "createdAt": "2026-10-16T06:23:58.542Z",
+      "updatedAt": "2026-10-16T06:23:58.542Z"
+    },
+    {
+      "name": "Automated Research Sprint",
+      "description": "Benchmarking new heuristic algorithms",
+      "color": "#6C8CFF",
+      "status": "ACTIVE",
+      "deadline": null,
+      "ownerId": "user-admin-1",
+      "ownerName": "Platform Administrator",
+      "id": "proj-1792130727649",
+      "memberCount": 1,
+      "taskCount": 1,
+      "completedTaskCount": 0,
+      "createdAt": "2026-10-16T06:05:27.649Z",
+      "updatedAt": "2026-10-16T06:05:27.649Z"
+    },
+    {
+      "name": "Automated Research Sprint",
+      "description": "Benchmarking new heuristic algorithms",
+      "color": "#6C8CFF",
+      "status": "ACTIVE",
+      "deadline": null,
+      "ownerId": "user-admin-1",
+      "ownerName": "Platform Administrator",
+      "id": "proj-1792089363801",
+      "memberCount": 1,
+      "taskCount": 1,
+      "completedTaskCount": 0,
+      "createdAt": "2026-10-15T18:36:03.801Z",
+      "updatedAt": "2026-10-15T18:36:03.801Z"
+    },
+    {
+      "name": "Automated Research Sprint",
+      "description": "Benchmarking new heuristic algorithms",
+      "color": "#6C8CFF",
+      "status": "ACTIVE",
+      "deadline": null,
+      "ownerId": "user-admin-1",
+      "ownerName": "Parth Doshi",
+      "id": "proj-1792086624195",
+      "memberCount": 1,
+      "taskCount": 1,
+      "completedTaskCount": 0,
+      "createdAt": "2026-10-15T17:50:24.195Z",
+      "updatedAt": "2026-10-15T17:50:24.195Z"
+    },
+    {
+      "name": "Automated Research Sprint",
+      "description": "Benchmarking new heuristic algorithms",
+      "color": "#6C8CFF",
+      "status": "ACTIVE",
+      "deadline": null,
+      "ownerId": "user-admin-1",
+      "ownerName": "Parth Doshi",
+      "id": "proj-1792056856391",
+      "memberCount": 1,
+      "taskCount": 1,
+      "completedTaskCount": 0,
+      "createdAt": "2026-10-15T09:34:16.391Z",
+      "updatedAt": "2026-10-15T09:34:16.391Z"
+    },
+    {
+      "name": "Automated Research Sprint",
+      "description": "Benchmarking new heuristic algorithms",
+      "color": "#6C8CFF",
+      "status": "ACTIVE",
+      "deadline": null,
+      "ownerId": "user-admin-1",
+      "ownerName": "Parth Doshi",
+      "id": "proj-1792053127912",
+      "memberCount": 1,
+      "taskCount": 1,
+      "completedTaskCount": 0,
+      "createdAt": "2026-10-15T08:32:07.912Z",
+      "updatedAt": "2026-10-15T08:32:07.912Z"
+    },
+    {
+      "name": "Automated Research Sprint",
+      "description": "Benchmarking new heuristic algorithms",
+      "color": "#6C8CFF",
+      "status": "ACTIVE",
+      "deadline": null,
+      "ownerId": "user-admin-1",
+      "ownerName": "Parth Doshi",
+      "id": "proj-1792053043225",
+      "memberCount": 1,
+      "taskCount": 1,
+      "completedTaskCount": 0,
+      "createdAt": "2026-10-15T08:30:43.225Z",
+      "updatedAt": "2026-10-15T08:30:43.225Z"
+    },
+    {
+      "name": "Automated Research Sprint",
+      "description": "Benchmarking new heuristic algorithms",
+      "color": "#6C8CFF",
+      "status": "ACTIVE",
+      "deadline": null,
+      "ownerId": "user-admin-1",
+      "ownerName": "Parth Doshi",
+      "id": "proj-1792048999713",
+      "memberCount": 1,
+      "taskCount": 1,
+      "completedTaskCount": 0,
+      "createdAt": "2026-10-15T07:23:19.713Z",
+      "updatedAt": "2026-10-15T07:23:19.713Z"
+    },
+    {
+      "name": "Automated Research Sprint",
+      "description": "Benchmarking new heuristic algorithms",
+      "color": "#6C8CFF",
+      "status": "ACTIVE",
+      "deadline": null,
+      "ownerId": "user-admin-1",
+      "ownerName": "Parth Doshi",
+      "id": "proj-1792048965277",
+      "memberCount": 1,
+      "taskCount": 1,
+      "completedTaskCount": 0,
+      "createdAt": "2026-10-15T07:22:45.277Z",
+      "updatedAt": "2026-10-15T07:22:45.277Z"
+    },
+    {
+      "id": "proj-1",
+      "name": "Semester 5 AI Research & Course Project",
+      "description": "Interactive visualizer design and benchmarking of classical search, local search, and knowledge representation algorithms",
+      "status": "ACTIVE",
+      "color": "#6C8CFF",
+      "deadline": "2026-10-29T06:19:45.033Z",
+      "ownerId": "user-admin-1",
+      "ownerName": "Parth Doshi",
+      "memberCount": 3,
+      "taskCount": 6,
+      "completedTaskCount": 4,
+      "createdAt": "2026-10-13T06:19:45.033Z",
+      "updatedAt": "2026-10-15T06:19:45.031Z"
+    },
+    {
+      "id": "proj-2",
+      "name": "Genetic Algorithm Routing & TSP Visualizer",
+      "description": "Development of Order Crossover (OX1) and 2-Opt Inversion mutation solvers for 2D closed-loop city routes",
+      "status": "ACTIVE",
+      "color": "#10B981",
+      "deadline": "2026-10-22T06:19:45.033Z",
+      "ownerId": "user-admin-1",
+      "ownerName": "Parth Doshi",
+      "memberCount": 2,
+      "taskCount": 4,
+      "completedTaskCount": 4,
+      "createdAt": "2026-10-14T06:19:45.033Z",
+      "updatedAt": "2026-10-15T06:19:45.031Z"
+    }
+  ],
+  "tasks": [
+    {
+      "title": "Verify Manhattan Distance Admissibility",
+      "description": "",
+      "status": "IN_PROGRESS",
+      "priority": "HIGH",
+      "projectId": "proj-1792131864145",
+      "projectName": "Automated Research Sprint",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": null,
+      "id": "task-1792131864192",
+      "createdAt": "2026-10-16T06:24:24.192Z",
+      "updatedAt": "2026-10-16T06:24:24.253Z"
+    },
+    {
+      "title": "Verify Manhattan Distance Admissibility",
+      "description": "",
+      "status": "IN_PROGRESS",
+      "priority": "HIGH",
+      "projectId": "proj-1792131838542",
+      "projectName": "Automated Research Sprint",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": null,
+      "id": "task-1792131838611",
+      "createdAt": "2026-10-16T06:23:58.611Z",
+      "updatedAt": "2026-10-16T06:23:58.676Z"
+    },
+    {
+      "title": "Verify Manhattan Distance Admissibility",
+      "description": "",
+      "status": "IN_PROGRESS",
+      "priority": "HIGH",
+      "projectId": "proj-1792130727649",
+      "projectName": "Automated Research Sprint",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": null,
+      "id": "task-1792130727742",
+      "createdAt": "2026-10-16T06:05:27.742Z",
+      "updatedAt": "2026-10-16T06:05:28.739Z"
+    },
+    {
+      "title": "Verify Manhattan Distance Admissibility",
+      "description": "",
+      "status": "IN_PROGRESS",
+      "priority": "HIGH",
+      "projectId": "proj-1792089363801",
+      "projectName": "Automated Research Sprint",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": null,
+      "id": "task-1792089363886",
+      "createdAt": "2026-10-15T18:36:03.886Z",
+      "updatedAt": "2026-10-15T18:36:03.991Z"
+    },
+    {
+      "title": "Verify Manhattan Distance Admissibility",
+      "description": "",
+      "status": "IN_PROGRESS",
+      "priority": "HIGH",
+      "projectId": "proj-1792086624195",
+      "projectName": "Automated Research Sprint",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": null,
+      "id": "task-1792086624309",
+      "createdAt": "2026-10-15T17:50:24.309Z",
+      "updatedAt": "2026-10-15T17:50:24.427Z"
+    },
+    {
+      "title": "Verify Manhattan Distance Admissibility",
+      "description": "",
+      "status": "IN_PROGRESS",
+      "priority": "HIGH",
+      "projectId": "proj-1792056856391",
+      "projectName": "Automated Research Sprint",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": null,
+      "id": "task-1792056856514",
+      "createdAt": "2026-10-15T09:34:16.514Z",
+      "updatedAt": "2026-10-15T09:34:16.653Z"
+    },
+    {
+      "title": "Verify Manhattan Distance Admissibility",
+      "description": "",
+      "status": "IN_PROGRESS",
+      "priority": "HIGH",
+      "projectId": "proj-1792053127912",
+      "projectName": "Automated Research Sprint",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": null,
+      "id": "task-1792053127958",
+      "createdAt": "2026-10-15T08:32:07.958Z",
+      "updatedAt": "2026-10-15T08:32:08.005Z"
+    },
+    {
+      "title": "Verify Manhattan Distance Admissibility",
+      "description": "",
+      "status": "IN_PROGRESS",
+      "priority": "HIGH",
+      "projectId": "proj-1792053043225",
+      "projectName": "Automated Research Sprint",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": null,
+      "id": "task-1792053043335",
+      "createdAt": "2026-10-15T08:30:43.335Z",
+      "updatedAt": "2026-10-15T08:30:43.421Z"
+    },
+    {
+      "title": "Verify Manhattan Distance Admissibility",
+      "description": "",
+      "status": "IN_PROGRESS",
+      "priority": "HIGH",
+      "projectId": "proj-1792048999713",
+      "projectName": "Automated Research Sprint",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": null,
+      "id": "task-1792048999826",
+      "createdAt": "2026-10-15T07:23:19.826Z",
+      "updatedAt": "2026-10-15T07:23:19.876Z"
+    },
+    {
+      "title": "Verify Manhattan Distance Admissibility",
+      "description": "",
+      "status": "IN_PROGRESS",
+      "priority": "HIGH",
+      "projectId": "proj-1792048965277",
+      "projectName": "Automated Research Sprint",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": null,
+      "id": "task-1792048966132",
+      "createdAt": "2026-10-15T07:22:46.132Z",
+      "updatedAt": "2026-10-15T07:22:47.706Z"
+    },
+    {
+      "id": "task-4",
+      "projectId": "proj-1",
+      "projectName": "Semester 5 AI Research & Course Project",
+      "title": "Build Centralized Thinkwis Data Management System (DMS)",
+      "description": "Unified overview, file storage, dataset imports, projects & tasks, AI workspace, and admin console",
+      "status": "IN_PROGRESS",
+      "priority": "URGENT",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": "2026-10-17T06:19:45.033Z",
+      "createdAt": "2026-10-14T06:19:45.033Z",
+      "updatedAt": "2026-10-15T06:19:45.031Z"
+    },
+    {
+      "id": "task-5",
+      "projectId": "proj-1",
+      "projectName": "Semester 5 AI Research & Course Project",
+      "title": "Write university-grade academic documentation and logbook",
+      "description": "Document mathematical equations, theoretical lifecycle, and fully worked numerical traces",
+      "status": "TODO",
+      "priority": "MEDIUM",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": "2026-10-19T06:19:45.033Z",
+      "createdAt": "2026-10-14T06:19:45.033Z",
+      "updatedAt": "2026-10-15T06:19:45.031Z"
+    },
+    {
+      "id": "task-1",
+      "projectId": "proj-1",
+      "projectName": "Semester 5 AI Research & Course Project",
+      "title": "Implement Genetic Algorithm 16-bit binary continuous optimization",
+      "description": "Encode continuous x values into 16-bit binary strings and compute multi-modal deceptive landscapes",
+      "status": "DONE",
+      "priority": "HIGH",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": "2026-10-14T06:19:45.033Z",
+      "createdAt": "2026-10-13T06:19:45.033Z",
+      "updatedAt": "2026-10-14T06:19:45.033Z"
+    },
+    {
+      "id": "task-2",
+      "projectId": "proj-1",
+      "projectName": "Semester 5 AI Research & Course Project",
+      "title": "Design TSP City Map with Order Crossover and 2-Opt Inversion",
+      "description": "Interactive 2D Euclidean circuit visualizer with route untangling animation",
+      "status": "DONE",
+      "priority": "URGENT",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": "2026-10-14T06:19:45.033Z",
+      "createdAt": "2026-10-13T06:19:45.033Z",
+      "updatedAt": "2026-10-14T06:19:45.033Z"
+    },
+    {
+      "id": "task-3",
+      "projectId": "proj-1",
+      "projectName": "Semester 5 AI Research & Course Project",
+      "title": "Implement Rule-Based Forward and Backward Chaining engines",
+      "description": "Support Conflict Resolution policies (Rule Order & Specificity) and goal-directed proof trees",
+      "status": "DONE",
+      "priority": "HIGH",
+      "assigneeId": "user-admin-1",
+      "assigneeName": "Parth Doshi",
+      "dueDate": "2026-10-14T06:19:45.033Z",
+      "createdAt": "2026-10-13T06:19:45.033Z",
+      "updatedAt": "2026-10-14T06:19:45.033Z"
+    }
+  ],
+  "aiArtifacts": [
+    {
+      "id": "art-1",
+      "runId": "run-101",
+      "userId": "user-admin-1",
+      "title": "Executive Summary: A* Admissibility and Monotonicity Proof",
+      "artifactType": "SUMMARY",
+      "content": "The A* algorithm guarantees optimal pathfinding on graphs under the condition that heuristic function h(n) is admissible (never overestimates the true cost to goal) and consistent (monotonic triangle inequality: h(n) <= c(n, a, n') + h(n')). When consistency holds, the f-values along any path are monotonically non-decreasing, guaranteeing that the first time a goal node is expanded, the path is globally optimal.",
+      "confidenceScore": 0.98,
+      "model": "gemini-1.5-flash",
+      "operation": "SUMMARIZATION",
+      "tokensUsed": 420,
+      "latencyMs": 840,
+      "sourceRefs": [
+        {
+          "fileId": "file-1",
+          "fileName": "Lecture_04_AStar_Optimality_Proof.pdf",
+          "citationText": "Section 3.2: Consistency and Optimality Guarantees of A* Heuristics",
+          "pageNumber": 4,
+          "similarityScore": 0.95
+        }
+      ],
+      "createdAt": "2026-10-14T06:19:45.033Z"
+    },
+    {
+      "id": "art-2",
+      "runId": "run-102",
+      "userId": "user-admin-1",
+      "title": "Statistical Report: Heuristic vs Uninformed Search Efficiency",
+      "artifactType": "REPORT",
+      "content": "Empirical analysis across 100 benchmark grid topologies demonstrates that A* Search reduces node expansions by 64.8% relative to Breadth-First Search (BFS) while preserving path optimality. Greedy Best-First Search achieves a 78.2% reduction in explored states but incurs an average path sub-optimality overhead of 19.3%.",
+      "confidenceScore": 0.96,
+      "model": "gemini-1.5-flash",
+      "operation": "ANALYSIS",
+      "tokensUsed": 650,
+      "latencyMs": 1120,
+      "sourceRefs": [
+        {
+          "fileId": "file-2",
+          "fileName": "Genetic_Algorithm_TSP_Benchmark.csv",
+          "citationText": "Dataset table: Search Algorithm Execution Benchmarks",
+          "pageNumber": 1,
+          "similarityScore": 0.92
+        }
+      ],
+      "createdAt": "2026-10-15T06:19:45.031Z"
+    }
+  ],
+  "activities": [
+    {
+      "action": "ROLE_CHANGE",
+      "resourceType": "USER",
+      "resourceId": "user-student-1",
+      "resourceName": "user-student-1",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Admin changed role of user user-student-1 to RESEARCHER",
+      "isSecurityAudit": true,
+      "id": "act-1792131864458-dy5r",
+      "timestamp": "2026-10-16T06:24:24.458Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792131864302",
+      "resourceName": "art-1792131864302",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Deleted AI artifact via API",
+      "isSecurityAudit": false,
+      "id": "act-1792131864347-tdgv",
+      "timestamp": "2026-10-16T06:24:24.347Z"
+    },
+    {
+      "action": "AI_RUN",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792131864302",
+      "resourceName": "AI Analysis: Genetic_Algorithm_TSP_Benchmark.csv",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Executed AI run with Gemini 2.5 Pro on Genetic_Algorithm_TSP_Benchmark.csv",
+      "isSecurityAudit": false,
+      "id": "act-1792131864303-4k6k",
+      "timestamp": "2026-10-16T06:24:24.303Z"
+    },
+    {
+      "action": "TASK_UPDATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792131864192",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Updated status to IN_PROGRESS",
+      "isSecurityAudit": false,
+      "id": "act-1792131864254-0h86",
+      "timestamp": "2026-10-16T06:24:24.254Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792131864192",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Created task \"Verify Manhattan Distance Admissibility\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792131864193-y8pf",
+      "timestamp": "2026-10-16T06:24:24.193Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "PROJECT",
+      "resourceId": "proj-1792131864145",
+      "resourceName": "Automated Research Sprint",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Created project \"Automated Research Sprint\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792131864146-leot",
+      "timestamp": "2026-10-16T06:24:24.146Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "DATASET_RECORD",
+      "resourceId": "rec-ds-1792131863895-1792131864032",
+      "resourceName": "rec-ds-1792131863895-1792131864032",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Deleted dataset record via API",
+      "isSecurityAudit": false,
+      "id": "act-1792131864098-hqp7",
+      "timestamp": "2026-10-16T06:24:24.098Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET_RECORD",
+      "resourceId": "rec-ds-1792131863895-1792131864032",
+      "resourceName": "Record #4",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Added new row to dataset via API",
+      "isSecurityAudit": false,
+      "id": "act-1792131864033-e5ze",
+      "timestamp": "2026-10-16T06:24:24.034Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET",
+      "resourceId": "ds-1792131863895",
+      "resourceName": "A* Heuristic Exploration Benchmark",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Imported 3 records via API. Quality score: 100%",
+      "isSecurityAudit": false,
+      "id": "act-1792131863896-5f8f",
+      "timestamp": "2026-10-16T06:24:23.896Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792131863771",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Deleted collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792131863864-55yu",
+      "timestamp": "2026-10-16T06:24:23.864Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792131863771",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Created collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792131863773-7fl8",
+      "timestamp": "2026-10-16T06:24:23.773Z"
+    },
+    {
+      "action": "ROLE_CHANGE",
+      "resourceType": "USER",
+      "resourceId": "user-student-1",
+      "resourceName": "user-student-1",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Admin changed role of user user-student-1 to RESEARCHER",
+      "isSecurityAudit": true,
+      "id": "act-1792131839036-kmkt",
+      "timestamp": "2026-10-16T06:23:59.036Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792131838740",
+      "resourceName": "art-1792131838740",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Deleted AI artifact via API",
+      "isSecurityAudit": false,
+      "id": "act-1792131838845-xl1t",
+      "timestamp": "2026-10-16T06:23:58.845Z"
+    },
+    {
+      "action": "AI_RUN",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792131838740",
+      "resourceName": "AI Analysis: Genetic_Algorithm_TSP_Benchmark.csv",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Executed AI run with Gemini 2.5 Pro on Genetic_Algorithm_TSP_Benchmark.csv",
+      "isSecurityAudit": false,
+      "id": "act-1792131838741-eamn",
+      "timestamp": "2026-10-16T06:23:58.741Z"
+    },
+    {
+      "action": "TASK_UPDATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792131838611",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Updated status to IN_PROGRESS",
+      "isSecurityAudit": false,
+      "id": "act-1792131838677-rpat",
+      "timestamp": "2026-10-16T06:23:58.677Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792131838611",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Created task \"Verify Manhattan Distance Admissibility\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792131838612-o0ra",
+      "timestamp": "2026-10-16T06:23:58.612Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "PROJECT",
+      "resourceId": "proj-1792131838542",
+      "resourceName": "Automated Research Sprint",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Created project \"Automated Research Sprint\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792131838543-sepq",
+      "timestamp": "2026-10-16T06:23:58.543Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "DATASET_RECORD",
+      "resourceId": "rec-ds-1792131838194-1792131838401",
+      "resourceName": "rec-ds-1792131838194-1792131838401",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Deleted dataset record via API",
+      "isSecurityAudit": false,
+      "id": "act-1792131838484-rt8c",
+      "timestamp": "2026-10-16T06:23:58.484Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET_RECORD",
+      "resourceId": "rec-ds-1792131838194-1792131838401",
+      "resourceName": "Record #4",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Added new row to dataset via API",
+      "isSecurityAudit": false,
+      "id": "act-1792131838402-2hpv",
+      "timestamp": "2026-10-16T06:23:58.402Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET",
+      "resourceId": "ds-1792131838194",
+      "resourceName": "A* Heuristic Exploration Benchmark",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Imported 3 records via API. Quality score: 100%",
+      "isSecurityAudit": false,
+      "id": "act-1792131838195-3qoi",
+      "timestamp": "2026-10-16T06:23:58.195Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792131838021",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Deleted collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792131838137-qhrb",
+      "timestamp": "2026-10-16T06:23:58.137Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792131838021",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Created collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792131838022-7r9q",
+      "timestamp": "2026-10-16T06:23:58.022Z"
+    },
+    {
+      "action": "ROLE_CHANGE",
+      "resourceType": "USER",
+      "resourceId": "user-student-1",
+      "resourceName": "user-student-1",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Admin changed role of user user-student-1 to RESEARCHER",
+      "isSecurityAudit": true,
+      "id": "act-1792130730476-0bmw",
+      "timestamp": "2026-10-16T06:05:30.476Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792130728809",
+      "resourceName": "art-1792130728809",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Deleted AI artifact via API",
+      "isSecurityAudit": false,
+      "id": "act-1792130729597-bei5",
+      "timestamp": "2026-10-16T06:05:29.598Z"
+    },
+    {
+      "action": "AI_RUN",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792130728809",
+      "resourceName": "AI Analysis: Genetic_Algorithm_TSP_Benchmark.csv",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Executed AI run with Gemini 2.5 Pro on Genetic_Algorithm_TSP_Benchmark.csv",
+      "isSecurityAudit": false,
+      "id": "act-1792130728809-42i2",
+      "timestamp": "2026-10-16T06:05:28.809Z"
+    },
+    {
+      "action": "TASK_UPDATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792130727742",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Updated status to IN_PROGRESS",
+      "isSecurityAudit": false,
+      "id": "act-1792130728739-l54r",
+      "timestamp": "2026-10-16T06:05:28.739Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792130727742",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Created task \"Verify Manhattan Distance Admissibility\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792130727743-3jad",
+      "timestamp": "2026-10-16T06:05:27.743Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "PROJECT",
+      "resourceId": "proj-1792130727649",
+      "resourceName": "Automated Research Sprint",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Created project \"Automated Research Sprint\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792130727649-ccg3",
+      "timestamp": "2026-10-16T06:05:27.649Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "DATASET_RECORD",
+      "resourceId": "rec-ds-1792130724371-1792130726731",
+      "resourceName": "rec-ds-1792130724371-1792130726731",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Deleted dataset record via API",
+      "isSecurityAudit": false,
+      "id": "act-1792130727555-ciy3",
+      "timestamp": "2026-10-16T06:05:27.555Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET_RECORD",
+      "resourceId": "rec-ds-1792130724371-1792130726731",
+      "resourceName": "Record #4",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Added new row to dataset via API",
+      "isSecurityAudit": false,
+      "id": "act-1792130726731-xwge",
+      "timestamp": "2026-10-16T06:05:26.731Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET",
+      "resourceId": "ds-1792130724371",
+      "resourceName": "A* Heuristic Exploration Benchmark",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Imported 3 records via API. Quality score: 100%",
+      "isSecurityAudit": false,
+      "id": "act-1792130724372-3hi6",
+      "timestamp": "2026-10-16T06:05:24.372Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792130723366",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Deleted collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792130724269-pnck",
+      "timestamp": "2026-10-16T06:05:24.269Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792130723366",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Created collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792130723367-n2aq",
+      "timestamp": "2026-10-16T06:05:23.367Z"
+    },
+    {
+      "action": "ROLE_CHANGE",
+      "resourceType": "USER",
+      "resourceId": "user-student-1",
+      "resourceName": "user-student-1",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Admin changed role of user user-student-1 to RESEARCHER",
+      "isSecurityAudit": true,
+      "id": "act-1792089364998-tekk",
+      "timestamp": "2026-10-15T18:36:04.998Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792089364140",
+      "resourceName": "art-1792089364140",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Deleted AI artifact via API",
+      "isSecurityAudit": false,
+      "id": "act-1792089364699-ie8w",
+      "timestamp": "2026-10-15T18:36:04.699Z"
+    },
+    {
+      "action": "AI_RUN",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792089364140",
+      "resourceName": "AI Analysis: Genetic_Algorithm_TSP_Benchmark.csv",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Executed AI run with Gemini 2.5 Pro on Genetic_Algorithm_TSP_Benchmark.csv",
+      "isSecurityAudit": false,
+      "id": "act-1792089364142-6ma7",
+      "timestamp": "2026-10-15T18:36:04.142Z"
+    },
+    {
+      "action": "TASK_UPDATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792089363886",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Updated status to IN_PROGRESS",
+      "isSecurityAudit": false,
+      "id": "act-1792089363993-h0cy",
+      "timestamp": "2026-10-15T18:36:03.993Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792089363886",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Created task \"Verify Manhattan Distance Admissibility\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792089363888-hybe",
+      "timestamp": "2026-10-15T18:36:03.888Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "PROJECT",
+      "resourceId": "proj-1792089363801",
+      "resourceName": "Automated Research Sprint",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Created project \"Automated Research Sprint\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792089363802-9ss7",
+      "timestamp": "2026-10-15T18:36:03.802Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "DATASET_RECORD",
+      "resourceId": "rec-ds-1792089363275-1792089363567",
+      "resourceName": "rec-ds-1792089363275-1792089363567",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Deleted dataset record via API",
+      "isSecurityAudit": false,
+      "id": "act-1792089363667-f1d2",
+      "timestamp": "2026-10-15T18:36:03.667Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET_RECORD",
+      "resourceId": "rec-ds-1792089363275-1792089363567",
+      "resourceName": "Record #4",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Added new row to dataset via API",
+      "isSecurityAudit": false,
+      "id": "act-1792089363568-bate",
+      "timestamp": "2026-10-15T18:36:03.568Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET",
+      "resourceId": "ds-1792089363275",
+      "resourceName": "A* Heuristic Exploration Benchmark",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Imported 3 records via API. Quality score: 100%",
+      "isSecurityAudit": false,
+      "id": "act-1792089363276-46lo",
+      "timestamp": "2026-10-15T18:36:03.276Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792089363029",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Deleted collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792089363182-z8dm",
+      "timestamp": "2026-10-15T18:36:03.182Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792089363029",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Platform Administrator",
+      "details": "Created collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792089363031-m40b",
+      "timestamp": "2026-10-15T18:36:03.031Z"
+    },
+    {
+      "action": "ROLE_CHANGE",
+      "resourceType": "USER",
+      "resourceId": "user-student-1",
+      "resourceName": "user-student-1",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Admin changed role of user user-student-1 to RESEARCHER",
+      "isSecurityAudit": true,
+      "id": "act-1792086624801-vyif",
+      "timestamp": "2026-10-15T17:50:24.801Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792086624535",
+      "resourceName": "art-1792086624535",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted AI artifact via API",
+      "isSecurityAudit": false,
+      "id": "act-1792086624656-zg5t",
+      "timestamp": "2026-10-15T17:50:24.656Z"
+    },
+    {
+      "action": "AI_RUN",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792086624535",
+      "resourceName": "AI Analysis: Genetic_Algorithm_TSP_Benchmark.csv",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Executed AI run with Gemini 2.5 Pro on Genetic_Algorithm_TSP_Benchmark.csv",
+      "isSecurityAudit": false,
+      "id": "act-1792086624536-3kdx",
+      "timestamp": "2026-10-15T17:50:24.536Z"
+    },
+    {
+      "action": "TASK_UPDATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792086624309",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Updated status to IN_PROGRESS",
+      "isSecurityAudit": false,
+      "id": "act-1792086624428-7spa",
+      "timestamp": "2026-10-15T17:50:24.428Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792086624309",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created task \"Verify Manhattan Distance Admissibility\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792086624311-e3ya",
+      "timestamp": "2026-10-15T17:50:24.311Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "PROJECT",
+      "resourceId": "proj-1792086624195",
+      "resourceName": "Automated Research Sprint",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created project \"Automated Research Sprint\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792086624196-oakg",
+      "timestamp": "2026-10-15T17:50:24.196Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "DATASET_RECORD",
+      "resourceId": "rec-ds-1792086623724-1792086623977",
+      "resourceName": "rec-ds-1792086623724-1792086623977",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted dataset record via API",
+      "isSecurityAudit": false,
+      "id": "act-1792086624094-i4t6",
+      "timestamp": "2026-10-15T17:50:24.094Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET_RECORD",
+      "resourceId": "rec-ds-1792086623724-1792086623977",
+      "resourceName": "Record #4",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Added new row to dataset via API",
+      "isSecurityAudit": false,
+      "id": "act-1792086623978-cx84",
+      "timestamp": "2026-10-15T17:50:23.978Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET",
+      "resourceId": "ds-1792086623724",
+      "resourceName": "A* Heuristic Exploration Benchmark",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Imported 3 records via API. Quality score: 100%",
+      "isSecurityAudit": false,
+      "id": "act-1792086623725-16n7",
+      "timestamp": "2026-10-15T17:50:23.725Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792086623495",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792086623624-j174",
+      "timestamp": "2026-10-15T17:50:23.624Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792086623495",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792086623498-3c74",
+      "timestamp": "2026-10-15T17:50:23.498Z"
+    },
+    {
+      "action": "ROLE_CHANGE",
+      "resourceType": "USER",
+      "resourceId": "user-student-1",
+      "resourceName": "user-student-1",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Admin changed role of user user-student-1 to RESEARCHER",
+      "isSecurityAudit": true,
+      "id": "act-1792056857175-gd25",
+      "timestamp": "2026-10-15T09:34:17.175Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792056856764",
+      "resourceName": "art-1792056856764",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted AI artifact via API",
+      "isSecurityAudit": false,
+      "id": "act-1792056856914-izdt",
+      "timestamp": "2026-10-15T09:34:16.914Z"
+    },
+    {
+      "action": "AI_RUN",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792056856764",
+      "resourceName": "AI Analysis: Genetic_Algorithm_TSP_Benchmark.csv",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Executed AI run with Gemini 2.5 Pro on Genetic_Algorithm_TSP_Benchmark.csv",
+      "isSecurityAudit": false,
+      "id": "act-1792056856765-2ovh",
+      "timestamp": "2026-10-15T09:34:16.765Z"
+    },
+    {
+      "action": "TASK_UPDATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792056856514",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Updated status to IN_PROGRESS",
+      "isSecurityAudit": false,
+      "id": "act-1792056856654-q4of",
+      "timestamp": "2026-10-15T09:34:16.654Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792056856514",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created task \"Verify Manhattan Distance Admissibility\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792056856515-xmnw",
+      "timestamp": "2026-10-15T09:34:16.515Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "PROJECT",
+      "resourceId": "proj-1792056856391",
+      "resourceName": "Automated Research Sprint",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created project \"Automated Research Sprint\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792056856392-74st",
+      "timestamp": "2026-10-15T09:34:16.392Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "DATASET_RECORD",
+      "resourceId": "rec-ds-1792056855147-1792056856140",
+      "resourceName": "rec-ds-1792056855147-1792056856140",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted dataset record via API",
+      "isSecurityAudit": false,
+      "id": "act-1792056856272-59if",
+      "timestamp": "2026-10-15T09:34:16.272Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET_RECORD",
+      "resourceId": "rec-ds-1792056855147-1792056856140",
+      "resourceName": "Record #4",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Added new row to dataset via API",
+      "isSecurityAudit": false,
+      "id": "act-1792056856141-g6s5",
+      "timestamp": "2026-10-15T09:34:16.141Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET",
+      "resourceId": "ds-1792056855147",
+      "resourceName": "A* Heuristic Exploration Benchmark",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Imported 3 records via API. Quality score: 100%",
+      "isSecurityAudit": false,
+      "id": "act-1792056855148-cix2",
+      "timestamp": "2026-10-15T09:34:15.148Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792056854859",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792056855035-dyof",
+      "timestamp": "2026-10-15T09:34:15.035Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792056854859",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792056854860-u7mw",
+      "timestamp": "2026-10-15T09:34:14.860Z"
+    },
+    {
+      "action": "ROLE_CHANGE",
+      "resourceType": "USER",
+      "resourceId": "user-student-1",
+      "resourceName": "user-student-1",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Admin changed role of user user-student-1 to RESEARCHER",
+      "isSecurityAudit": true,
+      "id": "act-1792053128180-w4c1",
+      "timestamp": "2026-10-15T08:32:08.180Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792053128053",
+      "resourceName": "art-1792053128053",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted AI artifact via API",
+      "isSecurityAudit": false,
+      "id": "act-1792053128094-sjio",
+      "timestamp": "2026-10-15T08:32:08.094Z"
+    },
+    {
+      "action": "AI_RUN",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792053128053",
+      "resourceName": "AI Analysis: Genetic_Algorithm_TSP_Benchmark.csv",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Executed AI run with Gemini 2.5 Pro on Genetic_Algorithm_TSP_Benchmark.csv",
+      "isSecurityAudit": false,
+      "id": "act-1792053128054-j5no",
+      "timestamp": "2026-10-15T08:32:08.054Z"
+    },
+    {
+      "action": "TASK_UPDATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792053127958",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Updated status to IN_PROGRESS",
+      "isSecurityAudit": false,
+      "id": "act-1792053128006-ffci",
+      "timestamp": "2026-10-15T08:32:08.006Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792053127958",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created task \"Verify Manhattan Distance Admissibility\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792053127958-g3mm",
+      "timestamp": "2026-10-15T08:32:07.958Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "PROJECT",
+      "resourceId": "proj-1792053127912",
+      "resourceName": "Automated Research Sprint",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created project \"Automated Research Sprint\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792053127913-knox",
+      "timestamp": "2026-10-15T08:32:07.913Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "DATASET_RECORD",
+      "resourceId": "rec-ds-1792053123368-1792053126061",
+      "resourceName": "rec-ds-1792053123368-1792053126061",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted dataset record via API",
+      "isSecurityAudit": false,
+      "id": "act-1792053127852-btzu",
+      "timestamp": "2026-10-15T08:32:07.852Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET_RECORD",
+      "resourceId": "rec-ds-1792053123368-1792053126061",
+      "resourceName": "Record #4",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Added new row to dataset via API",
+      "isSecurityAudit": false,
+      "id": "act-1792053126061-tsum",
+      "timestamp": "2026-10-15T08:32:06.061Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET",
+      "resourceId": "ds-1792053123368",
+      "resourceName": "A* Heuristic Exploration Benchmark",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Imported 3 records via API. Quality score: 100%",
+      "isSecurityAudit": false,
+      "id": "act-1792053123369-m6zx",
+      "timestamp": "2026-10-15T08:32:03.369Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792053123260",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792053123336-cx34",
+      "timestamp": "2026-10-15T08:32:03.336Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792053123260",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792053123261-jpdb",
+      "timestamp": "2026-10-15T08:32:03.261Z"
+    },
+    {
+      "action": "ROLE_CHANGE",
+      "resourceType": "USER",
+      "resourceId": "user-student-1",
+      "resourceName": "user-student-1",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Admin changed role of user user-student-1 to RESEARCHER",
+      "isSecurityAudit": true,
+      "id": "act-1792053043750-xd68",
+      "timestamp": "2026-10-15T08:30:43.750Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792053043498",
+      "resourceName": "art-1792053043498",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted AI artifact via API",
+      "isSecurityAudit": false,
+      "id": "act-1792053043588-zs1g",
+      "timestamp": "2026-10-15T08:30:43.588Z"
+    },
+    {
+      "action": "AI_RUN",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792053043498",
+      "resourceName": "AI Analysis: Genetic_Algorithm_TSP_Benchmark.csv",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Executed AI run with Gemini 2.5 Pro on Genetic_Algorithm_TSP_Benchmark.csv",
+      "isSecurityAudit": false,
+      "id": "act-1792053043500-4akz",
+      "timestamp": "2026-10-15T08:30:43.500Z"
+    },
+    {
+      "action": "TASK_UPDATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792053043335",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Updated status to IN_PROGRESS",
+      "isSecurityAudit": false,
+      "id": "act-1792053043422-jwf4",
+      "timestamp": "2026-10-15T08:30:43.422Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792053043335",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created task \"Verify Manhattan Distance Admissibility\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792053043336-1xpb",
+      "timestamp": "2026-10-15T08:30:43.336Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "PROJECT",
+      "resourceId": "proj-1792053043225",
+      "resourceName": "Automated Research Sprint",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created project \"Automated Research Sprint\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792053043226-4zhc",
+      "timestamp": "2026-10-15T08:30:43.226Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET",
+      "resourceId": "ds-1792053042797",
+      "resourceName": "A* Heuristic Exploration Benchmark",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Imported 3 records via API. Quality score: 100%",
+      "isSecurityAudit": false,
+      "id": "act-1792053042798-s1nd",
+      "timestamp": "2026-10-15T08:30:42.798Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792053042604",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792053042735-h47n",
+      "timestamp": "2026-10-15T08:30:42.735Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792053042604",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792053042606-khgk",
+      "timestamp": "2026-10-15T08:30:42.606Z"
+    },
+    {
+      "action": "ROLE_CHANGE",
+      "resourceType": "USER",
+      "resourceId": "user-student-1",
+      "resourceName": "user-student-1",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Admin changed role of user user-student-1 to RESEARCHER",
+      "isSecurityAudit": true,
+      "id": "act-1792049000069-hgxm",
+      "timestamp": "2026-10-15T07:23:20.069Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792048999901",
+      "resourceName": "art-1792048999901",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted AI artifact via API",
+      "isSecurityAudit": false,
+      "id": "act-1792048999965-se0d",
+      "timestamp": "2026-10-15T07:23:19.965Z"
+    },
+    {
+      "action": "AI_RUN",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792048999901",
+      "resourceName": "AI Analysis: Genetic_Algorithm_TSP_Benchmark.csv",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Executed AI run with Gemini 2.5 Pro on Genetic_Algorithm_TSP_Benchmark.csv",
+      "isSecurityAudit": false,
+      "id": "act-1792048999902-wmsl",
+      "timestamp": "2026-10-15T07:23:19.902Z"
+    },
+    {
+      "action": "TASK_UPDATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792048999826",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Updated status to IN_PROGRESS",
+      "isSecurityAudit": false,
+      "id": "act-1792048999876-utrf",
+      "timestamp": "2026-10-15T07:23:19.876Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792048999826",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created task \"Verify Manhattan Distance Admissibility\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792048999827-uu7d",
+      "timestamp": "2026-10-15T07:23:19.827Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "PROJECT",
+      "resourceId": "proj-1792048999713",
+      "resourceName": "Automated Research Sprint",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created project \"Automated Research Sprint\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792048999714-ts98",
+      "timestamp": "2026-10-15T07:23:19.714Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET",
+      "resourceId": "ds-1792048999361",
+      "resourceName": "A* Heuristic Exploration Benchmark",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Imported 3 records via API. Quality score: 100%",
+      "isSecurityAudit": false,
+      "id": "act-1792048999361-kuev",
+      "timestamp": "2026-10-15T07:23:19.361Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792048999223",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792048999328-8p02",
+      "timestamp": "2026-10-15T07:23:19.328Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792048999223",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792048999223-thbp",
+      "timestamp": "2026-10-15T07:23:19.223Z"
+    },
+    {
+      "action": "ROLE_CHANGE",
+      "resourceType": "USER",
+      "resourceId": "user-student-1",
+      "resourceName": "user-student-1",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Admin changed role of user user-student-1 to RESEARCHER",
+      "isSecurityAudit": true,
+      "id": "act-1792048971919-khlv",
+      "timestamp": "2026-10-15T07:22:51.919Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792048968242",
+      "resourceName": "art-1792048968242",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted AI artifact via API",
+      "isSecurityAudit": false,
+      "id": "act-1792048969913-o018",
+      "timestamp": "2026-10-15T07:22:49.913Z"
+    },
+    {
+      "action": "AI_RUN",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1792048968242",
+      "resourceName": "AI Analysis: Genetic_Algorithm_TSP_Benchmark.csv",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Executed AI run with Gemini 2.5 Pro on Genetic_Algorithm_TSP_Benchmark.csv",
+      "isSecurityAudit": false,
+      "id": "act-1792048968243-pewv",
+      "timestamp": "2026-10-15T07:22:48.243Z"
+    },
+    {
+      "action": "TASK_UPDATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792048966132",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Updated status to IN_PROGRESS",
+      "isSecurityAudit": false,
+      "id": "act-1792048967707-bbpz",
+      "timestamp": "2026-10-15T07:22:47.707Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "TASK",
+      "resourceId": "task-1792048966132",
+      "resourceName": "Verify Manhattan Distance Admissibility",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created task \"Verify Manhattan Distance Admissibility\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792048966133-g15t",
+      "timestamp": "2026-10-15T07:22:46.133Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "PROJECT",
+      "resourceId": "proj-1792048965277",
+      "resourceName": "Automated Research Sprint",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created project \"Automated Research Sprint\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792048965277-mcne",
+      "timestamp": "2026-10-15T07:22:45.277Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "DATASET",
+      "resourceId": "ds-1792048959582",
+      "resourceName": "A* Heuristic Exploration Benchmark",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Imported 3 records via API. Quality score: 100%",
+      "isSecurityAudit": false,
+      "id": "act-1792048959583-q6rl",
+      "timestamp": "2026-10-15T07:22:39.583Z"
+    },
+    {
+      "action": "DELETE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792048956926",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Deleted collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792048959020-vxav",
+      "timestamp": "2026-10-15T07:22:39.020Z"
+    },
+    {
+      "action": "CREATE",
+      "resourceType": "COLLECTION",
+      "resourceId": "col-1792048956926",
+      "resourceName": "Automated Test Folder",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "details": "Created collection \"Automated Test Folder\" via API",
+      "isSecurityAudit": false,
+      "id": "act-1792048956927-m7j7",
+      "timestamp": "2026-10-15T07:22:36.927Z"
+    },
+    {
+      "id": "act-4",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "action": "ROLE_CHANGE",
+      "resourceType": "USER",
+      "resourceId": "user-educator-1",
+      "resourceName": "Prof. Sarah Jenkins",
+      "details": {
+        "oldRole": "STUDENT",
+        "newRole": "EDUCATOR"
+      },
+      "isSecurityAudit": true,
+      "timestamp": "2026-10-15T06:19:45.031Z"
+    },
+    {
+      "id": "act-2",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "action": "IMPORT",
+      "resourceType": "DATASET",
+      "resourceId": "ds-1",
+      "resourceName": "Search Algorithm Execution Benchmarks",
+      "details": {
+        "rowCount": 5,
+        "format": "CSV",
+        "qualityScore": 98.4
+      },
+      "isSecurityAudit": false,
+      "timestamp": "2026-10-14T06:19:45.033Z"
+    },
+    {
+      "id": "act-3",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "action": "AI_RUN",
+      "resourceType": "AI_ARTIFACT",
+      "resourceId": "art-1",
+      "resourceName": "Executive Summary: A* Admissibility Proof",
+      "details": {
+        "model": "gemini-1.5-flash",
+        "tokens": 420
+      },
+      "isSecurityAudit": false,
+      "timestamp": "2026-10-14T06:19:45.033Z"
+    },
+    {
+      "id": "act-1",
+      "userId": "user-admin-1",
+      "userName": "Parth Doshi",
+      "action": "UPLOAD",
+      "resourceType": "FILE",
+      "resourceId": "file-1",
+      "resourceName": "Lecture_04_AStar_Optimality_Proof.pdf",
+      "details": {
+        "sizeBytes": 1240500,
+        "mimeType": "application/pdf"
+      },
+      "isSecurityAudit": false,
+      "timestamp": "2026-10-13T06:19:45.033Z"
+    }
+  ]
+}

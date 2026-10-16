@@ -1,0 +1,18 @@
+[
+  {
+    "id": "prog-1",
+    "userId": "local-guest-user-123",
+    "algorithmId": "a-star",
+    "completed": true,
+    "timeSpentSeconds": 185,
+    "updatedAt": "2026-10-15T05:28:40.511Z"
+  },
+  {
+    "id": "prog-2",
+    "userId": "local-guest-user-123",
+    "algorithmId": "bfs",
+    "completed": true,
+    "timeSpentSeconds": 120,
+    "updatedAt": "2026-10-15T04:28:40.511Z"
+  }
+]

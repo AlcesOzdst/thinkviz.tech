@@ -23,13 +23,6 @@ export const CATEGORIES: CategoryInfo[] = [
     iconName: "TrendingUp",
   },
   {
-    name: "Constraint Satisfaction",
-    slug: "constraint-satisfaction",
-    description: "Algorithms finding states meeting a collection of strict variables and constraints.",
-    algorithmCount: 1,
-    iconName: "Grid",
-  },
-  {
     name: "Adversarial Search",
     slug: "adversarial-search",
     description: "Decision-making algorithms for competitive zero-sum multi-agent games.",
@@ -136,7 +129,6 @@ export const ALGORITHMS: AlgorithmMeta[] = [
     tags: ["Optimization", "Greedy", "Local Optima"],
     visualizerType: "optimization",
   },
-  /*
   {
     id: "minimax",
     name: "Minimax Algorithm",
@@ -152,8 +144,6 @@ export const ALGORITHMS: AlgorithmMeta[] = [
     tags: ["Game Theory", "Zero-Sum", "Game Tree"],
     visualizerType: "game-tree",
   },
-  */
-  /*
   {
     id: "alpha-beta",
     name: "Alpha-Beta Pruning",
@@ -169,7 +159,6 @@ export const ALGORITHMS: AlgorithmMeta[] = [
     tags: ["Pruning", "Optimization", "Game Tree"],
     visualizerType: "game-tree",
   },
-  */
   {
     id: "genetic-algorithm",
     name: "Genetic Algorithm",
