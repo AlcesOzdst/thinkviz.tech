@@ -110,20 +110,24 @@ export function useVisualizerPlayback<TState>(
     const timer = setInterval(() => {
       activeTimeMsRef.current += speedMs;
       
+      let shouldComplete = false;
       setCurrentStepIndex((prevIndex) => {
         if (prevIndex >= stepsRef.current.length - 1) {
           setIsPlaying(false);
-          
-          // Fire completion action if reaching the end and haven't fired yet for this session
           if (!isCompletedRef.current && algorithmId !== "unknown") {
             isCompletedRef.current = true;
-            markAlgorithmComplete(algorithmId, Math.floor(activeTimeMsRef.current / 1000)).catch(console.error);
+            shouldComplete = true;
           }
-          
           return prevIndex;
         }
         return prevIndex + 1;
       });
+
+      if (shouldComplete) {
+        setTimeout(() => {
+          markAlgorithmComplete(algorithmId, Math.floor(activeTimeMsRef.current / 1000)).catch(console.error);
+        }, 0);
+      }
     }, speedMs);
 
     return () => clearInterval(timer);

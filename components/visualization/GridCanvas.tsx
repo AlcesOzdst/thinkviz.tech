@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useCallback } from "react";
 import { GridState, Position } from "@/types/grid";
+import { Flag, Target, Check, Circle } from "lucide-react";
 
 export interface GridCanvasProps {
   gridState: GridState;
@@ -34,7 +35,7 @@ export function GridCanvas({
     consideredNeighbors,
   } = gridState;
 
-  // Fast O(1) position lookup sets
+  // O(1) position lookup tables
   const openSetKeys = useMemo(
     () => new Set(openSetPositions.map((p) => `${p.row},${p.col}`)),
     [openSetPositions]
@@ -118,31 +119,9 @@ export function GridCanvas({
       onMouseLeave={handleMouseUp}
       onMouseUp={handleMouseUp}
     >
-      {/* Legend Header */}
-      <div className="flex flex-wrap items-center justify-center gap-4 mb-4 text-xs text-[#94A3B8]">
-        <span className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded border border-[#10B981] bg-[#10B981]/25" /> Start
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded border border-[#F43F5E] bg-[#F43F5E]/25" /> Goal
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded border border-[#333E50] bg-[#222A36]" /> Wall
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded border border-[#1E2A3C] bg-[#131B28]" /> Visited
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded border border-[#F59E0B] bg-[#F59E0B]/20" /> Frontier
-        </span>
-        <span className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded border border-[#34D399] bg-[#10B981]/30 shadow-[0_0_8px_rgba(52,211,153,0.35)]" /> Optimal Path
-        </span>
-      </div>
-
-      {/* Grid Container */}
+      {/* Grid Matrix Container */}
       <div
-        className="grid gap-1 p-3 rounded-xl bg-[#12161D] border border-[#232B36] max-w-full overflow-x-auto shadow-inner"
+        className="grid gap-[3px] p-3 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-default)] max-w-full overflow-x-auto shadow-2xl transition-all duration-200"
         style={{
           gridTemplateColumns: `repeat(${numCols}, minmax(0, 1fr))`,
         }}
@@ -160,37 +139,39 @@ export function GridCanvas({
             const isNeighbor = neighborKeys.has(posKey);
             const isWall = node.type === "wall";
 
-            let cellStyles =
-              "bg-[#0D1015] border-[#1B222C] text-[#828E9E] hover:border-[#333E50]";
-            let label = "";
+            let cellClass =
+              "bg-[var(--grid-node-unvisited-bg)] border-[var(--grid-node-unvisited-border)] text-[var(--text-muted)] hover:border-[var(--border-hover)]";
+            let IconComponent: React.ReactNode = null;
 
             if (isStart) {
-              cellStyles =
-                "bg-[#10B981]/25 border-2 border-[#10B981] text-[#34D399] font-bold shadow-[0_0_8px_rgba(16,185,129,0.35)]";
-              label = "S";
+              cellClass =
+                "bg-[var(--grid-node-start-bg)] border-[var(--grid-node-start-border)] text-[var(--grid-node-start-text)] shadow-[0_0_10px_rgba(108,140,255,0.35)] z-10 scale-[1.03]";
+              IconComponent = <Flag className="w-3.5 h-3.5 stroke-[2.2]" />;
             } else if (isGoal) {
-              cellStyles =
-                "bg-[#F43F5E]/25 border-2 border-[#F43F5E] text-[#FDA4AF] font-bold shadow-[0_0_8px_rgba(244,63,94,0.35)]";
-              label = "G";
+              cellClass =
+                "bg-[var(--grid-node-goal-bg)] border-[var(--grid-node-goal-border)] text-[var(--grid-node-goal-text)] shadow-[0_0_10px_rgba(224,82,99,0.35)] z-10 scale-[1.03]";
+              IconComponent = <Target className="w-3.5 h-3.5 stroke-[2.2]" />;
             } else if (isWall) {
-              cellStyles = "bg-[#222A36] border-[#333E50] text-[#64748B]";
+              cellClass =
+                "bg-[var(--grid-node-wall-bg)] border-[var(--grid-node-wall-border)] shadow-inner";
             } else if (isPath) {
-              cellStyles =
-                "bg-[#10B981]/30 border-[#34D399] text-[#34D399] font-bold shadow-[0_0_10px_rgba(52,211,153,0.45)]";
-              label = "✓";
+              cellClass =
+                "bg-[var(--grid-node-path-bg)] border-[var(--grid-node-path-border)] text-[var(--grid-node-path-text)] shadow-[0_0_12px_rgba(85,184,154,0.45)] z-10 font-bold";
+              IconComponent = <Check className="w-3 h-3 stroke-[3]" />;
             } else if (isCurrent) {
-              cellStyles =
-                "bg-[#38BDF8] border-white text-white font-bold scale-105 shadow-[0_0_12px_rgba(56,189,248,0.7)] z-10";
-              label = "•";
+              cellClass =
+                "bg-[var(--primitive-blue-500)] border-white text-white scale-110 shadow-[0_0_14px_rgba(108,140,255,0.7)] z-20";
+              IconComponent = <Circle className="w-2 h-2 fill-current" />;
             } else if (isNeighbor) {
-              cellStyles =
-                "bg-[#F59E0B]/25 border-[#F59E0B] text-[#FDE68A]";
+              cellClass =
+                "bg-[var(--grid-node-frontier-bg)] border-[var(--grid-node-frontier-border)] text-[var(--grid-node-frontier-text)] scale-105";
             } else if (isFrontier) {
-              cellStyles =
-                "bg-[#F59E0B]/15 border-[#F59E0B]/80 text-[#FDE68A]";
+              cellClass =
+                "bg-[var(--grid-node-frontier-bg)] border-[var(--grid-node-frontier-border)] text-[var(--grid-node-frontier-text)]";
             } else if (isVisited) {
-              cellStyles =
-                "bg-[#131B28] border-[#1E2A3C] text-[#64748B]";
+              // Calibrated low-saturation visited state (Josef Albers simultaneous contrast preservation)
+              cellClass =
+                "bg-[var(--grid-node-visited-bg)] border-[var(--grid-node-visited-border)] text-[var(--text-muted)]";
             }
 
             return (
@@ -198,14 +179,14 @@ export function GridCanvas({
                 key={posKey}
                 onMouseDown={() => handleMouseDown(rIdx, cIdx)}
                 onMouseEnter={() => handleMouseEnter(rIdx, cIdx)}
-                className={`w-7 h-7 sm:w-9 sm:h-9 flex items-center justify-center rounded border text-xs cursor-pointer transition-all duration-150 ${cellStyles}`}
-                title={`Cell (${rIdx}, ${cIdx}) - g:${
+                className={`w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 flex items-center justify-center rounded-[5px] border text-xs cursor-pointer transition-colors duration-150 active:scale-[0.98] ${cellClass}`}
+                title={`Cell (${rIdx}, ${cIdx}) • g: ${
                   node.gCost === Infinity ? "∞" : node.gCost
-                } h:${
+                } • h: ${
                   node.hCost === Infinity ? "∞" : node.hCost.toFixed(1)
-                } f:${node.fCost === Infinity ? "∞" : node.fCost.toFixed(1)}`}
+                } • f: ${node.fCost === Infinity ? "∞" : node.fCost.toFixed(1)}`}
               >
-                {label}
+                {IconComponent}
               </div>
             );
           })
