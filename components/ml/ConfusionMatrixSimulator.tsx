@@ -18,15 +18,11 @@ import {
   CheckCircle2,
   AlertTriangle,
   RotateCcw,
-  Sparkles,
-  Percent,
   Plus,
   Minus,
-  Target,
-  ShieldAlert,
-  BarChart3,
   Layers,
-  HelpCircle,
+  Activity,
+  ShieldAlert,
 } from "lucide-react";
 
 type HighlightMetric = "accuracy" | "precision" | "recall" | "specificity" | "f1Score" | null;
@@ -62,7 +58,7 @@ export function ConfusionMatrixSimulator() {
     setActivePresetId("custom");
   };
 
-  // Handle manual input change with validation
+  // Handle direct input change
   const handleInputChange = (field: keyof ConfusionCounts, value: string) => {
     setInputStrings((prev) => ({ ...prev, [field]: value }));
     const check = validateCount(value);
@@ -142,513 +138,532 @@ export function ConfusionMatrixSimulator() {
     }
   };
 
-  return (
-    <div className="w-full flex flex-col space-y-6">
-      {/* Top Header & Breadcrumbs */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#1E2638]">
-        <div>
-          <div className="flex items-center gap-2 text-xs text-[#828E9E] mb-1.5">
-            <Link href="/machine-learning" className="hover:text-[#F8FAFC] transition-colors">
-              Machine Learning
-            </Link>
-            <span>/</span>
-            <span className="text-[#6C8CFF]">Confusion Matrix Simulator</span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
-            Confusion Matrix Simulator
-          </h1>
-          <p className="text-sm text-[#828E9E] mt-1 max-w-2xl">
-            Interactive visual simulation of binary classification outcomes. Observe how errors affect accuracy, precision, recall, and F1-score with real-time visual feedback.
-          </p>
-        </div>
+  // Dynamic slider upper bound
+  const getSliderMax = (val: number) => Math.max(100, Math.ceil(val * 1.3));
 
-        {/* Global Reset Action */}
-        <div className="flex items-center gap-2">
+  return (
+    <div className="w-full flex flex-col space-y-8">
+      {/* ===================================================================
+          1. HEADER: Architectural Glass Header with Crosshair Accents
+          =================================================================== */}
+      <div className="relative p-6 sm:p-8 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl overflow-hidden">
+        {/* Decorative corner crosshairs */}
+        <div className="absolute top-3 left-4 text-white/30 font-mono text-sm select-none">+</div>
+        <div className="absolute top-3 right-4 text-white/30 font-mono text-sm select-none">+</div>
+        <div className="absolute bottom-3 left-4 text-white/30 font-mono text-sm select-none">+</div>
+        <div className="absolute bottom-3 right-4 text-white/30 font-mono text-sm select-none">+</div>
+
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+          <div className="space-y-2.5">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-sky-400 uppercase">
+              <Link href="/machine-learning" className="hover:text-white transition-colors">
+                Machine Learning
+              </Link>
+              <span className="text-white/20">/</span>
+              <span>Module 03</span>
+              <span className="text-white/20">/</span>
+              <span className="text-slate-200">Evaluation Instrument</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white">
+              Confusion Matrix Simulator
+            </h1>
+            <p className="text-sm sm:text-base text-slate-300 max-w-3xl leading-relaxed">
+              Real-time classification telemetry. Dial values smoothly, inspect error trade-offs, and trace how precision, recall, and F1-score are derived from ground truth samples.
+            </p>
+          </div>
+
+          {/* Reset Action */}
           <button
             onClick={handleReset}
-            className="px-3.5 py-1.5 rounded-lg bg-[#12161D] hover:bg-[#1A2230] text-[#F8FAFC] border border-[#232B36] text-xs font-semibold flex items-center gap-2 transition-all active:scale-[0.98]"
-            title="Reset to balanced preset"
+            className="self-start md:self-center px-4 py-2.5 rounded-xl bg-[#141B28] hover:bg-[#1E283C] text-white border border-white/15 text-xs sm:text-sm font-semibold tracking-wide flex items-center gap-2.5 transition-all shadow-md active:scale-[0.98]"
+            title="Reset to default balanced preset"
           >
-            <RotateCcw className="w-3.5 h-3.5 text-[#6C8CFF]" />
+            <RotateCcw className="w-4 h-4 text-sky-400" />
             <span>Reset Matrix</span>
           </button>
         </div>
       </div>
 
-      {/* Preset Buttons Deck */}
-      <div className="p-4 rounded-2xl bg-[#090D14] border border-[#1E2638] shadow-md space-y-2.5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-xs text-[#828E9E]">
-            <Sparkles className="w-3.5 h-3.5 text-[#6C8CFF]" />
-            <span className="font-semibold text-[#F8FAFC]">Scenario Presets:</span>
+      {/* ===================================================================
+          2. PRESET BENCHMARKS: Clean Pill Navigation
+          =================================================================== */}
+      <div className="p-6 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-xl space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-white/5 pb-3">
+          <div className="flex items-center gap-2.5">
+            <span className="w-2.5 h-2.5 rounded-full bg-sky-400 animate-pulse" />
+            <span className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">
+              01 // Preset Benchmarks
+            </span>
           </div>
-          <span className="text-[11px] text-[#64748B] hidden sm:inline">
-            Click a preset to inspect its visual pattern
+          <span className="text-xs text-slate-400">
+            Select a benchmark dataset to inspect real-world classification patterns
           </span>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
-          {CONFUSION_PRESETS.map((p) => (
-            <button
-              key={p.id}
-              onClick={() => handleSelectPreset(p)}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
-                activePresetId === p.id
-                  ? "bg-[#6C8CFF]/20 text-[#6C8CFF] border border-[#6C8CFF]/50 font-semibold shadow-xs"
-                  : "bg-[#12161D] text-[#828E9E] hover:text-[#F8FAFC] border border-[#232B36]"
-              }`}
-              title={p.description}
-            >
-              {p.name}
-            </button>
-          ))}
+        <div className="flex flex-wrap items-center gap-3">
+          {CONFUSION_PRESETS.map((p) => {
+            const isActive = activePresetId === p.id;
+            return (
+              <button
+                key={p.id}
+                onClick={() => handleSelectPreset(p)}
+                className={`px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium transition-all flex items-center gap-2.5 ${
+                  isActive
+                    ? "bg-sky-500/20 text-sky-300 border border-sky-400/60 shadow-lg font-semibold"
+                    : "bg-[#111722] text-slate-300 hover:text-white hover:bg-[#182030] border border-white/10"
+                }`}
+              >
+                {isActive && <span className="w-2 h-2 rounded-full bg-sky-400" />}
+                <span>{p.name}</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
-      {/* Visual Population Distribution Strip */}
-      <div className="p-4 rounded-2xl bg-[#090D14] border border-[#1E2638] shadow-md space-y-2.5">
-        <div className="flex items-center justify-between text-xs">
-          <div className="flex items-center gap-2 text-[#828E9E]">
-            <Layers className="w-3.5 h-3.5 text-[#6C8CFF]" />
-            <span className="font-semibold text-[#F8FAFC]">Dataset Population Proportion</span>
+      {/* ===================================================================
+          3. POPULATION STRIP: Clean Visual Proportion Bar
+          =================================================================== */}
+      <div className="p-6 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-xl space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-white/5 pb-3">
+          <div className="flex items-center gap-2.5">
+            <Layers className="w-4 h-4 text-sky-400" />
+            <span className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">
+              02 // Dataset Population Breakdown
+            </span>
           </div>
-          <div className="flex items-center gap-4 text-[11px] font-mono tabular-nums">
-            <span className="text-emerald-400">
+          <div className="flex flex-wrap items-center gap-4 text-xs sm:text-sm font-mono tabular-nums">
+            <span className="text-emerald-400 font-semibold">
               Actual Positives: <strong>{metrics.actualPositive}</strong> ({actualPosPct.toFixed(1)}%)
             </span>
-            <span className="text-slate-400">
+            <span className="text-white/20">•</span>
+            <span className="text-sky-400 font-semibold">
               Actual Negatives: <strong>{metrics.actualNegative}</strong> ({actualNegPct.toFixed(1)}%)
             </span>
-            <span className="text-[#6C8CFF]">
-              Total: <strong>{total.toLocaleString()}</strong>
+            <span className="text-white/20">•</span>
+            <span className="text-white font-bold">
+              Total N: <strong>{total.toLocaleString()}</strong>
             </span>
           </div>
         </div>
 
-        {/* Multi-segment horizontal bar */}
-        <div className="w-full h-4 rounded-full overflow-hidden bg-[#070A0F] border border-[#1A2230] flex shadow-inner">
+        {/* Multi-Segment Horizontal Distribution Bar */}
+        <div className="w-full h-6 rounded-xl overflow-hidden bg-[#070A0F] border border-white/10 flex shadow-inner">
           <div
             style={{ width: `${tpPct}%` }}
-            className="h-full bg-emerald-500 transition-all duration-300 relative group"
+            className="h-full bg-emerald-500 transition-all duration-300 hover:opacity-90"
             title={`True Positives (TP): ${counts.tp} (${tpPct.toFixed(1)}%)`}
           />
           <div
             style={{ width: `${fnPct}%` }}
-            className="h-full bg-rose-500 transition-all duration-300 relative group"
+            className="h-full bg-rose-500 transition-all duration-300 hover:opacity-90"
             title={`False Negatives (FN): ${counts.fn} (${fnPct.toFixed(1)}%)`}
           />
           <div
             style={{ width: `${fpPct}%` }}
-            className="h-full bg-amber-500 transition-all duration-300 relative group"
+            className="h-full bg-amber-500 transition-all duration-300 hover:opacity-90"
             title={`False Positives (FP): ${counts.fp} (${fpPct.toFixed(1)}%)`}
           />
           <div
             style={{ width: `${tnPct}%` }}
-            className="h-full bg-sky-600 transition-all duration-300 relative group"
+            className="h-full bg-sky-500 transition-all duration-300 hover:opacity-90"
             title={`True Negatives (TN): ${counts.tn} (${tnPct.toFixed(1)}%)`}
           />
         </div>
 
-        {/* Legend */}
-        <div className="flex flex-wrap items-center justify-between text-[11px] text-[#828E9E] pt-1">
-          <div className="flex items-center gap-4">
-            <span className="inline-flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500" />
-              TP ({counts.tp})
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-rose-500" />
-              FN ({counts.fn})
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-amber-500" />
-              FP ({counts.fp})
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="w-2.5 h-2.5 rounded-full bg-sky-600" />
-              TN ({counts.tn})
-            </span>
+        {/* High-Contrast Legend Cards */}
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+          <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#111722] border border-white/5">
+            <span className="w-3.5 h-3.5 rounded-full bg-emerald-500 shrink-0" />
+            <span className="text-xs sm:text-sm text-slate-300 font-medium">True Positives:</span>
+            <strong className="text-sm sm:text-base text-white font-mono ml-auto">{counts.tp}</strong>
           </div>
-          <span className="text-[10px] text-[#64748B]">
-            Hover any metric on the right to highlight its contributing cells
-          </span>
+          <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#111722] border border-white/5">
+            <span className="w-3.5 h-3.5 rounded-full bg-rose-500 shrink-0" />
+            <span className="text-xs sm:text-sm text-slate-300 font-medium">False Negatives:</span>
+            <strong className="text-sm sm:text-base text-white font-mono ml-auto">{counts.fn}</strong>
+          </div>
+          <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#111722] border border-white/5">
+            <span className="w-3.5 h-3.5 rounded-full bg-amber-500 shrink-0" />
+            <span className="text-xs sm:text-sm text-slate-300 font-medium">False Positives:</span>
+            <strong className="text-sm sm:text-base text-white font-mono ml-auto">{counts.fp}</strong>
+          </div>
+          <div className="flex items-center gap-2.5 p-3 rounded-xl bg-[#111722] border border-white/5">
+            <span className="w-3.5 h-3.5 rounded-full bg-sky-500 shrink-0" />
+            <span className="text-xs sm:text-sm text-slate-300 font-medium">True Negatives:</span>
+            <strong className="text-sm sm:text-base text-white font-mono ml-auto">{counts.tn}</strong>
+          </div>
         </div>
       </div>
 
-      {/* Main Grid: Interactive 2x2 Matrix (Left) & Visual Metrics (Right) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      {/* ===================================================================
+          4. WORKBENCH: Unified 2x2 Matrix Instrument & Performance Telemetry
+          =================================================================== */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
 
-        {/* ===================================================================
-            LEFT / MAIN: 2x2 Visual Heatmap Matrix
-            =================================================================== */}
+        {/* =================================================================
+            LEFT: Unified Architectural 2x2 Matrix
+            ================================================================= */}
         <div className="lg:col-span-7 flex flex-col space-y-4">
-          <div className="w-full rounded-2xl bg-[#090D14] border border-[#1E2638] p-5 sm:p-6 shadow-2xl flex flex-col space-y-4">
-            <div className="flex items-center justify-between pb-3 border-b border-[#161D2A] text-xs">
-              <div className="flex items-center gap-2">
-                <Grid className="w-4 h-4 text-[#6C8CFF]" />
-                <span className="font-semibold text-[#F8FAFC] text-sm">2 × 2 Classification Grid</span>
+          <div className="rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl p-6 sm:p-8 space-y-6">
+            
+            {/* Header */}
+            <div className="flex items-center justify-between border-b border-white/5 pb-4">
+              <div className="flex items-center gap-2.5">
+                <Grid className="w-4 h-4 text-sky-400" />
+                <span className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">
+                  03 // Classification Matrix
+                </span>
               </div>
-              <span className="font-mono text-[#828E9E] text-xs tabular-nums">
-                Heatmap density indicates sample count
+              <span className="text-xs font-mono text-sky-300 bg-sky-500/10 px-3 py-1 rounded-lg border border-sky-500/30">
+                Heatmap Density Active
               </span>
             </div>
 
             {/* Matrix Frame */}
             <div className="w-full overflow-x-auto">
-              <div className="min-w-[480px] flex flex-col space-y-2">
-
-                {/* Column Headers: PREDICTED */}
-                <div className="grid grid-cols-12 gap-2 text-xs">
+              <div className="min-w-[520px] flex flex-col space-y-4">
+                
+                {/* Column Headers (Predictions) */}
+                <div className="grid grid-cols-12 gap-4 text-xs sm:text-sm font-semibold">
                   <div className="col-span-3" />
-                  <div className="col-span-4 py-2 px-3 rounded-xl bg-[#12161D] border border-[#1E2638] text-center font-bold text-sky-400 flex items-center justify-center gap-1.5">
-                    <span>Predicted Positive (+)</span>
+                  <div className="col-span-4 p-3.5 rounded-2xl bg-[#111722] border border-sky-400/30 text-center text-sky-300 font-mono tracking-wider">
+                    PREDICTED POSITIVE (+)
                   </div>
-                  <div className="col-span-4 py-2 px-3 rounded-xl bg-[#12161D] border border-[#1E2638] text-center font-bold text-slate-300 flex items-center justify-center gap-1.5">
-                    <span>Predicted Negative (−)</span>
+                  <div className="col-span-4 p-3.5 rounded-2xl bg-[#111722] border border-slate-600/30 text-center text-slate-300 font-mono tracking-wider">
+                    PREDICTED NEGATIVE (−)
                   </div>
-                  <div className="col-span-1 text-center py-2 text-[10px] text-[#64748B] flex items-center justify-center">
-                    Total
+                  <div className="col-span-1 p-3.5 rounded-2xl bg-[#0E131E] border border-white/5 text-center text-slate-400 font-mono text-xs flex items-center justify-center">
+                    TOTAL
                   </div>
                 </div>
 
                 {/* ROW 1: ACTUAL POSITIVE */}
-                <div className="grid grid-cols-12 gap-2">
-                  
+                <div className="grid grid-cols-12 gap-4">
                   {/* Row Header */}
-                  <div className="col-span-3 p-3 rounded-xl bg-[#12161D] border border-[#1E2638] flex flex-col justify-center text-xs">
-                    <span className="font-bold text-emerald-400">Actual Positive (+)</span>
-                    <span className="text-[10px] text-[#828E9E]">Ground Truth</span>
+                  <div className="col-span-3 p-5 rounded-2xl bg-[#111722] border border-emerald-500/30 flex flex-col justify-center">
+                    <span className="text-xs sm:text-sm font-bold text-emerald-400 font-mono tracking-wider">
+                      ACTUAL POSITIVE (+)
+                    </span>
+                    <span className="text-xs text-slate-400 mt-1">Ground Truth</span>
                   </div>
 
-                  {/* CELL 1: True Positive (TP) */}
+                  {/* QUADRANT 1: True Positive (TP) */}
                   <div
                     style={{
-                      backgroundColor: `rgba(16, 185, 129, ${0.06 + 0.22 * (counts.tp / maxCount)})`,
+                      backgroundColor: `rgba(16, 185, 129, ${0.08 + 0.28 * (counts.tp / maxCount)})`,
                     }}
-                    className={`col-span-4 p-4 rounded-xl border transition-all duration-200 flex flex-col justify-between ${
+                    className={`col-span-4 p-6 rounded-2xl border transition-all duration-200 flex flex-col justify-between ${
                       hoveredMetric && isCellActive("tp")
-                        ? "border-emerald-400 ring-2 ring-emerald-400/50 shadow-lg scale-[1.01]"
+                        ? "border-emerald-400 ring-4 ring-emerald-400/40 shadow-2xl scale-[1.02]"
                         : hoveredMetric && !isCellActive("tp")
-                        ? "opacity-30 border-[#1E2638]"
-                        : "border-emerald-500/40 hover:border-emerald-400"
+                        ? "opacity-25 border-white/5"
+                        : "border-emerald-500/30 hover:border-emerald-400/70"
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-emerald-400 flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3" />
-                        True Positive (TP)
+                      <span className="text-xs sm:text-sm font-bold text-emerald-400 flex items-center gap-1.5 font-mono">
+                        <CheckCircle2 className="w-4 h-4" />
+                        TP // True Positive
                       </span>
-                      <span className="text-[10px] font-mono text-emerald-300/80">
+                      <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-lg bg-[#070A0F] text-emerald-300 border border-emerald-500/30">
                         {tpPct.toFixed(1)}%
                       </span>
                     </div>
 
-                    {/* Stepper & Number */}
-                    <div className="my-3 flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => adjustCount("tp", -10)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] text-[10px] text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="-10"
-                        >
-                          -10
-                        </button>
-                        <button
-                          onClick={() => adjustCount("tp", -1)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] flex items-center justify-center text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="-1"
-                        >
-                          <Minus className="w-3 h-3" />
-                        </button>
-                      </div>
-
+                    {/* Prominent Number */}
+                    <div className="my-4 flex items-center justify-between">
                       <input
                         type="number"
                         min="0"
                         step="1"
                         value={inputStrings.tp}
                         onChange={(e) => handleInputChange("tp", e.target.value)}
-                        className="w-20 text-center bg-[#070A0F]/90 border border-emerald-500/50 rounded-lg py-1 text-lg font-mono font-extrabold text-emerald-300 focus:outline-none focus:border-emerald-400"
+                        className="w-32 bg-transparent text-left text-4xl sm:text-5xl font-mono font-black text-emerald-300 focus:outline-none tracking-tight"
                       />
-
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => adjustCount("tp", 1)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] flex items-center justify-center text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="+1"
-                        >
-                          <Plus className="w-3 h-3" />
-                        </button>
-                        <button
-                          onClick={() => adjustCount("tp", 10)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] text-[10px] text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="+10"
-                        >
-                          +10
-                        </button>
-                      </div>
+                      <span className="text-xs text-emerald-400/80 font-mono uppercase tracking-wider">
+                        Hit
+                      </span>
                     </div>
 
-                    <span className="text-[10px] text-emerald-300/70">
-                      Hit: Correctly identified positive
-                    </span>
+                    {/* Smooth Tactile Slider + Steppers */}
+                    <div className="space-y-2 pt-2 border-t border-emerald-500/20">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => adjustCount("tp", -1)}
+                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
+                          title="Decrement"
+                        >
+                          <Minus className="w-3.5 h-3.5" />
+                        </button>
+                        <input
+                          type="range"
+                          min="0"
+                          max={getSliderMax(counts.tp)}
+                          value={counts.tp}
+                          onChange={(e) => adjustCount("tp", Number(e.target.value) - counts.tp)}
+                          className="w-full h-2 bg-[#070A0F] rounded-lg appearance-none cursor-pointer accent-emerald-400"
+                        />
+                        <button
+                          onClick={() => adjustCount("tp", 1)}
+                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
+                          title="Increment"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <p className="text-xs text-slate-200 leading-snug">
+                        Correct detection of active positive cases.
+                      </p>
+                    </div>
                   </div>
 
-                  {/* CELL 2: False Negative (FN) - Type II Error */}
+                  {/* QUADRANT 2: False Negative (FN) */}
                   <div
                     style={{
-                      backgroundColor: `rgba(244, 63, 94, ${0.06 + 0.22 * (counts.fn / maxCount)})`,
+                      backgroundColor: `rgba(244, 63, 94, ${0.08 + 0.28 * (counts.fn / maxCount)})`,
                     }}
-                    className={`col-span-4 p-4 rounded-xl border transition-all duration-200 flex flex-col justify-between ${
+                    className={`col-span-4 p-6 rounded-2xl border transition-all duration-200 flex flex-col justify-between ${
                       hoveredMetric && isCellActive("fn")
-                        ? "border-rose-400 ring-2 ring-rose-400/50 shadow-lg scale-[1.01]"
+                        ? "border-rose-400 ring-4 ring-rose-400/40 shadow-2xl scale-[1.02]"
                         : hoveredMetric && !isCellActive("fn")
-                        ? "opacity-30 border-[#1E2638]"
-                        : "border-rose-500/40 hover:border-rose-400"
+                        ? "opacity-25 border-white/5"
+                        : "border-rose-500/30 hover:border-rose-400/70"
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-rose-400 flex items-center gap-1">
-                        <ShieldAlert className="w-3 h-3" />
-                        False Negative (FN)
+                      <span className="text-xs sm:text-sm font-bold text-rose-400 flex items-center gap-1.5 font-mono">
+                        <ShieldAlert className="w-4 h-4" />
+                        FN // False Negative
                       </span>
-                      <span className="text-[10px] font-mono text-rose-300/80">
+                      <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-lg bg-[#070A0F] text-rose-300 border border-rose-500/30">
                         {fnPct.toFixed(1)}%
                       </span>
                     </div>
 
-                    {/* Stepper & Number */}
-                    <div className="my-3 flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => adjustCount("fn", -10)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] text-[10px] text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="-10"
-                        >
-                          -10
-                        </button>
-                        <button
-                          onClick={() => adjustCount("fn", -1)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] flex items-center justify-center text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="-1"
-                        >
-                          <Minus className="w-3 h-3" />
-                        </button>
-                      </div>
-
+                    {/* Prominent Number */}
+                    <div className="my-4 flex items-center justify-between">
                       <input
                         type="number"
                         min="0"
                         step="1"
                         value={inputStrings.fn}
                         onChange={(e) => handleInputChange("fn", e.target.value)}
-                        className="w-20 text-center bg-[#070A0F]/90 border border-rose-500/50 rounded-lg py-1 text-lg font-mono font-extrabold text-rose-300 focus:outline-none focus:border-rose-400"
+                        className="w-32 bg-transparent text-left text-4xl sm:text-5xl font-mono font-black text-rose-300 focus:outline-none tracking-tight"
                       />
-
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => adjustCount("fn", 1)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] flex items-center justify-center text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="+1"
-                        >
-                          <Plus className="w-3 h-3" />
-                        </button>
-                        <button
-                          onClick={() => adjustCount("fn", 10)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] text-[10px] text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="+10"
-                        >
-                          +10
-                        </button>
-                      </div>
+                      <span className="text-xs text-rose-400/80 font-mono uppercase tracking-wider">
+                        Miss
+                      </span>
                     </div>
 
-                    <span className="text-[10px] text-rose-300/80">
-                      Type II Error: Missed positive case
-                    </span>
+                    {/* Smooth Tactile Slider + Steppers */}
+                    <div className="space-y-2 pt-2 border-t border-rose-500/20">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => adjustCount("fn", -1)}
+                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
+                          title="Decrement"
+                        >
+                          <Minus className="w-3.5 h-3.5" />
+                        </button>
+                        <input
+                          type="range"
+                          min="0"
+                          max={getSliderMax(counts.fn)}
+                          value={counts.fn}
+                          onChange={(e) => adjustCount("fn", Number(e.target.value) - counts.fn)}
+                          className="w-full h-2 bg-[#070A0F] rounded-lg appearance-none cursor-pointer accent-rose-400"
+                        />
+                        <button
+                          onClick={() => adjustCount("fn", 1)}
+                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
+                          title="Increment"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <p className="text-xs text-rose-200 leading-snug">
+                        Type II Error: Dangerous miss of an actual positive.
+                      </p>
+                    </div>
                   </div>
 
                   {/* Row Total */}
-                  <div className="col-span-1 p-2 rounded-xl bg-[#0F1420] border border-[#1E2638] flex flex-col items-center justify-center font-mono">
-                    <span className="text-xs font-bold text-[#F8FAFC]">{metrics.actualPositive}</span>
+                  <div className="col-span-1 p-3 rounded-2xl bg-[#111722] border border-white/10 flex flex-col items-center justify-center font-mono">
+                    <span className="text-lg sm:text-xl font-extrabold text-white">{metrics.actualPositive}</span>
+                    <span className="text-xs text-slate-400 mt-1">P</span>
                   </div>
                 </div>
 
                 {/* ROW 2: ACTUAL NEGATIVE */}
-                <div className="grid grid-cols-12 gap-2">
-                  
+                <div className="grid grid-cols-12 gap-4">
                   {/* Row Header */}
-                  <div className="col-span-3 p-3 rounded-xl bg-[#12161D] border border-[#1E2638] flex flex-col justify-center text-xs">
-                    <span className="font-bold text-slate-300">Actual Negative (−)</span>
-                    <span className="text-[10px] text-[#828E9E]">Ground Truth</span>
+                  <div className="col-span-3 p-5 rounded-2xl bg-[#111722] border border-slate-600/30 flex flex-col justify-center">
+                    <span className="text-xs sm:text-sm font-bold text-slate-300 font-mono tracking-wider">
+                      ACTUAL NEGATIVE (−)
+                    </span>
+                    <span className="text-xs text-slate-400 mt-1">Ground Truth</span>
                   </div>
 
-                  {/* CELL 3: False Positive (FP) - Type I Error */}
+                  {/* QUADRANT 3: False Positive (FP) */}
                   <div
                     style={{
-                      backgroundColor: `rgba(245, 158, 11, ${0.06 + 0.22 * (counts.fp / maxCount)})`,
+                      backgroundColor: `rgba(245, 158, 11, ${0.08 + 0.28 * (counts.fp / maxCount)})`,
                     }}
-                    className={`col-span-4 p-4 rounded-xl border transition-all duration-200 flex flex-col justify-between ${
+                    className={`col-span-4 p-6 rounded-2xl border transition-all duration-200 flex flex-col justify-between ${
                       hoveredMetric && isCellActive("fp")
-                        ? "border-amber-400 ring-2 ring-amber-400/50 shadow-lg scale-[1.01]"
+                        ? "border-amber-400 ring-4 ring-amber-400/40 shadow-2xl scale-[1.02]"
                         : hoveredMetric && !isCellActive("fp")
-                        ? "opacity-30 border-[#1E2638]"
-                        : "border-amber-500/40 hover:border-amber-400"
+                        ? "opacity-25 border-white/5"
+                        : "border-amber-500/30 hover:border-amber-400/70"
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-amber-400 flex items-center gap-1">
-                        <AlertTriangle className="w-3 h-3" />
-                        False Positive (FP)
+                      <span className="text-xs sm:text-sm font-bold text-amber-400 flex items-center gap-1.5 font-mono">
+                        <AlertTriangle className="w-4 h-4" />
+                        FP // False Positive
                       </span>
-                      <span className="text-[10px] font-mono text-amber-300/80">
+                      <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-lg bg-[#070A0F] text-amber-300 border border-amber-500/30">
                         {fpPct.toFixed(1)}%
                       </span>
                     </div>
 
-                    {/* Stepper & Number */}
-                    <div className="my-3 flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => adjustCount("fp", -10)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] text-[10px] text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="-10"
-                        >
-                          -10
-                        </button>
-                        <button
-                          onClick={() => adjustCount("fp", -1)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] flex items-center justify-center text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="-1"
-                        >
-                          <Minus className="w-3 h-3" />
-                        </button>
-                      </div>
-
+                    {/* Prominent Number */}
+                    <div className="my-4 flex items-center justify-between">
                       <input
                         type="number"
                         min="0"
                         step="1"
                         value={inputStrings.fp}
                         onChange={(e) => handleInputChange("fp", e.target.value)}
-                        className="w-20 text-center bg-[#070A0F]/90 border border-amber-500/50 rounded-lg py-1 text-lg font-mono font-extrabold text-amber-300 focus:outline-none focus:border-amber-400"
+                        className="w-32 bg-transparent text-left text-4xl sm:text-5xl font-mono font-black text-amber-300 focus:outline-none tracking-tight"
                       />
-
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => adjustCount("fp", 1)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] flex items-center justify-center text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="+1"
-                        >
-                          <Plus className="w-3 h-3" />
-                        </button>
-                        <button
-                          onClick={() => adjustCount("fp", 10)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] text-[10px] text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="+10"
-                        >
-                          +10
-                        </button>
-                      </div>
+                      <span className="text-xs text-amber-400/80 font-mono uppercase tracking-wider">
+                        False Alarm
+                      </span>
                     </div>
 
-                    <span className="text-[10px] text-amber-300/80">
-                      Type I Error: False alarm
-                    </span>
+                    {/* Smooth Tactile Slider + Steppers */}
+                    <div className="space-y-2 pt-2 border-t border-amber-500/20">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => adjustCount("fp", -1)}
+                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
+                          title="Decrement"
+                        >
+                          <Minus className="w-3.5 h-3.5" />
+                        </button>
+                        <input
+                          type="range"
+                          min="0"
+                          max={getSliderMax(counts.fp)}
+                          value={counts.fp}
+                          onChange={(e) => adjustCount("fp", Number(e.target.value) - counts.fp)}
+                          className="w-full h-2 bg-[#070A0F] rounded-lg appearance-none cursor-pointer accent-amber-400"
+                        />
+                        <button
+                          onClick={() => adjustCount("fp", 1)}
+                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
+                          title="Increment"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <p className="text-xs text-amber-200 leading-snug">
+                        Type I Error: Benign case wrongly flagged as positive.
+                      </p>
+                    </div>
                   </div>
 
-                  {/* CELL 4: True Negative (TN) */}
+                  {/* QUADRANT 4: True Negative (TN) */}
                   <div
                     style={{
-                      backgroundColor: `rgba(56, 189, 248, ${0.06 + 0.22 * (counts.tn / maxCount)})`,
+                      backgroundColor: `rgba(56, 189, 248, ${0.08 + 0.28 * (counts.tn / maxCount)})`,
                     }}
-                    className={`col-span-4 p-4 rounded-xl border transition-all duration-200 flex flex-col justify-between ${
+                    className={`col-span-4 p-6 rounded-2xl border transition-all duration-200 flex flex-col justify-between ${
                       hoveredMetric && isCellActive("tn")
-                        ? "border-sky-400 ring-2 ring-sky-400/50 shadow-lg scale-[1.01]"
+                        ? "border-sky-400 ring-4 ring-sky-400/40 shadow-2xl scale-[1.02]"
                         : hoveredMetric && !isCellActive("tn")
-                        ? "opacity-30 border-[#1E2638]"
-                        : "border-sky-500/40 hover:border-sky-400"
+                        ? "opacity-25 border-white/5"
+                        : "border-sky-500/30 hover:border-sky-400/70"
                     }`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-sky-400 flex items-center gap-1">
-                        <CheckCircle2 className="w-3 h-3" />
-                        True Negative (TN)
+                      <span className="text-xs sm:text-sm font-bold text-sky-400 flex items-center gap-1.5 font-mono">
+                        <CheckCircle2 className="w-4 h-4" />
+                        TN // True Negative
                       </span>
-                      <span className="text-[10px] font-mono text-sky-300/80">
+                      <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-lg bg-[#070A0F] text-sky-300 border border-sky-500/30">
                         {tnPct.toFixed(1)}%
                       </span>
                     </div>
 
-                    {/* Stepper & Number */}
-                    <div className="my-3 flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => adjustCount("tn", -10)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] text-[10px] text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="-10"
-                        >
-                          -10
-                        </button>
-                        <button
-                          onClick={() => adjustCount("tn", -1)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] flex items-center justify-center text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="-1"
-                        >
-                          <Minus className="w-3 h-3" />
-                        </button>
-                      </div>
-
+                    {/* Prominent Number */}
+                    <div className="my-4 flex items-center justify-between">
                       <input
                         type="number"
                         min="0"
                         step="1"
                         value={inputStrings.tn}
                         onChange={(e) => handleInputChange("tn", e.target.value)}
-                        className="w-20 text-center bg-[#070A0F]/90 border border-sky-500/50 rounded-lg py-1 text-lg font-mono font-extrabold text-sky-300 focus:outline-none focus:border-sky-400"
+                        className="w-32 bg-transparent text-left text-4xl sm:text-5xl font-mono font-black text-sky-300 focus:outline-none tracking-tight"
                       />
-
-                      <div className="flex items-center gap-1">
-                        <button
-                          onClick={() => adjustCount("tn", 1)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] flex items-center justify-center text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="+1"
-                        >
-                          <Plus className="w-3 h-3" />
-                        </button>
-                        <button
-                          onClick={() => adjustCount("tn", 10)}
-                          className="w-6 h-6 rounded bg-[#070A0F] border border-[#1E2638] text-[10px] text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#1A2230] transition-colors"
-                          title="+10"
-                        >
-                          +10
-                        </button>
-                      </div>
+                      <span className="text-xs text-sky-400/80 font-mono uppercase tracking-wider">
+                        Rejection
+                      </span>
                     </div>
 
-                    <span className="text-[10px] text-sky-300/80">
-                      Correct rejection of negative
-                    </span>
+                    {/* Smooth Tactile Slider + Steppers */}
+                    <div className="space-y-2 pt-2 border-t border-sky-500/20">
+                      <div className="flex items-center gap-2">
+                        <button
+                          onClick={() => adjustCount("tn", -1)}
+                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
+                          title="Decrement"
+                        >
+                          <Minus className="w-3.5 h-3.5" />
+                        </button>
+                        <input
+                          type="range"
+                          min="0"
+                          max={getSliderMax(counts.tn)}
+                          value={counts.tn}
+                          onChange={(e) => adjustCount("tn", Number(e.target.value) - counts.tn)}
+                          className="w-full h-2 bg-[#070A0F] rounded-lg appearance-none cursor-pointer accent-sky-400"
+                        />
+                        <button
+                          onClick={() => adjustCount("tn", 1)}
+                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
+                          title="Increment"
+                        >
+                          <Plus className="w-3.5 h-3.5" />
+                        </button>
+                      </div>
+                      <p className="text-xs text-sky-200 leading-snug">
+                        Correct rejection of inactive negative cases.
+                      </p>
+                    </div>
                   </div>
 
                   {/* Row Total */}
-                  <div className="col-span-1 p-2 rounded-xl bg-[#0F1420] border border-[#1E2638] flex flex-col items-center justify-center font-mono">
-                    <span className="text-xs font-bold text-[#F8FAFC]">{metrics.actualNegative}</span>
+                  <div className="col-span-1 p-3 rounded-2xl bg-[#111722] border border-white/10 flex flex-col items-center justify-center font-mono">
+                    <span className="text-lg sm:text-xl font-extrabold text-white">{metrics.actualNegative}</span>
+                    <span className="text-xs text-slate-400 mt-1">N</span>
                   </div>
                 </div>
 
                 {/* Column Totals Footer */}
-                <div className="grid grid-cols-12 gap-2 pt-1 text-xs font-mono">
-                  <div className="col-span-3 text-right pr-2 text-[#64748B] text-[11px] flex items-center justify-end font-sans">
-                    Pred. Total:
+                <div className="grid grid-cols-12 gap-4 pt-2 font-mono">
+                  <div className="col-span-3 text-right pr-4 text-slate-400 text-xs sm:text-sm font-bold flex items-center justify-end font-mono">
+                    PRED. TOTAL:
                   </div>
-                  <div className="col-span-4 p-2 rounded-xl bg-[#0F1420] border border-[#1E2638] text-center font-bold text-sky-400">
+                  <div className="col-span-4 p-3.5 rounded-2xl bg-[#111722] border border-sky-400/30 text-center text-sm font-bold text-sky-300">
                     {metrics.predictedPositive}
                   </div>
-                  <div className="col-span-4 p-2 rounded-xl bg-[#0F1420] border border-[#1E2638] text-center font-bold text-slate-300">
+                  <div className="col-span-4 p-3.5 rounded-2xl bg-[#111722] border border-slate-600/30 text-center text-sm font-bold text-slate-300">
                     {metrics.predictedNegative}
                   </div>
-                  <div className="col-span-1 p-2 rounded-xl bg-[#161D2E] border border-[#6C8CFF]/50 text-center font-bold text-[#6C8CFF]">
+                  <div className="col-span-1 p-3.5 rounded-2xl bg-sky-500/20 border border-sky-400/50 text-center text-sm font-black text-sky-300">
                     {total}
                   </div>
                 </div>
@@ -658,76 +673,80 @@ export function ConfusionMatrixSimulator() {
           </div>
         </div>
 
-        {/* ===================================================================
-            RIGHT: Visual Metrics with Progress Bars & Interactive Highlighting
-            =================================================================== */}
-        <div className="lg:col-span-5 flex flex-col space-y-4">
+        {/* =================================================================
+            RIGHT: Performance Telemetry (CoreNode AI Style)
+            ================================================================= */}
+        <div className="lg:col-span-5 flex flex-col space-y-6">
           
-          {/* Classification Metrics Dashboard */}
-          <div className="p-5 rounded-2xl bg-[#090D14] border border-[#1E2638] shadow-xl space-y-4 text-xs">
-            <div className="flex items-center justify-between pb-2 border-b border-[#161D2A]">
-              <div className="flex items-center gap-2">
-                <BarChart3 className="w-4 h-4 text-[#6C8CFF]" />
-                <span className="font-semibold text-[#F8FAFC] text-sm">Classification Metrics</span>
+          {/* Classification Telemetry Panel */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl space-y-6">
+            <div className="flex items-center justify-between border-b border-white/5 pb-4">
+              <div className="flex items-center gap-2.5">
+                <Activity className="w-4 h-4 text-sky-400" />
+                <span className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">
+                  04 // Performance Telemetry
+                </span>
               </div>
-              <span className="text-[10px] font-mono text-[#828E9E]">Hover card to trace formula</span>
+              <span className="text-xs text-slate-400">
+                Hover to trace formula
+              </span>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-4">
               
-              {/* Metric 1: Accuracy */}
+              {/* Telemetry 1: Accuracy */}
               <div
                 onMouseEnter={() => setHoveredMetric("accuracy")}
                 onMouseLeave={() => setHoveredMetric(null)}
-                className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
+                className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer ${
                   hoveredMetric === "accuracy"
-                    ? "bg-[#141B2B] border-[#6C8CFF] shadow-md ring-1 ring-[#6C8CFF]"
-                    : "bg-[#0F1420] border-[#1E2638] hover:border-[#2C384E]"
+                    ? "bg-[#141C2B] border-sky-400 ring-4 ring-sky-400/30 shadow-2xl"
+                    : "bg-[#111722] border-white/5 hover:border-white/15"
                 }`}
               >
-                <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center justify-between mb-2.5">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-[#F8FAFC] text-xs">Accuracy</span>
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#070A0F] text-[#828E9E] border border-[#1A2230]">
-                      (TP + TN) / Total
+                    <span className="font-bold text-white text-sm sm:text-base">Accuracy</span>
+                    <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-[#070A0F] text-slate-300 border border-white/10">
+                      (TP + TN) / N
                     </span>
                   </div>
-                  <span className="font-mono text-base font-extrabold text-[#F8FAFC] tabular-nums">
+                  <span className="font-mono text-2xl sm:text-3xl font-black text-white tabular-nums">
                     {formatPct(metrics.accuracy)}
                   </span>
                 </div>
-                {/* Visual bar */}
-                <div className="w-full h-2 rounded-full bg-[#070A0F] border border-[#1E2638] overflow-hidden">
+                {/* Visual Progress Bar */}
+                <div className="w-full h-3 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
                   <div
                     style={{ width: `${(metrics.accuracy ?? 0) * 100}%` }}
-                    className="h-full bg-gradient-to-r from-blue-500 to-indigo-500 rounded-full transition-all duration-300"
+                    className="h-full bg-gradient-to-r from-blue-500 to-sky-400 rounded-full transition-all duration-300"
                   />
                 </div>
               </div>
 
-              {/* Metric 2: Precision */}
+              {/* Telemetry 2: Precision */}
               <div
                 onMouseEnter={() => setHoveredMetric("precision")}
                 onMouseLeave={() => setHoveredMetric(null)}
-                className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
+                className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer ${
                   hoveredMetric === "precision"
-                    ? "bg-[#141B2B] border-sky-400 shadow-md ring-1 ring-sky-400"
-                    : "bg-[#0F1420] border-[#1E2638] hover:border-[#2C384E]"
+                    ? "bg-[#141C2B] border-sky-400 ring-4 ring-sky-400/30 shadow-2xl"
+                    : "bg-[#111722] border-white/5 hover:border-white/15"
                 }`}
               >
-                <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center justify-between mb-2.5">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-sky-400 text-xs">Precision</span>
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#070A0F] text-[#828E9E] border border-[#1A2230]">
+                    <span className="font-bold text-sky-400 text-sm sm:text-base">Precision</span>
+                    <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-[#070A0F] text-slate-300 border border-white/10">
                       TP / (TP + FP)
                     </span>
                   </div>
-                  <span className="font-mono text-base font-extrabold text-sky-400 tabular-nums">
+                  <span className="font-mono text-2xl sm:text-3xl font-black text-sky-400 tabular-nums">
                     {formatPct(metrics.precision)}
                   </span>
                 </div>
-                {/* Visual bar */}
-                <div className="w-full h-2 rounded-full bg-[#070A0F] border border-[#1E2638] overflow-hidden">
+                {/* Visual Progress Bar */}
+                <div className="w-full h-3 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
                   <div
                     style={{ width: `${(metrics.precision ?? 0) * 100}%` }}
                     className="h-full bg-sky-400 rounded-full transition-all duration-300"
@@ -735,29 +754,29 @@ export function ConfusionMatrixSimulator() {
                 </div>
               </div>
 
-              {/* Metric 3: Recall / Sensitivity */}
+              {/* Telemetry 3: Recall / Sensitivity */}
               <div
                 onMouseEnter={() => setHoveredMetric("recall")}
                 onMouseLeave={() => setHoveredMetric(null)}
-                className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
+                className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer ${
                   hoveredMetric === "recall"
-                    ? "bg-[#141B2B] border-emerald-400 shadow-md ring-1 ring-emerald-400"
-                    : "bg-[#0F1420] border-[#1E2638] hover:border-[#2C384E]"
+                    ? "bg-[#141C2B] border-emerald-400 ring-4 ring-emerald-400/30 shadow-2xl"
+                    : "bg-[#111722] border-white/5 hover:border-white/15"
                 }`}
               >
-                <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center justify-between mb-2.5">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-emerald-400 text-xs">Recall / Sensitivity</span>
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#070A0F] text-[#828E9E] border border-[#1A2230]">
+                    <span className="font-bold text-emerald-400 text-sm sm:text-base">Recall (Sensitivity)</span>
+                    <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-[#070A0F] text-slate-300 border border-white/10">
                       TP / (TP + FN)
                     </span>
                   </div>
-                  <span className="font-mono text-base font-extrabold text-emerald-400 tabular-nums">
+                  <span className="font-mono text-2xl sm:text-3xl font-black text-emerald-400 tabular-nums">
                     {formatPct(metrics.recall)}
                   </span>
                 </div>
-                {/* Visual bar */}
-                <div className="w-full h-2 rounded-full bg-[#070A0F] border border-[#1E2638] overflow-hidden">
+                {/* Visual Progress Bar */}
+                <div className="w-full h-3 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
                   <div
                     style={{ width: `${(metrics.recall ?? 0) * 100}%` }}
                     className="h-full bg-emerald-400 rounded-full transition-all duration-300"
@@ -765,29 +784,29 @@ export function ConfusionMatrixSimulator() {
                 </div>
               </div>
 
-              {/* Metric 4: Specificity */}
+              {/* Telemetry 4: Specificity */}
               <div
                 onMouseEnter={() => setHoveredMetric("specificity")}
                 onMouseLeave={() => setHoveredMetric(null)}
-                className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
+                className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer ${
                   hoveredMetric === "specificity"
-                    ? "bg-[#141B2B] border-slate-300 shadow-md ring-1 ring-slate-300"
-                    : "bg-[#0F1420] border-[#1E2638] hover:border-[#2C384E]"
+                    ? "bg-[#141C2B] border-slate-300 ring-4 ring-slate-300/30 shadow-2xl"
+                    : "bg-[#111722] border-white/5 hover:border-white/15"
                 }`}
               >
-                <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center justify-between mb-2.5">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-slate-300 text-xs">Specificity</span>
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#070A0F] text-[#828E9E] border border-[#1A2230]">
+                    <span className="font-bold text-slate-300 text-sm sm:text-base">Specificity</span>
+                    <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-[#070A0F] text-slate-300 border border-white/10">
                       TN / (TN + FP)
                     </span>
                   </div>
-                  <span className="font-mono text-base font-extrabold text-slate-300 tabular-nums">
+                  <span className="font-mono text-2xl sm:text-3xl font-black text-slate-200 tabular-nums">
                     {formatPct(metrics.specificity)}
                   </span>
                 </div>
-                {/* Visual bar */}
-                <div className="w-full h-2 rounded-full bg-[#070A0F] border border-[#1E2638] overflow-hidden">
+                {/* Visual Progress Bar */}
+                <div className="w-full h-3 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
                   <div
                     style={{ width: `${(metrics.specificity ?? 0) * 100}%` }}
                     className="h-full bg-slate-400 rounded-full transition-all duration-300"
@@ -795,32 +814,32 @@ export function ConfusionMatrixSimulator() {
                 </div>
               </div>
 
-              {/* Metric 5: F1-Score */}
+              {/* Telemetry 5: F1-Score */}
               <div
                 onMouseEnter={() => setHoveredMetric("f1Score")}
                 onMouseLeave={() => setHoveredMetric(null)}
-                className={`p-3.5 rounded-xl border transition-all cursor-pointer ${
+                className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer ${
                   hoveredMetric === "f1Score"
-                    ? "bg-[#141B2B] border-amber-400 shadow-md ring-1 ring-amber-400"
-                    : "bg-[#0F1420] border-[#1E2638] hover:border-[#2C384E]"
+                    ? "bg-[#141C2B] border-amber-400 ring-4 ring-amber-400/30 shadow-2xl"
+                    : "bg-[#111722] border-white/5 hover:border-white/15"
                 }`}
               >
-                <div className="flex items-center justify-between mb-1.5">
+                <div className="flex items-center justify-between mb-2.5">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-amber-400 text-xs">F1-Score</span>
-                    <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#070A0F] text-[#828E9E] border border-[#1A2230]">
+                    <span className="font-bold text-amber-400 text-sm sm:text-base">F1-Score</span>
+                    <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-[#070A0F] text-slate-300 border border-white/10">
                       2·P·R / (P + R)
                     </span>
                   </div>
-                  <span className="font-mono text-base font-extrabold text-amber-300 tabular-nums">
+                  <span className="font-mono text-2xl sm:text-3xl font-black text-amber-300 tabular-nums">
                     {formatPct(metrics.f1Score)}
                   </span>
                 </div>
-                {/* Visual bar */}
-                <div className="w-full h-2 rounded-full bg-[#070A0F] border border-[#1E2638] overflow-hidden">
+                {/* Visual Progress Bar */}
+                <div className="w-full h-3 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
                   <div
                     style={{ width: `${(metrics.f1Score ?? 0) * 100}%` }}
-                    className="h-full bg-gradient-to-r from-amber-500 to-orange-500 rounded-full transition-all duration-300"
+                    className="h-full bg-gradient-to-r from-amber-500 to-orange-400 rounded-full transition-all duration-300"
                   />
                 </div>
               </div>
@@ -829,33 +848,36 @@ export function ConfusionMatrixSimulator() {
 
             {/* Zero-Denominator Safety Notice */}
             {(metrics.precision === null || metrics.recall === null || metrics.accuracy === null) && (
-              <div className="p-3 rounded-xl bg-[rgba(245,158,11,0.08)] border border-amber-500/30 text-[11px] text-amber-300 flex items-start gap-2">
-                <AlertTriangle className="w-3.5 h-3.5 shrink-0 mt-0.5" />
-                <span>
-                  Undefined Metric: Denominator is 0. ThinkViz explicitly outputs <strong className="font-mono">N/A</strong> rather than misleading numbers.
+              <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-xs sm:text-sm text-amber-300 flex items-start gap-3">
+                <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5 text-amber-400" />
+                <span className="leading-relaxed">
+                  Zero Denominator State: The denominator evaluated to 0. ThinkViz explicitly reports <strong className="font-mono text-white">N/A</strong> rather than presenting misleading numerical artifacts.
                 </span>
               </div>
             )}
           </div>
 
-          {/* Derived Pedagogical Insights */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#090D14] border border-[#1E2638] shadow-xl space-y-2.5 text-xs">
-            <div className="flex items-center gap-2 pb-2 border-b border-[#161D2A]">
-              <Info className="w-4 h-4 text-[#6C8CFF]" />
-              <h3 className="font-semibold text-[#F8FAFC] text-sm">Key Takeaway</h3>
+          {/* CoreNode AI Style Diagnostic Readout */}
+          <div className="p-6 sm:p-8 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl space-y-4">
+            <div className="flex items-center gap-2.5 border-b border-white/5 pb-3">
+              <Info className="w-4 h-4 text-sky-400" />
+              <h3 className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">
+                05 // Diagnostic Analysis
+              </h3>
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-3">
               {observations.map((obs, idx) => (
                 <div
                   key={idx}
-                  className="p-3 rounded-xl bg-[#070A0F] border border-[#1A2230] text-[11px] text-[#A7AFBB] leading-relaxed"
+                  className="p-4 rounded-2xl bg-[#111722] border border-white/5 text-sm text-slate-200 leading-relaxed font-normal"
                 >
                   {obs}
                 </div>
               ))}
             </div>
           </div>
+
         </div>
 
       </div>
