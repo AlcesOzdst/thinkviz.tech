@@ -144,10 +144,10 @@ export function ConfusionMatrixSimulator() {
   return (
     <div className="w-full flex flex-col space-y-8">
       {/* ===================================================================
-          1. HEADER: Architectural Glass Header with Crosshair Accents
+          1. HEADER: CoreNode AI Architectural Header with Precision Accents
           =================================================================== */}
       <div className="relative p-6 sm:p-8 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl overflow-hidden">
-        {/* Decorative corner crosshairs */}
+        {/* Subtle decorative crosshairs */}
         <div className="absolute top-3 left-4 text-white/30 font-mono text-sm select-none">+</div>
         <div className="absolute top-3 right-4 text-white/30 font-mono text-sm select-none">+</div>
         <div className="absolute bottom-3 left-4 text-white/30 font-mono text-sm select-none">+</div>
@@ -297,15 +297,15 @@ export function ConfusionMatrixSimulator() {
       </div>
 
       {/* ===================================================================
-          4. WORKBENCH: Unified 2x2 Matrix Instrument & Performance Telemetry
+          4. WORKBENCH: Perfectly Aligned Matrix (Left) & Telemetry (Right)
           =================================================================== */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+      <div className="grid grid-cols-1 xl:grid-cols-12 gap-8 items-start">
 
         {/* =================================================================
-            LEFT: Unified Architectural 2x2 Matrix
+            LEFT: Architectural Precision 2x2 Matrix
             ================================================================= */}
-        <div className="lg:col-span-7 flex flex-col space-y-4">
-          <div className="rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl p-6 sm:p-8 space-y-6">
+        <div className="xl:col-span-7 flex flex-col space-y-4">
+          <div className="rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl p-6 sm:p-7 space-y-6">
             
             {/* Header */}
             <div className="flex items-center justify-between border-b border-white/5 pb-4">
@@ -320,355 +320,438 @@ export function ConfusionMatrixSimulator() {
               </span>
             </div>
 
-            {/* Matrix Frame */}
-            <div className="w-full overflow-x-auto">
-              <div className="min-w-[520px] flex flex-col space-y-4">
-                
-                {/* Column Headers (Predictions) */}
-                <div className="grid grid-cols-12 gap-4 text-xs sm:text-sm font-semibold">
-                  <div className="col-span-3" />
-                  <div className="col-span-4 p-3.5 rounded-2xl bg-[#111722] border border-sky-400/30 text-center text-sky-300 font-mono tracking-wider">
-                    PREDICTED POSITIVE (+)
+            {/* Matrix Frame with Perfect Column Alignment (No clipping, No horizontal scroll) */}
+            <div className="w-full flex flex-col space-y-4">
+              
+              {/* Column Headers (Predictions) */}
+              <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm font-semibold">
+                <div className="w-24 sm:w-28 shrink-0" />
+                <div className="flex-1 min-w-0 py-2.5 px-3 rounded-xl bg-[#111722] border border-sky-400/30 text-center font-mono">
+                  <div className="text-xs sm:text-sm font-bold text-sky-300 tracking-wider">PREDICTED (+)</div>
+                  <div className="text-[10px] text-slate-400 font-medium">Model Positive</div>
+                </div>
+                <div className="flex-1 min-w-0 py-2.5 px-3 rounded-xl bg-[#111722] border border-slate-600/30 text-center font-mono">
+                  <div className="text-xs sm:text-sm font-bold text-slate-300 tracking-wider">PREDICTED (−)</div>
+                  <div className="text-[10px] text-slate-400 font-medium">Model Negative</div>
+                </div>
+                <div className="w-14 sm:w-16 shrink-0 py-2.5 rounded-xl bg-[#0E131E] border border-white/5 text-center font-mono flex flex-col justify-center">
+                  <div className="text-xs font-bold text-slate-400 uppercase">TOTAL</div>
+                  <div className="text-[10px] text-slate-500 font-medium">Row Sum</div>
+                </div>
+              </div>
+
+              {/* ROW 1: ACTUAL POSITIVE */}
+              <div className="flex items-stretch gap-3 sm:gap-4">
+                {/* Row Header */}
+                <div className="w-24 sm:w-28 shrink-0 p-3 sm:p-4 rounded-2xl bg-[#111722] border border-emerald-500/30 flex flex-col justify-between text-left">
+                  <div>
+                    <span className="text-[11px] sm:text-xs font-mono font-bold text-emerald-400 tracking-wider uppercase block">
+                      ACTUAL (+)
+                    </span>
+                    <span className="text-sm sm:text-base font-bold text-white mt-1 block">
+                      Positive
+                    </span>
+                    <span className="text-[11px] text-slate-400 mt-0.5 block">Ground Truth</span>
                   </div>
-                  <div className="col-span-4 p-3.5 rounded-2xl bg-[#111722] border border-slate-600/30 text-center text-slate-300 font-mono tracking-wider">
-                    PREDICTED NEGATIVE (−)
-                  </div>
-                  <div className="col-span-1 p-3.5 rounded-2xl bg-[#0E131E] border border-white/5 text-center text-slate-400 font-mono text-xs flex items-center justify-center">
-                    TOTAL
+                  <div className="pt-2 border-t border-emerald-500/20 text-[10px] font-mono text-emerald-400/80 uppercase tracking-wider">
+                    Condition +
                   </div>
                 </div>
 
-                {/* ROW 1: ACTUAL POSITIVE */}
-                <div className="grid grid-cols-12 gap-4">
-                  {/* Row Header */}
-                  <div className="col-span-3 p-5 rounded-2xl bg-[#111722] border border-emerald-500/30 flex flex-col justify-center">
-                    <span className="text-xs sm:text-sm font-bold text-emerald-400 font-mono tracking-wider">
-                      ACTUAL POSITIVE (+)
-                    </span>
-                    <span className="text-xs text-slate-400 mt-1">Ground Truth</span>
-                  </div>
-
-                  {/* QUADRANT 1: True Positive (TP) */}
-                  <div
-                    style={{
-                      backgroundColor: `rgba(16, 185, 129, ${0.08 + 0.28 * (counts.tp / maxCount)})`,
-                    }}
-                    className={`col-span-4 p-6 rounded-2xl border transition-all duration-200 flex flex-col justify-between ${
-                      hoveredMetric && isCellActive("tp")
-                        ? "border-emerald-400 ring-4 ring-emerald-400/40 shadow-2xl scale-[1.02]"
-                        : hoveredMetric && !isCellActive("tp")
-                        ? "opacity-25 border-white/5"
-                        : "border-emerald-500/30 hover:border-emerald-400/70"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-bold text-emerald-400 flex items-center gap-1.5 font-mono">
-                        <CheckCircle2 className="w-4 h-4" />
-                        TP // True Positive
+                {/* QUADRANT 1: True Positive (TP) */}
+                <div
+                  style={{
+                    backgroundColor: `rgba(16, 185, 129, ${0.08 + 0.28 * (counts.tp / maxCount)})`,
+                  }}
+                  className={`flex-1 min-w-0 p-4 sm:p-5 rounded-2xl border transition-all duration-200 flex flex-col justify-between ${
+                    hoveredMetric && isCellActive("tp")
+                      ? "border-emerald-400 ring-4 ring-emerald-400/40 shadow-2xl scale-[1.01]"
+                      : hoveredMetric && !isCellActive("tp")
+                      ? "opacity-25 border-white/5"
+                      : "border-emerald-500/30 hover:border-emerald-400/70"
+                  }`}
+                >
+                  {/* Top Meta Bar */}
+                  <div className="flex items-center justify-between border-b border-emerald-500/20 pb-2">
+                    <div className="flex items-center gap-1.5">
+                      <span className="px-1.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-mono text-xs font-extrabold border border-emerald-500/30">
+                        TP
                       </span>
-                      <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-lg bg-[#070A0F] text-emerald-300 border border-emerald-500/30">
-                        {tpPct.toFixed(1)}%
-                      </span>
-                    </div>
-
-                    {/* Prominent Number */}
-                    <div className="my-4 flex items-center justify-between">
-                      <input
-                        type="number"
-                        min="0"
-                        step="1"
-                        value={inputStrings.tp}
-                        onChange={(e) => handleInputChange("tp", e.target.value)}
-                        className="w-32 bg-transparent text-left text-4xl sm:text-5xl font-mono font-black text-emerald-300 focus:outline-none tracking-tight"
-                      />
-                      <span className="text-xs text-emerald-400/80 font-mono uppercase tracking-wider">
+                      <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-md border border-emerald-500/20">
                         Hit
                       </span>
                     </div>
-
-                    {/* Smooth Tactile Slider + Steppers */}
-                    <div className="space-y-2 pt-2 border-t border-emerald-500/20">
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => adjustCount("tp", -1)}
-                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
-                          title="Decrement"
-                        >
-                          <Minus className="w-3.5 h-3.5" />
-                        </button>
-                        <input
-                          type="range"
-                          min="0"
-                          max={getSliderMax(counts.tp)}
-                          value={counts.tp}
-                          onChange={(e) => adjustCount("tp", Number(e.target.value) - counts.tp)}
-                          className="w-full h-2 bg-[#070A0F] rounded-lg appearance-none cursor-pointer accent-emerald-400"
-                        />
-                        <button
-                          onClick={() => adjustCount("tp", 1)}
-                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
-                          title="Increment"
-                        >
-                          <Plus className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                      <p className="text-xs text-slate-200 leading-snug">
-                        Correct detection of active positive cases.
-                      </p>
-                    </div>
+                    <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-md bg-[#070A0F] text-emerald-300 border border-emerald-500/30 tabular-nums">
+                      {tpPct.toFixed(1)}%
+                    </span>
                   </div>
 
-                  {/* QUADRANT 2: False Negative (FN) */}
-                  <div
-                    style={{
-                      backgroundColor: `rgba(244, 63, 94, ${0.08 + 0.28 * (counts.fn / maxCount)})`,
-                    }}
-                    className={`col-span-4 p-6 rounded-2xl border transition-all duration-200 flex flex-col justify-between ${
-                      hoveredMetric && isCellActive("fn")
-                        ? "border-rose-400 ring-4 ring-rose-400/40 shadow-2xl scale-[1.02]"
-                        : hoveredMetric && !isCellActive("fn")
-                        ? "opacity-25 border-white/5"
-                        : "border-rose-500/30 hover:border-rose-400/70"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-bold text-rose-400 flex items-center gap-1.5 font-mono">
-                        <ShieldAlert className="w-4 h-4" />
-                        FN // False Negative
-                      </span>
-                      <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-lg bg-[#070A0F] text-rose-300 border border-rose-500/30">
-                        {fnPct.toFixed(1)}%
-                      </span>
-                    </div>
+                  {/* Title & Coordinate */}
+                  <div className="pt-2">
+                    <h4 className="text-sm sm:text-base font-bold text-white tracking-tight">
+                      True Positive
+                    </h4>
+                    <p className="text-[11px] text-slate-400 font-mono">
+                      Actual (+) · Pred (+)
+                    </p>
+                  </div>
 
-                    {/* Prominent Number */}
-                    <div className="my-4 flex items-center justify-between">
+                  {/* Prominent Number */}
+                  <div className="my-2.5 flex items-baseline justify-between">
+                    <input
+                      type="number"
+                      min="0"
+                      step="1"
+                      value={inputStrings.tp}
+                      onChange={(e) => handleInputChange("tp", e.target.value)}
+                      className="w-full bg-transparent text-left text-3xl sm:text-4xl lg:text-5xl font-mono font-black text-emerald-300 focus:outline-none tracking-tight tabular-nums"
+                    />
+                  </div>
+
+                  {/* Smooth Tactile Slider + Steppers */}
+                  <div className="space-y-1.5 pt-2 border-t border-emerald-500/20">
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => adjustCount("tp", -1)}
+                        className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors shrink-0 shadow-sm"
+                        title="Decrement"
+                      >
+                        <Minus className="w-3.5 h-3.5" />
+                      </button>
                       <input
-                        type="number"
+                        type="range"
                         min="0"
-                        step="1"
-                        value={inputStrings.fn}
-                        onChange={(e) => handleInputChange("fn", e.target.value)}
-                        className="w-32 bg-transparent text-left text-4xl sm:text-5xl font-mono font-black text-rose-300 focus:outline-none tracking-tight"
+                        max={getSliderMax(counts.tp)}
+                        value={counts.tp}
+                        onChange={(e) => adjustCount("tp", Number(e.target.value) - counts.tp)}
+                        className="w-full h-1.5 bg-[#070A0F] rounded-lg appearance-none cursor-pointer accent-emerald-400"
                       />
-                      <span className="text-xs text-rose-400/80 font-mono uppercase tracking-wider">
+                      <button
+                        onClick={() => adjustCount("tp", 1)}
+                        className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors shrink-0 shadow-sm"
+                        title="Increment"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                    <p className="text-[11px] text-slate-300 leading-snug">
+                      Correct detection of ground truth positive cases.
+                    </p>
+                  </div>
+                </div>
+
+                {/* QUADRANT 2: False Negative (FN) */}
+                <div
+                  style={{
+                    backgroundColor: `rgba(244, 63, 94, ${0.08 + 0.28 * (counts.fn / maxCount)})`,
+                  }}
+                  className={`flex-1 min-w-0 p-4 sm:p-5 rounded-2xl border transition-all duration-200 flex flex-col justify-between ${
+                    hoveredMetric && isCellActive("fn")
+                      ? "border-rose-400 ring-4 ring-rose-400/40 shadow-2xl scale-[1.01]"
+                      : hoveredMetric && !isCellActive("fn")
+                      ? "opacity-25 border-white/5"
+                      : "border-rose-500/30 hover:border-rose-400/70"
+                  }`}
+                >
+                  {/* Top Meta Bar */}
+                  <div className="flex items-center justify-between border-b border-rose-500/20 pb-2">
+                    <div className="flex items-center gap-1.5">
+                      <span className="px-1.5 py-0.5 rounded-md bg-rose-500/20 text-rose-300 font-mono text-xs font-extrabold border border-rose-500/30">
+                        FN
+                      </span>
+                      <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-md border border-rose-500/20">
                         Miss
                       </span>
                     </div>
-
-                    {/* Smooth Tactile Slider + Steppers */}
-                    <div className="space-y-2 pt-2 border-t border-rose-500/20">
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => adjustCount("fn", -1)}
-                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
-                          title="Decrement"
-                        >
-                          <Minus className="w-3.5 h-3.5" />
-                        </button>
-                        <input
-                          type="range"
-                          min="0"
-                          max={getSliderMax(counts.fn)}
-                          value={counts.fn}
-                          onChange={(e) => adjustCount("fn", Number(e.target.value) - counts.fn)}
-                          className="w-full h-2 bg-[#070A0F] rounded-lg appearance-none cursor-pointer accent-rose-400"
-                        />
-                        <button
-                          onClick={() => adjustCount("fn", 1)}
-                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
-                          title="Increment"
-                        >
-                          <Plus className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                      <p className="text-xs text-rose-200 leading-snug">
-                        Type II Error: Dangerous miss of an actual positive.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Row Total */}
-                  <div className="col-span-1 p-3 rounded-2xl bg-[#111722] border border-white/10 flex flex-col items-center justify-center font-mono">
-                    <span className="text-lg sm:text-xl font-extrabold text-white">{metrics.actualPositive}</span>
-                    <span className="text-xs text-slate-400 mt-1">P</span>
-                  </div>
-                </div>
-
-                {/* ROW 2: ACTUAL NEGATIVE */}
-                <div className="grid grid-cols-12 gap-4">
-                  {/* Row Header */}
-                  <div className="col-span-3 p-5 rounded-2xl bg-[#111722] border border-slate-600/30 flex flex-col justify-center">
-                    <span className="text-xs sm:text-sm font-bold text-slate-300 font-mono tracking-wider">
-                      ACTUAL NEGATIVE (−)
+                    <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-md bg-[#070A0F] text-rose-300 border border-rose-500/30 tabular-nums">
+                      {fnPct.toFixed(1)}%
                     </span>
-                    <span className="text-xs text-slate-400 mt-1">Ground Truth</span>
                   </div>
 
-                  {/* QUADRANT 3: False Positive (FP) */}
-                  <div
-                    style={{
-                      backgroundColor: `rgba(245, 158, 11, ${0.08 + 0.28 * (counts.fp / maxCount)})`,
-                    }}
-                    className={`col-span-4 p-6 rounded-2xl border transition-all duration-200 flex flex-col justify-between ${
-                      hoveredMetric && isCellActive("fp")
-                        ? "border-amber-400 ring-4 ring-amber-400/40 shadow-2xl scale-[1.02]"
-                        : hoveredMetric && !isCellActive("fp")
-                        ? "opacity-25 border-white/5"
-                        : "border-amber-500/30 hover:border-amber-400/70"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-bold text-amber-400 flex items-center gap-1.5 font-mono">
-                        <AlertTriangle className="w-4 h-4" />
-                        FP // False Positive
-                      </span>
-                      <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-lg bg-[#070A0F] text-amber-300 border border-amber-500/30">
-                        {fpPct.toFixed(1)}%
-                      </span>
-                    </div>
+                  {/* Title & Coordinate */}
+                  <div className="pt-2">
+                    <h4 className="text-sm sm:text-base font-bold text-white tracking-tight">
+                      False Negative
+                    </h4>
+                    <p className="text-[11px] text-slate-400 font-mono">
+                      Actual (+) · Pred (−)
+                    </p>
+                  </div>
 
-                    {/* Prominent Number */}
-                    <div className="my-4 flex items-center justify-between">
+                  {/* Prominent Number */}
+                  <div className="my-2.5 flex items-baseline justify-between">
+                    <input
+                      type="number"
+                      min="0"
+                      step="1"
+                      value={inputStrings.fn}
+                      onChange={(e) => handleInputChange("fn", e.target.value)}
+                      className="w-full bg-transparent text-left text-3xl sm:text-4xl lg:text-5xl font-mono font-black text-rose-300 focus:outline-none tracking-tight tabular-nums"
+                    />
+                  </div>
+
+                  {/* Smooth Tactile Slider + Steppers */}
+                  <div className="space-y-1.5 pt-2 border-t border-rose-500/20">
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => adjustCount("fn", -1)}
+                        className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors shrink-0 shadow-sm"
+                        title="Decrement"
+                      >
+                        <Minus className="w-3.5 h-3.5" />
+                      </button>
                       <input
-                        type="number"
+                        type="range"
                         min="0"
-                        step="1"
-                        value={inputStrings.fp}
-                        onChange={(e) => handleInputChange("fp", e.target.value)}
-                        className="w-32 bg-transparent text-left text-4xl sm:text-5xl font-mono font-black text-amber-300 focus:outline-none tracking-tight"
+                        max={getSliderMax(counts.fn)}
+                        value={counts.fn}
+                        onChange={(e) => adjustCount("fn", Number(e.target.value) - counts.fn)}
+                        className="w-full h-1.5 bg-[#070A0F] rounded-lg appearance-none cursor-pointer accent-rose-400"
                       />
-                      <span className="text-xs text-amber-400/80 font-mono uppercase tracking-wider">
-                        False Alarm
-                      </span>
+                      <button
+                        onClick={() => adjustCount("fn", 1)}
+                        className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors shrink-0 shadow-sm"
+                        title="Increment"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                      </button>
                     </div>
-
-                    {/* Smooth Tactile Slider + Steppers */}
-                    <div className="space-y-2 pt-2 border-t border-amber-500/20">
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => adjustCount("fp", -1)}
-                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
-                          title="Decrement"
-                        >
-                          <Minus className="w-3.5 h-3.5" />
-                        </button>
-                        <input
-                          type="range"
-                          min="0"
-                          max={getSliderMax(counts.fp)}
-                          value={counts.fp}
-                          onChange={(e) => adjustCount("fp", Number(e.target.value) - counts.fp)}
-                          className="w-full h-2 bg-[#070A0F] rounded-lg appearance-none cursor-pointer accent-amber-400"
-                        />
-                        <button
-                          onClick={() => adjustCount("fp", 1)}
-                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
-                          title="Increment"
-                        >
-                          <Plus className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                      <p className="text-xs text-amber-200 leading-snug">
-                        Type I Error: Benign case wrongly flagged as positive.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* QUADRANT 4: True Negative (TN) */}
-                  <div
-                    style={{
-                      backgroundColor: `rgba(56, 189, 248, ${0.08 + 0.28 * (counts.tn / maxCount)})`,
-                    }}
-                    className={`col-span-4 p-6 rounded-2xl border transition-all duration-200 flex flex-col justify-between ${
-                      hoveredMetric && isCellActive("tn")
-                        ? "border-sky-400 ring-4 ring-sky-400/40 shadow-2xl scale-[1.02]"
-                        : hoveredMetric && !isCellActive("tn")
-                        ? "opacity-25 border-white/5"
-                        : "border-sky-500/30 hover:border-sky-400/70"
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs sm:text-sm font-bold text-sky-400 flex items-center gap-1.5 font-mono">
-                        <CheckCircle2 className="w-4 h-4" />
-                        TN // True Negative
-                      </span>
-                      <span className="text-xs font-mono font-semibold px-2.5 py-0.5 rounded-lg bg-[#070A0F] text-sky-300 border border-sky-500/30">
-                        {tnPct.toFixed(1)}%
-                      </span>
-                    </div>
-
-                    {/* Prominent Number */}
-                    <div className="my-4 flex items-center justify-between">
-                      <input
-                        type="number"
-                        min="0"
-                        step="1"
-                        value={inputStrings.tn}
-                        onChange={(e) => handleInputChange("tn", e.target.value)}
-                        className="w-32 bg-transparent text-left text-4xl sm:text-5xl font-mono font-black text-sky-300 focus:outline-none tracking-tight"
-                      />
-                      <span className="text-xs text-sky-400/80 font-mono uppercase tracking-wider">
-                        Rejection
-                      </span>
-                    </div>
-
-                    {/* Smooth Tactile Slider + Steppers */}
-                    <div className="space-y-2 pt-2 border-t border-sky-500/20">
-                      <div className="flex items-center gap-2">
-                        <button
-                          onClick={() => adjustCount("tn", -1)}
-                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
-                          title="Decrement"
-                        >
-                          <Minus className="w-3.5 h-3.5" />
-                        </button>
-                        <input
-                          type="range"
-                          min="0"
-                          max={getSliderMax(counts.tn)}
-                          value={counts.tn}
-                          onChange={(e) => adjustCount("tn", Number(e.target.value) - counts.tn)}
-                          className="w-full h-2 bg-[#070A0F] rounded-lg appearance-none cursor-pointer accent-sky-400"
-                        />
-                        <button
-                          onClick={() => adjustCount("tn", 1)}
-                          className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors"
-                          title="Increment"
-                        >
-                          <Plus className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                      <p className="text-xs text-sky-200 leading-snug">
-                        Correct rejection of inactive negative cases.
-                      </p>
-                    </div>
-                  </div>
-
-                  {/* Row Total */}
-                  <div className="col-span-1 p-3 rounded-2xl bg-[#111722] border border-white/10 flex flex-col items-center justify-center font-mono">
-                    <span className="text-lg sm:text-xl font-extrabold text-white">{metrics.actualNegative}</span>
-                    <span className="text-xs text-slate-400 mt-1">N</span>
+                    <p className="text-[11px] text-rose-200 leading-snug">
+                      Type II Error: Ground truth missed by model.
+                    </p>
                   </div>
                 </div>
 
-                {/* Column Totals Footer */}
-                <div className="grid grid-cols-12 gap-4 pt-2 font-mono">
-                  <div className="col-span-3 text-right pr-4 text-slate-400 text-xs sm:text-sm font-bold flex items-center justify-end font-mono">
-                    PRED. TOTAL:
-                  </div>
-                  <div className="col-span-4 p-3.5 rounded-2xl bg-[#111722] border border-sky-400/30 text-center text-sm font-bold text-sky-300">
-                    {metrics.predictedPositive}
-                  </div>
-                  <div className="col-span-4 p-3.5 rounded-2xl bg-[#111722] border border-slate-600/30 text-center text-sm font-bold text-slate-300">
-                    {metrics.predictedNegative}
-                  </div>
-                  <div className="col-span-1 p-3.5 rounded-2xl bg-sky-500/20 border border-sky-400/50 text-center text-sm font-black text-sky-300">
-                    {total}
-                  </div>
+                {/* Row Total */}
+                <div className="w-14 sm:w-16 shrink-0 p-3 rounded-2xl bg-[#111722] border border-white/10 flex flex-col items-center justify-between font-mono text-center">
+                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">P Sum</span>
+                  <span className="text-lg sm:text-xl font-black text-white tabular-nums my-auto">{metrics.actualPositive}</span>
+                  <span className="text-[10px] text-emerald-400 font-bold">{actualPosPct.toFixed(0)}%</span>
                 </div>
-
               </div>
+
+              {/* ROW 2: ACTUAL NEGATIVE */}
+              <div className="flex items-stretch gap-3 sm:gap-4">
+                {/* Row Header */}
+                <div className="w-24 sm:w-28 shrink-0 p-3 sm:p-4 rounded-2xl bg-[#111722] border border-slate-600/30 flex flex-col justify-between text-left">
+                  <div>
+                    <span className="text-[11px] sm:text-xs font-mono font-bold text-slate-400 tracking-wider uppercase block">
+                      ACTUAL (−)
+                    </span>
+                    <span className="text-sm sm:text-base font-bold text-white mt-1 block">
+                      Negative
+                    </span>
+                    <span className="text-[11px] text-slate-400 mt-0.5 block">Ground Truth</span>
+                  </div>
+                  <div className="pt-2 border-t border-white/10 text-[10px] font-mono text-slate-400 uppercase tracking-wider">
+                    Condition −
+                  </div>
+                </div>
+
+                {/* QUADRANT 3: False Positive (FP) */}
+                <div
+                  style={{
+                    backgroundColor: `rgba(245, 158, 11, ${0.08 + 0.28 * (counts.fp / maxCount)})`,
+                  }}
+                  className={`flex-1 min-w-0 p-4 sm:p-5 rounded-2xl border transition-all duration-200 flex flex-col justify-between ${
+                    hoveredMetric && isCellActive("fp")
+                      ? "border-amber-400 ring-4 ring-amber-400/40 shadow-2xl scale-[1.01]"
+                      : hoveredMetric && !isCellActive("fp")
+                      ? "opacity-25 border-white/5"
+                      : "border-amber-500/30 hover:border-amber-400/70"
+                  }`}
+                >
+                  {/* Top Meta Bar */}
+                  <div className="flex items-center justify-between border-b border-amber-500/20 pb-2">
+                    <div className="flex items-center gap-1.5">
+                      <span className="px-1.5 py-0.5 rounded-md bg-amber-500/20 text-amber-300 font-mono text-xs font-extrabold border border-amber-500/30">
+                        FP
+                      </span>
+                      <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20">
+                        Alarm
+                      </span>
+                    </div>
+                    <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-md bg-[#070A0F] text-amber-300 border border-amber-500/30 tabular-nums">
+                      {fpPct.toFixed(1)}%
+                    </span>
+                  </div>
+
+                  {/* Title & Coordinate */}
+                  <div className="pt-2">
+                    <h4 className="text-sm sm:text-base font-bold text-white tracking-tight">
+                      False Positive
+                    </h4>
+                    <p className="text-[11px] text-slate-400 font-mono">
+                      Actual (−) · Pred (+)
+                    </p>
+                  </div>
+
+                  {/* Prominent Number */}
+                  <div className="my-2.5 flex items-baseline justify-between">
+                    <input
+                      type="number"
+                      min="0"
+                      step="1"
+                      value={inputStrings.fp}
+                      onChange={(e) => handleInputChange("fp", e.target.value)}
+                      className="w-full bg-transparent text-left text-3xl sm:text-4xl lg:text-5xl font-mono font-black text-amber-300 focus:outline-none tracking-tight tabular-nums"
+                    />
+                  </div>
+
+                  {/* Smooth Tactile Slider + Steppers */}
+                  <div className="space-y-1.5 pt-2 border-t border-amber-500/20">
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => adjustCount("fp", -1)}
+                        className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors shrink-0 shadow-sm"
+                        title="Decrement"
+                      >
+                        <Minus className="w-3.5 h-3.5" />
+                      </button>
+                      <input
+                        type="range"
+                        min="0"
+                        max={getSliderMax(counts.fp)}
+                        value={counts.fp}
+                        onChange={(e) => adjustCount("fp", Number(e.target.value) - counts.fp)}
+                        className="w-full h-1.5 bg-[#070A0F] rounded-lg appearance-none cursor-pointer accent-amber-400"
+                      />
+                      <button
+                        onClick={() => adjustCount("fp", 1)}
+                        className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors shrink-0 shadow-sm"
+                        title="Increment"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                    <p className="text-[11px] text-amber-200 leading-snug">
+                      Type I Error: False alarm on negative sample.
+                    </p>
+                  </div>
+                </div>
+
+                {/* QUADRANT 4: True Negative (TN) */}
+                <div
+                  style={{
+                    backgroundColor: `rgba(56, 189, 248, ${0.08 + 0.28 * (counts.tn / maxCount)})`,
+                  }}
+                  className={`flex-1 min-w-0 p-4 sm:p-5 rounded-2xl border transition-all duration-200 flex flex-col justify-between ${
+                    hoveredMetric && isCellActive("tn")
+                      ? "border-sky-400 ring-4 ring-sky-400/40 shadow-2xl scale-[1.01]"
+                      : hoveredMetric && !isCellActive("tn")
+                      ? "opacity-25 border-white/5"
+                      : "border-sky-500/30 hover:border-sky-400/70"
+                  }`}
+                >
+                  {/* Top Meta Bar */}
+                  <div className="flex items-center justify-between border-b border-sky-500/20 pb-2">
+                    <div className="flex items-center gap-1.5">
+                      <span className="px-1.5 py-0.5 rounded-md bg-sky-500/20 text-sky-300 font-mono text-xs font-extrabold border border-sky-500/30">
+                        TN
+                      </span>
+                      <span className="text-[11px] font-mono font-bold tracking-wider uppercase text-sky-400 bg-sky-500/10 px-2 py-0.5 rounded-md border border-sky-500/20">
+                        Reject
+                      </span>
+                    </div>
+                    <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-md bg-[#070A0F] text-sky-300 border border-sky-500/30 tabular-nums">
+                      {tnPct.toFixed(1)}%
+                    </span>
+                  </div>
+
+                  {/* Title & Coordinate */}
+                  <div className="pt-2">
+                    <h4 className="text-sm sm:text-base font-bold text-white tracking-tight">
+                      True Negative
+                    </h4>
+                    <p className="text-[11px] text-slate-400 font-mono">
+                      Actual (−) · Pred (−)
+                    </p>
+                  </div>
+
+                  {/* Prominent Number */}
+                  <div className="my-2.5 flex items-baseline justify-between">
+                    <input
+                      type="number"
+                      min="0"
+                      step="1"
+                      value={inputStrings.tn}
+                      onChange={(e) => handleInputChange("tn", e.target.value)}
+                      className="w-full bg-transparent text-left text-3xl sm:text-4xl lg:text-5xl font-mono font-black text-sky-300 focus:outline-none tracking-tight tabular-nums"
+                    />
+                  </div>
+
+                  {/* Smooth Tactile Slider + Steppers */}
+                  <div className="space-y-1.5 pt-2 border-t border-sky-500/20">
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => adjustCount("tn", -1)}
+                        className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors shrink-0 shadow-sm"
+                        title="Decrement"
+                      >
+                        <Minus className="w-3.5 h-3.5" />
+                      </button>
+                      <input
+                        type="range"
+                        min="0"
+                        max={getSliderMax(counts.tn)}
+                        value={counts.tn}
+                        onChange={(e) => adjustCount("tn", Number(e.target.value) - counts.tn)}
+                        className="w-full h-1.5 bg-[#070A0F] rounded-lg appearance-none cursor-pointer accent-sky-400"
+                      />
+                      <button
+                        onClick={() => adjustCount("tn", 1)}
+                        className="w-7 h-7 rounded-lg bg-[#070A0F] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 flex items-center justify-center transition-colors shrink-0 shadow-sm"
+                        title="Increment"
+                      >
+                        <Plus className="w-3.5 h-3.5" />
+                      </button>
+                    </div>
+                    <p className="text-[11px] text-sky-200 leading-snug">
+                      Correct rejection of inactive negative cases.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Row Total */}
+                <div className="w-14 sm:w-16 shrink-0 p-3 rounded-2xl bg-[#111722] border border-white/10 flex flex-col items-center justify-between font-mono text-center">
+                  <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">N Sum</span>
+                  <span className="text-lg sm:text-xl font-black text-white tabular-nums my-auto">{metrics.actualNegative}</span>
+                  <span className="text-[10px] text-sky-400 font-bold">{actualNegPct.toFixed(0)}%</span>
+                </div>
+              </div>
+
+              {/* Column Totals Footer */}
+              <div className="flex items-stretch gap-3 sm:gap-4 pt-1 font-mono">
+                <div className="w-24 sm:w-28 shrink-0 p-3 rounded-2xl bg-[#0E131E] border border-white/5 flex flex-col justify-center text-left">
+                  <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
+                    PRED. SUM
+                  </span>
+                  <span className="text-[10px] text-slate-500 mt-0.5 block">Marginals</span>
+                </div>
+                <div className="flex-1 min-w-0 p-3 sm:p-3.5 rounded-2xl bg-[#111722] border border-sky-400/30 flex items-center justify-between px-4">
+                  <div>
+                    <span className="text-[11px] font-bold text-sky-400 uppercase tracking-wider block">Pred (+)</span>
+                    <span className="text-[10px] text-slate-400">TP + FP</span>
+                  </div>
+                  <span className="text-xl sm:text-2xl font-black text-sky-300 tabular-nums">
+                    {metrics.predictedPositive}
+                  </span>
+                </div>
+                <div className="flex-1 min-w-0 p-3 sm:p-3.5 rounded-2xl bg-[#111722] border border-slate-600/30 flex items-center justify-between px-4">
+                  <div>
+                    <span className="text-[11px] font-bold text-slate-300 uppercase tracking-wider block">Pred (−)</span>
+                    <span className="text-[10px] text-slate-400">FN + TN</span>
+                  </div>
+                  <span className="text-xl sm:text-2xl font-black text-slate-200 tabular-nums">
+                    {metrics.predictedNegative}
+                  </span>
+                </div>
+                <div className="w-14 sm:w-16 shrink-0 p-3 rounded-2xl bg-sky-500/20 border border-sky-400/50 flex flex-col items-center justify-center">
+                  <span className="text-[10px] text-sky-300 font-bold uppercase">Total N</span>
+                  <span className="text-base sm:text-lg font-black text-sky-200 tabular-nums mt-0.5">{total}</span>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -676,10 +759,10 @@ export function ConfusionMatrixSimulator() {
         {/* =================================================================
             RIGHT: Performance Telemetry (CoreNode AI Style)
             ================================================================= */}
-        <div className="lg:col-span-5 flex flex-col space-y-6">
+        <div className="xl:col-span-5 flex flex-col space-y-6">
           
           {/* Classification Telemetry Panel */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl space-y-6">
+          <div className="p-6 sm:p-7 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl space-y-5">
             <div className="flex items-center justify-between border-b border-white/5 pb-4">
               <div className="flex items-center gap-2.5">
                 <Activity className="w-4 h-4 text-sky-400" />
@@ -692,19 +775,19 @@ export function ConfusionMatrixSimulator() {
               </span>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3.5">
               
               {/* Telemetry 1: Accuracy */}
               <div
                 onMouseEnter={() => setHoveredMetric("accuracy")}
                 onMouseLeave={() => setHoveredMetric(null)}
-                className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer ${
+                className={`p-4 sm:p-4.5 rounded-2xl border transition-all cursor-pointer ${
                   hoveredMetric === "accuracy"
                     ? "bg-[#141C2B] border-sky-400 ring-4 ring-sky-400/30 shadow-2xl"
                     : "bg-[#111722] border-white/5 hover:border-white/15"
                 }`}
               >
-                <div className="flex items-center justify-between mb-2.5">
+                <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-white text-sm sm:text-base">Accuracy</span>
                     <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-[#070A0F] text-slate-300 border border-white/10">
@@ -716,7 +799,7 @@ export function ConfusionMatrixSimulator() {
                   </span>
                 </div>
                 {/* Visual Progress Bar */}
-                <div className="w-full h-3 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
+                <div className="w-full h-2.5 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
                   <div
                     style={{ width: `${(metrics.accuracy ?? 0) * 100}%` }}
                     className="h-full bg-gradient-to-r from-blue-500 to-sky-400 rounded-full transition-all duration-300"
@@ -728,13 +811,13 @@ export function ConfusionMatrixSimulator() {
               <div
                 onMouseEnter={() => setHoveredMetric("precision")}
                 onMouseLeave={() => setHoveredMetric(null)}
-                className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer ${
+                className={`p-4 sm:p-4.5 rounded-2xl border transition-all cursor-pointer ${
                   hoveredMetric === "precision"
                     ? "bg-[#141C2B] border-sky-400 ring-4 ring-sky-400/30 shadow-2xl"
                     : "bg-[#111722] border-white/5 hover:border-white/15"
                 }`}
               >
-                <div className="flex items-center justify-between mb-2.5">
+                <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <span className="font-bold text-sky-400 text-sm sm:text-base">Precision</span>
                     <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-[#070A0F] text-slate-300 border border-white/10">
@@ -746,7 +829,7 @@ export function ConfusionMatrixSimulator() {
                   </span>
                 </div>
                 {/* Visual Progress Bar */}
-                <div className="w-full h-3 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
+                <div className="w-full h-2.5 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
                   <div
                     style={{ width: `${(metrics.precision ?? 0) * 100}%` }}
                     className="h-full bg-sky-400 rounded-full transition-all duration-300"
@@ -758,15 +841,15 @@ export function ConfusionMatrixSimulator() {
               <div
                 onMouseEnter={() => setHoveredMetric("recall")}
                 onMouseLeave={() => setHoveredMetric(null)}
-                className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer ${
+                className={`p-4 sm:p-4.5 rounded-2xl border transition-all cursor-pointer ${
                   hoveredMetric === "recall"
                     ? "bg-[#141C2B] border-emerald-400 ring-4 ring-emerald-400/30 shadow-2xl"
                     : "bg-[#111722] border-white/5 hover:border-white/15"
                 }`}
               >
-                <div className="flex items-center justify-between mb-2.5">
+                <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-emerald-400 text-sm sm:text-base">Recall (Sensitivity)</span>
+                    <span className="font-bold text-emerald-400 text-sm sm:text-base whitespace-nowrap">Recall</span>
                     <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-[#070A0F] text-slate-300 border border-white/10">
                       TP / (TP + FN)
                     </span>
@@ -776,7 +859,7 @@ export function ConfusionMatrixSimulator() {
                   </span>
                 </div>
                 {/* Visual Progress Bar */}
-                <div className="w-full h-3 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
+                <div className="w-full h-2.5 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
                   <div
                     style={{ width: `${(metrics.recall ?? 0) * 100}%` }}
                     className="h-full bg-emerald-400 rounded-full transition-all duration-300"
@@ -788,15 +871,15 @@ export function ConfusionMatrixSimulator() {
               <div
                 onMouseEnter={() => setHoveredMetric("specificity")}
                 onMouseLeave={() => setHoveredMetric(null)}
-                className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer ${
+                className={`p-4 sm:p-4.5 rounded-2xl border transition-all cursor-pointer ${
                   hoveredMetric === "specificity"
                     ? "bg-[#141C2B] border-slate-300 ring-4 ring-slate-300/30 shadow-2xl"
                     : "bg-[#111722] border-white/5 hover:border-white/15"
                 }`}
               >
-                <div className="flex items-center justify-between mb-2.5">
+                <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-slate-300 text-sm sm:text-base">Specificity</span>
+                    <span className="font-bold text-slate-300 text-sm sm:text-base whitespace-nowrap">Specificity</span>
                     <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-[#070A0F] text-slate-300 border border-white/10">
                       TN / (TN + FP)
                     </span>
@@ -806,7 +889,7 @@ export function ConfusionMatrixSimulator() {
                   </span>
                 </div>
                 {/* Visual Progress Bar */}
-                <div className="w-full h-3 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
+                <div className="w-full h-2.5 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
                   <div
                     style={{ width: `${(metrics.specificity ?? 0) * 100}%` }}
                     className="h-full bg-slate-400 rounded-full transition-all duration-300"
@@ -818,15 +901,15 @@ export function ConfusionMatrixSimulator() {
               <div
                 onMouseEnter={() => setHoveredMetric("f1Score")}
                 onMouseLeave={() => setHoveredMetric(null)}
-                className={`p-4 sm:p-5 rounded-2xl border transition-all cursor-pointer ${
+                className={`p-4 sm:p-4.5 rounded-2xl border transition-all cursor-pointer ${
                   hoveredMetric === "f1Score"
                     ? "bg-[#141C2B] border-amber-400 ring-4 ring-amber-400/30 shadow-2xl"
                     : "bg-[#111722] border-white/5 hover:border-white/15"
                 }`}
               >
-                <div className="flex items-center justify-between mb-2.5">
+                <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="font-bold text-amber-400 text-sm sm:text-base">F1-Score</span>
+                    <span className="font-bold text-amber-400 text-sm sm:text-base whitespace-nowrap">F1-Score</span>
                     <span className="text-xs font-mono px-2 py-0.5 rounded-md bg-[#070A0F] text-slate-300 border border-white/10">
                       2·P·R / (P + R)
                     </span>
@@ -836,7 +919,7 @@ export function ConfusionMatrixSimulator() {
                   </span>
                 </div>
                 {/* Visual Progress Bar */}
-                <div className="w-full h-3 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
+                <div className="w-full h-2.5 rounded-full bg-[#070A0F] border border-white/10 overflow-hidden">
                   <div
                     style={{ width: `${(metrics.f1Score ?? 0) * 100}%` }}
                     className="h-full bg-gradient-to-r from-amber-500 to-orange-400 rounded-full transition-all duration-300"
@@ -849,7 +932,7 @@ export function ConfusionMatrixSimulator() {
             {/* Zero-Denominator Safety Notice */}
             {(metrics.precision === null || metrics.recall === null || metrics.accuracy === null) && (
               <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-xs sm:text-sm text-amber-300 flex items-start gap-3">
-                <AlertTriangle className="w-5 h-5 shrink-0 mt-0.5 text-amber-400" />
+                <AlertTriangle className="w-4 h-4 shrink-0 mt-0.5 text-amber-400" />
                 <span className="leading-relaxed">
                   Zero Denominator State: The denominator evaluated to 0. ThinkViz explicitly reports <strong className="font-mono text-white">N/A</strong> rather than presenting misleading numerical artifacts.
                 </span>
@@ -858,7 +941,7 @@ export function ConfusionMatrixSimulator() {
           </div>
 
           {/* CoreNode AI Style Diagnostic Readout */}
-          <div className="p-6 sm:p-8 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl space-y-4">
+          <div className="p-6 sm:p-7 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl space-y-4">
             <div className="flex items-center gap-2.5 border-b border-white/5 pb-3">
               <Info className="w-4 h-4 text-sky-400" />
               <h3 className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">
