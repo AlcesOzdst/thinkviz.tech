@@ -33,55 +33,58 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-[#292E36] bg-[#0D0F12]/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
+        <Link href="/" className="flex items-center gap-2.5 group shrink-0">
           <img src="/logo.jpg" alt="ThinkViz Logo" className="h-8 w-8 object-contain" />
           <span className="text-lg font-semibold tracking-tight text-[#F1F3F5]">
-            Think<span className="text-[#6C8CFF]">Viz</span>
+            Think<span className="text-sky-400">Viz</span>
           </span>
         </Link>
 
-        {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-[#A7AFBB]">
+        {/* Desktop Navigation Links (Cleanly spaced, responsive) */}
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium text-[#A7AFBB]">
           <Link
             href="/algorithms"
-            className={`transition-colors hover:text-[#F1F3F5] ${
-              pathname === "/algorithms" ? "text-[#F1F3F5] font-semibold" : ""
+            className={`transition-colors hover:text-[#F1F3F5] shrink-0 ${
+              pathname === "/algorithms" ? "text-white font-semibold" : ""
             }`}
           >
             Explore Algorithms
           </Link>
           <Link
             href="/data-center"
-            className={`transition-colors hover:text-[#F1F3F5] flex items-center gap-1.5 ${
-              pathname?.startsWith("/data-center") ? "text-[#6C8CFF] font-semibold" : ""
+            className={`transition-colors hover:text-sky-400 shrink-0 flex items-center gap-1.5 ${
+              pathname?.startsWith("/data-center") ? "text-sky-400 font-semibold" : ""
             }`}
           >
-            <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#6C8CFF]"></span>
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-sky-400"></span>
             Data Center
           </Link>
           <Link
             href={categoriesHref}
-            className="transition-colors hover:text-[#F1F3F5]"
+            className="transition-colors hover:text-[#F1F3F5] shrink-0"
           >
             Categories
           </Link>
           <Link
             href={howItWorksHref}
-            className="transition-colors hover:text-[#F1F3F5]"
+            className="transition-colors hover:text-[#F1F3F5] shrink-0 hidden xl:inline-block"
           >
-            How It Works
+            Architecture
           </Link>
           <Link
             href={featuredHref}
-            className="transition-colors hover:text-[#F1F3F5]"
+            className="transition-colors hover:text-[#F1F3F5] shrink-0 hidden xl:inline-block"
           >
             Featured
           </Link>
         </nav>
 
-        {/* User Session & Visualizer CTA */}
-        <div className="hidden md:flex items-center gap-3">
-          <Link href="/dashboard" className="text-sm font-medium text-[#A7AFBB] hover:text-[#F1F3F5] transition-colors">
+        {/* User Session & Visualizer CTA (Calibrated zone with left border divider) */}
+        <div className="hidden sm:flex items-center gap-3 shrink-0 pl-4 border-l border-[#292E36]/60">
+          <Link
+            href="/dashboard"
+            className="text-sm font-medium text-[#A7AFBB] hover:text-[#F1F3F5] transition-colors px-2 py-1"
+          >
             Dashboard
           </Link>
 
@@ -119,7 +122,7 @@ export function Navbar() {
 
           <Link
             href="/algorithms"
-            className="inline-flex items-center justify-center rounded-lg bg-[#6C8CFF] px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-[#5A7BEF]"
+            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-sky-950/40 transition-all hover:from-sky-400 hover:to-blue-500 active:scale-[0.98]"
           >
             Launch Visualizer
           </Link>
@@ -128,7 +131,7 @@ export function Navbar() {
         {/* Mobile menu button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="md:hidden rounded-lg p-2 text-[#A7AFBB] hover:bg-[#1B1F25] hover:text-[#F1F3F5]"
+          className="lg:hidden rounded-lg p-2 text-[#A7AFBB] hover:bg-[#1B1F25] hover:text-[#F1F3F5]"
           aria-label="Toggle Navigation Menu"
         >
           <svg
@@ -158,7 +161,7 @@ export function Navbar() {
 
       {/* Mobile menu dropdown */}
       {isMobileMenuOpen && (
-        <div className="md:hidden border-b border-[#292E36] bg-[#15181D] px-4 pt-2 pb-4 space-y-3 text-sm">
+        <div className="lg:hidden border-b border-[#292E36] bg-[#15181D] px-4 pt-2 pb-4 space-y-3 text-sm">
           <Link
             href="/algorithms"
             className="block px-3 py-2 rounded-md font-medium text-[#A7AFBB] hover:bg-[#1B1F25] hover:text-[#F1F3F5]"

@@ -44,6 +44,32 @@ export function Categories() {
             </div>
           </Link>
         ))}
+
+        {/* 6th Card: Unified Explorer to complete 2x3 grid */}
+        <Link
+          href="/algorithms"
+          className="p-6 rounded-xl bg-gradient-to-br from-[#111418] to-[#151a22] border border-sky-500/30 hover:border-sky-500/60 transition-all flex flex-col justify-between group shadow-lg shadow-sky-950/20"
+        >
+          <div>
+            <div className="flex items-center justify-between mb-3">
+              <span className="inline-flex items-center rounded-md bg-sky-500/15 border border-sky-500/30 px-2.5 py-1 text-xs font-medium text-sky-400">
+                11 Solvers
+              </span>
+              <span className="text-sky-400 group-hover:translate-x-1 transition-transform text-sm">
+                →
+              </span>
+            </div>
+            <h3 className="text-lg font-semibold text-[#F1F3F5] group-hover:text-sky-400 transition-colors mb-2">
+              Complete Knowledge Base
+            </h3>
+            <p className="text-xs text-[#A7AFBB] leading-relaxed">
+              Explore the entire suite of search, game trees, rule inference, and optimization algorithms in one unified catalog.
+            </p>
+          </div>
+          <div className="mt-6 pt-4 border-t border-[#292E36] flex items-center justify-between text-xs text-sky-400 font-medium">
+            <span>Explore All Algorithms</span>
+          </div>
+        </Link>
       </div>
     </section>
   );
