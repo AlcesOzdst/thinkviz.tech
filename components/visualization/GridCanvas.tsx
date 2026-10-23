@@ -119,27 +119,30 @@ export function GridCanvas({
       onMouseUp={handleMouseUp}
     >
       {/* Legend Header */}
-      <div className="flex flex-wrap items-center justify-center gap-4 mb-4 text-xs text-[#A7AFBB]">
+      <div className="flex flex-wrap items-center justify-center gap-4 mb-4 text-xs text-[#94A3B8]">
         <span className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded border border-[#55B89A] bg-[#55B89A]/20" /> Start / Goal
+          <span className="h-3 w-3 rounded border border-[#10B981] bg-[#10B981]/25" /> Start
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded border border-[#292E36] bg-[#292E36]" /> Wall
+          <span className="h-3 w-3 rounded border border-[#F43F5E] bg-[#F43F5E]/25" /> Goal
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded border border-[#263352] bg-[#263352]" /> Visited
+          <span className="h-3 w-3 rounded border border-[#333E50] bg-[#222A36]" /> Wall
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded border border-[#6C8CFF] bg-[#6C8CFF]/20" /> Frontier
+          <span className="h-3 w-3 rounded border border-[#1E2A3C] bg-[#131B28]" /> Visited
         </span>
         <span className="flex items-center gap-1.5">
-          <span className="h-3 w-3 rounded border border-[#55B89A] bg-[#55B89A]/30" /> Path
+          <span className="h-3 w-3 rounded border border-[#F59E0B] bg-[#F59E0B]/20" /> Frontier
+        </span>
+        <span className="flex items-center gap-1.5">
+          <span className="h-3 w-3 rounded border border-[#34D399] bg-[#10B981]/30 shadow-[0_0_8px_rgba(52,211,153,0.35)]" /> Optimal Path
         </span>
       </div>
 
       {/* Grid Container */}
       <div
-        className="grid gap-1 p-3 rounded-xl bg-[#15181D] border border-[#292E36] max-w-full overflow-x-auto shadow-inner"
+        className="grid gap-1 p-3 rounded-xl bg-[#12161D] border border-[#232B36] max-w-full overflow-x-auto shadow-inner"
         style={{
           gridTemplateColumns: `repeat(${numCols}, minmax(0, 1fr))`,
         }}
@@ -158,36 +161,36 @@ export function GridCanvas({
             const isWall = node.type === "wall";
 
             let cellStyles =
-              "bg-[#0D0F12] border-[#292E36] text-[#737C89] hover:border-[#3B424E]";
+              "bg-[#0D1015] border-[#1B222C] text-[#828E9E] hover:border-[#333E50]";
             let label = "";
 
             if (isStart) {
               cellStyles =
-                "bg-[#55B89A]/20 border-[#55B89A] text-[#55B89A] font-bold shadow-sm";
+                "bg-[#10B981]/25 border-2 border-[#10B981] text-[#34D399] font-bold shadow-[0_0_8px_rgba(16,185,129,0.35)]";
               label = "S";
             } else if (isGoal) {
               cellStyles =
-                "bg-[#55B89A]/20 border-[#55B89A] text-[#55B89A] font-bold shadow-sm";
+                "bg-[#F43F5E]/25 border-2 border-[#F43F5E] text-[#FDA4AF] font-bold shadow-[0_0_8px_rgba(244,63,94,0.35)]";
               label = "G";
             } else if (isWall) {
-              cellStyles = "bg-[#292E36] border-[#3B424E] text-[#737C89]";
+              cellStyles = "bg-[#222A36] border-[#333E50] text-[#64748B]";
             } else if (isPath) {
               cellStyles =
-                "bg-[#55B89A]/30 border-[#55B89A] text-[#55B89A] font-semibold";
+                "bg-[#10B981]/30 border-[#34D399] text-[#34D399] font-bold shadow-[0_0_10px_rgba(52,211,153,0.45)]";
               label = "✓";
             } else if (isCurrent) {
               cellStyles =
-                "bg-[#6C8CFF] border-white text-white font-bold scale-105 shadow-md z-10";
+                "bg-[#38BDF8] border-white text-white font-bold scale-105 shadow-[0_0_12px_rgba(56,189,248,0.7)] z-10";
               label = "•";
             } else if (isNeighbor) {
               cellStyles =
-                "bg-[#6C8CFF]/30 border-[#6C8CFF] text-[#F1F3F5]";
+                "bg-[#F59E0B]/25 border-[#F59E0B] text-[#FDE68A]";
             } else if (isFrontier) {
               cellStyles =
-                "bg-[#6C8CFF]/20 border-[#6C8CFF]/70 text-[#F1F3F5]";
+                "bg-[#F59E0B]/15 border-[#F59E0B]/80 text-[#FDE68A]";
             } else if (isVisited) {
               cellStyles =
-                "bg-[#263352]/70 border-[#6C8CFF]/30 text-[#A7AFBB]";
+                "bg-[#131B28] border-[#1E2A3C] text-[#64748B]";
             }
 
             return (

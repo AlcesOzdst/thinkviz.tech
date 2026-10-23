@@ -163,8 +163,8 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
   return (
     <div className="w-full flex flex-col items-center space-y-4">
       {/* Action Control Toolbar */}
-      <div className="w-full flex flex-wrap items-center justify-between gap-3 p-3 rounded-xl bg-[#15181D] border border-[#292E36]">
-        <div className="flex items-center gap-2 text-xs text-[#A7AFBB]">
+      <div className="w-full flex flex-wrap items-center justify-between gap-3 p-3 rounded-xl bg-[#12161D] border border-[#232B36]">
+        <div className="flex items-center gap-2 text-xs text-[#94A3B8]">
           <span className="h-2 w-2 rounded-full bg-[#6C8CFF]" />
           <span>
             {hasGenerated
@@ -179,20 +179,20 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
               <button
                 onClick={handleSaveMaze}
                 disabled={isSaving}
-                className="px-3 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#A7AFBB] border border-[#292E36] font-medium text-xs transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="px-3 py-1.5 rounded-lg bg-[#1A202A] hover:bg-[#222A36] text-[#94A3B8] hover:text-[#F8FAFC] border border-[#232B36] font-medium text-xs transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {isSaving ? "Saving..." : "Save Maze"}
               </button>
               <button
                 onClick={handleClearWalls}
                 disabled={walls.length === 0}
-                className="px-3 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#A7AFBB] border border-[#292E36] font-medium text-xs transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+                className="px-3 py-1.5 rounded-lg bg-[#1A202A] hover:bg-[#222A36] text-[#94A3B8] hover:text-[#F8FAFC] border border-[#232B36] font-medium text-xs transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 Clear Walls
               </button>
               <button
                 onClick={handleVisualize}
-                className="px-4 py-1.5 rounded-lg bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white font-medium text-xs transition-colors"
+                className="px-4 py-1.5 rounded-lg bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white font-medium text-xs transition-colors shadow-sm"
               >
                 Visualize {algorithmId === "bfs" ? "BFS" : algorithmId === "dfs" ? "DFS" : algorithmId === "ucs" ? "UCS" : algorithmId === "greedy-bfs" ? "Greedy" : "A*"}
               </button>
@@ -201,13 +201,13 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
             <>
               <button
                 onClick={handleResetSearch}
-                className="px-4 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#F1F3F5] border border-[#292E36] font-medium text-xs transition-colors"
+                className="px-4 py-1.5 rounded-lg bg-[#1A202A] hover:bg-[#222A36] text-[#F8FAFC] border border-[#232B36] font-medium text-xs transition-colors"
               >
                 Reset & Edit Grid
               </button>
               <button
                 onClick={handleResetEntireGrid}
-                className="px-3 py-1.5 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#A7AFBB] border border-[#292E36] font-medium text-xs transition-colors"
+                className="px-3 py-1.5 rounded-lg bg-[#1A202A] hover:bg-[#222A36] text-[#94A3B8] hover:text-[#F8FAFC] border border-[#232B36] font-medium text-xs transition-colors"
               >
                 Clear Grid
               </button>

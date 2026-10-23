@@ -1,25 +1,70 @@
 @import "tailwindcss";
 
 :root {
-  --bg-main: #0D0F12;
-  --bg-surface: #15181D;
-  --bg-raised: #1B1F25;
-  --border-color: #292E36;
+  /* Surface Luminance Stacking (Calibrated for clean layer separation without muddiness) */
+  --bg-main: #090B0E;
+  --bg-surface: #12161D;
+  --bg-raised: #1A202A;
+  --bg-overlay: #222A36;
+  --border-color: #232B36;
+  --border-subtle: #1B222C;
 
-  --text-primary: #F1F3F5;
-  --text-secondary: #A7AFBB;
-  --text-muted: #737C89;
+  /* Typography & Contrast Tiers (Strict WCAG AA/AAA compliance) */
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+  --text-muted: #828E9E;
 
+  /* Brand Accents & Interactive */
   --accent-primary: #6C8CFF;
-  --accent-subtle-bg: #263352;
+  --accent-hover: #85A0FF;
+  --accent-subtle-bg: rgba(108, 140, 255, 0.12);
 
-  --status-success: #55B89A;
-  --status-warning: #D9A441;
+  /* Status Tokens */
+  --status-success: #10B981;
+  --status-warning: #F59E0B;
+  --status-danger: #F43F5E;
+
+  /* Algorithm Visualizer Node Tokens (Simultaneous Contrast & Saturation Burn Fix) */
+  --node-unvisited-bg: #0D1015;
+  --node-unvisited-border: #1B222C;
+  --node-visited-bg: #131B28;
+  --node-visited-border: #1E2A3C;
+  --node-frontier-bg: rgba(245, 158, 11, 0.15);
+  --node-frontier-border: #F59E0B;
+  --node-frontier-text: #FDE68A;
+  --node-path-bg: rgba(16, 185, 129, 0.25);
+  --node-path-border: #34D399;
+  --node-path-text: #34D399;
+  --node-start-bg: rgba(16, 185, 129, 0.20);
+  --node-start-border: #10B981;
+  --node-start-text: #34D399;
+  --node-goal-bg: rgba(244, 63, 94, 0.20);
+  --node-goal-border: #F43F5E;
+  --node-goal-text: #FDA4AF;
+  --node-wall-bg: #222A36;
+  --node-wall-border: #333E50;
 }
 
 @theme inline {
   --color-background: var(--bg-main);
   --color-foreground: var(--text-primary);
+  --color-bg-main: var(--bg-main);
+  --color-bg-surface: var(--bg-surface);
+  --color-bg-raised: var(--bg-raised);
+  --color-bg-overlay: var(--bg-overlay);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-default: var(--border-color);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-hover: var(--accent-hover);
+  --color-status-success: var(--status-success);
+  --color-status-warning: var(--status-warning);
+  --color-status-danger: var(--status-danger);
+
   --font-sans: var(--font-ibm-sans), system-ui, -apple-system, sans-serif;
   --font-mono: var(--font-ibm-mono), monospace;
 }
@@ -43,12 +88,12 @@ body {
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0D0F12;
+  background: #090B0E;
 }
 ::-webkit-scrollbar-thumb {
-  background: #292E36;
+  background: #232B36;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3B424E;
+  background: #333E50;
 }

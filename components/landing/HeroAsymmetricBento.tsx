@@ -305,23 +305,29 @@ export function HeroAsymmetricBento() {
                 {/* 6x8 Visual Grid Canvas (7 Cols on desktop) */}
                 <div className="md:col-span-7 p-5 bg-[#090b0e] flex flex-col justify-between">
                   <div className="space-y-3">
-                    <div className="flex items-center justify-between text-xs font-mono text-[#737C89]">
+                    <div className="flex items-center justify-between text-xs font-mono text-[#828E9E]">
                       <span className="uppercase text-[10px] tracking-wider">Canvas: 6×8 State Matrix</span>
-                      <div className="flex items-center gap-3 text-[10px]">
+                      <div className="flex items-center gap-2.5 text-[10px]">
                         <span className="flex items-center gap-1 text-emerald-400">
-                          <span className="w-2 h-2 rounded bg-emerald-500" /> Start/Goal
+                          <span className="w-2 h-2 rounded bg-emerald-500" /> Start
+                        </span>
+                        <span className="flex items-center gap-1 text-rose-400">
+                          <span className="w-2 h-2 rounded bg-rose-500" /> Goal
                         </span>
                         <span className="flex items-center gap-1 text-amber-300">
                           <span className="w-2 h-2 rounded bg-amber-500/50 border border-amber-400" /> Frontier
                         </span>
-                        <span className="flex items-center gap-1 text-indigo-300">
-                          <span className="w-2 h-2 rounded bg-indigo-900/60" /> Visited
+                        <span className="flex items-center gap-1 text-slate-400">
+                          <span className="w-2 h-2 rounded bg-[#131B28] border border-[#1E2A3C]" /> Visited
+                        </span>
+                        <span className="flex items-center gap-1 text-emerald-300">
+                          <span className="w-2 h-2 rounded bg-[#34D399]" /> Path
                         </span>
                       </div>
                     </div>
 
                     {/* Matrix Grid */}
-                    <div className="grid grid-cols-8 gap-1.5 p-3 rounded-xl bg-[#111418] border border-[#27272a] select-none">
+                    <div className="grid grid-cols-8 gap-1.5 p-3 rounded-xl bg-[#12161D] border border-[#232B36] select-none">
                       {Array.from({ length: ROWS }).map((_, r) =>
                         Array.from({ length: COLS }).map((_, c) => {
                           const wall = isWall(r, c);
@@ -332,28 +338,28 @@ export function HeroAsymmetricBento() {
                           const frontier = isFrontier(r, c);
                           const visited = isVisited(r, c);
 
-                          let cellStyle = "bg-[#181b20] border-[#262930] text-[#737C89]";
+                          let cellStyle = "bg-[#0D1015] border-[#1B222C] text-[#828E9E]";
                           let badge = "";
 
                           if (wall) {
-                            cellStyle = "bg-[#252830] border-[#383d47]";
+                            cellStyle = "bg-[#222A36] border-[#333E50]";
                           } else if (start) {
-                            cellStyle = "bg-emerald-500/20 border-emerald-500 text-emerald-400 font-bold";
+                            cellStyle = "bg-emerald-500/25 border-2 border-emerald-500 text-emerald-300 font-bold shadow-[0_0_8px_rgba(16,185,129,0.35)]";
                             badge = "S";
                           } else if (goal) {
-                            cellStyle = "bg-emerald-500/20 border-emerald-500 text-emerald-400 font-bold";
+                            cellStyle = "bg-rose-500/25 border-2 border-rose-500 text-rose-300 font-bold shadow-[0_0_8px_rgba(244,63,94,0.35)]";
                             badge = "G";
                           } else if (active) {
-                            cellStyle = "bg-sky-500 border-sky-300 text-white font-bold ring-2 ring-sky-400/50 scale-105 shadow-[0_0_12px_rgba(56,189,248,0.6)]";
+                            cellStyle = "bg-sky-500 border-sky-300 text-white font-bold ring-2 ring-sky-400/50 scale-105 shadow-[0_0_12px_rgba(56,189,248,0.7)] z-10";
                             badge = "●";
                           } else if (path) {
-                            cellStyle = "bg-emerald-400/30 border-emerald-400 text-emerald-300 font-bold shadow-[0_0_8px_rgba(52,211,153,0.3)]";
+                            cellStyle = "bg-[#10B981]/30 border-[#34D399] text-[#34D399] font-bold shadow-[0_0_10px_rgba(52,211,153,0.45)]";
                             badge = "✓";
                           } else if (frontier) {
-                            cellStyle = "bg-amber-500/20 border-amber-400/80 text-amber-300";
+                            cellStyle = "bg-amber-500/20 border-amber-400 text-amber-300";
                             badge = "○";
                           } else if (visited) {
-                            cellStyle = "bg-indigo-950/40 border-indigo-700/40 text-indigo-300";
+                            cellStyle = "bg-[#131B28] border-[#1E2A3C] text-slate-400";
                             badge = "•";
                           }
 

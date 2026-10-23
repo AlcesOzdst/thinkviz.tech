@@ -21,16 +21,16 @@ export function HowItWorks() {
   ];
 
   return (
-    <section id="how-it-works" className="py-16 bg-[#0D0F12] border-y border-[#292E36]">
+    <section id="how-it-works" className="py-16 bg-[#090B0E] border-y border-[#232B36]">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <h2 className="text-xs font-semibold text-[#6C8CFF] mb-2">
+          <h2 className="text-xs font-semibold text-[#6C8CFF] mb-2 uppercase tracking-wider">
             Learning Methodology
           </h2>
-          <p className="text-3xl font-bold tracking-tight text-[#F1F3F5]">
+          <p className="text-3xl font-bold tracking-tight text-[#F8FAFC]">
             How ThinkViz works
           </p>
-          <p className="mt-3 text-sm text-[#A7AFBB] leading-relaxed">
+          <p className="mt-3 text-sm text-[#94A3B8] leading-relaxed">
             Designed for intuition. Move beyond static diagrams and step through algorithms dynamically.
           </p>
         </div>
@@ -39,15 +39,15 @@ export function HowItWorks() {
           {steps.map((step) => (
             <div
               key={step.number}
-              className="p-6 rounded-xl bg-[#15181D] border border-[#292E36]"
+              className="p-6 rounded-xl bg-[#12161D] border border-[#232B36] shadow-sm"
             >
               <div className="text-xs font-semibold text-[#6C8CFF] mb-3">
                 Step {step.number}
               </div>
-              <h3 className="text-lg font-semibold text-[#F1F3F5] mb-2">
+              <h3 className="text-lg font-semibold text-[#F8FAFC] mb-2">
                 {step.title}
               </h3>
-              <p className="text-xs text-[#A7AFBB] leading-relaxed">
+              <p className="text-xs text-[#94A3B8] leading-relaxed">
                 {step.description}
               </p>
             </div>

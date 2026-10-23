@@ -30,21 +30,21 @@ export function Navbar() {
   const featuredHref = pathname === "/" ? "#featured" : "/algorithms?filter=featured";
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#292E36] bg-[#0D0F12]/90 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-[#232B36] bg-[#090B0E]/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         {/* Brand Logo */}
         <Link href="/" className="flex items-center gap-2.5 group shrink-0">
           <img src="/logo.jpg" alt="ThinkViz Logo" className="h-8 w-8 object-contain" />
-          <span className="text-lg font-semibold tracking-tight text-[#F1F3F5]">
+          <span className="text-lg font-semibold tracking-tight text-[#F8FAFC]">
             Think<span className="text-sky-400">Viz</span>
           </span>
         </Link>
 
         {/* Desktop Navigation Links (Cleanly spaced, responsive) */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium text-[#A7AFBB]">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium text-[#94A3B8]">
           <Link
             href="/algorithms"
-            className={`transition-colors hover:text-[#F1F3F5] shrink-0 ${
+            className={`transition-colors hover:text-[#F8FAFC] shrink-0 ${
               pathname === "/algorithms" ? "text-white font-semibold" : ""
             }`}
           >
@@ -61,29 +61,29 @@ export function Navbar() {
           </Link>
           <Link
             href={categoriesHref}
-            className="transition-colors hover:text-[#F1F3F5] shrink-0"
+            className="transition-colors hover:text-[#F8FAFC] shrink-0"
           >
             Categories
           </Link>
           <Link
             href={howItWorksHref}
-            className="transition-colors hover:text-[#F1F3F5] shrink-0 hidden xl:inline-block"
+            className="transition-colors hover:text-[#F8FAFC] shrink-0 hidden xl:inline-block"
           >
             Architecture
           </Link>
           <Link
             href={featuredHref}
-            className="transition-colors hover:text-[#F1F3F5] shrink-0 hidden xl:inline-block"
+            className="transition-colors hover:text-[#F8FAFC] shrink-0 hidden xl:inline-block"
           >
             Featured
           </Link>
         </nav>
 
         {/* User Session & Visualizer CTA (Calibrated zone with left border divider) */}
-        <div className="hidden sm:flex items-center gap-3 shrink-0 pl-4 border-l border-[#292E36]/60">
+        <div className="hidden sm:flex items-center gap-3 shrink-0 pl-4 border-l border-[#232B36]">
           <Link
             href="/dashboard"
-            className="text-sm font-medium text-[#A7AFBB] hover:text-[#F1F3F5] transition-colors px-2 py-1"
+            className="text-sm font-medium text-[#94A3B8] hover:text-[#F8FAFC] transition-colors px-2 py-1"
           >
             Dashboard
           </Link>
@@ -92,20 +92,20 @@ export function Navbar() {
             <div className="flex items-center gap-2">
               <Link
                 href="/data-center"
-                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-[#181C22] border border-[#292E36] hover:border-[#6C8CFF]/50 transition-colors"
+                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-[#12161D] border border-[#232B36] hover:border-[#6C8CFF]/50 transition-colors"
               >
                 <span className="w-5 h-5 rounded-full bg-[#6C8CFF] text-white flex items-center justify-center text-[10px] font-semibold">
                   {currentUser.name.charAt(0)}
                 </span>
-                <span className="text-xs font-medium text-[#F1F3F5] max-w-[100px] truncate">{currentUser.name}</span>
-                <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-[#111418] border border-[#292E36] text-[#6C8CFF]">
+                <span className="text-xs font-medium text-[#F8FAFC] max-w-[100px] truncate">{currentUser.name}</span>
+                <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-[#090B0E] border border-[#232B36] text-[#6C8CFF]">
                   {currentUser.role}
                 </span>
               </Link>
               <button
                 type="button"
                 onClick={handleNavbarLogout}
-                className="p-1.5 rounded-lg text-[#717885] hover:text-red-400 hover:bg-[#181C22] transition-colors"
+                className="p-1.5 rounded-lg text-[#828E9E] hover:text-red-400 hover:bg-[#1A202A] transition-colors"
                 title="Sign Out"
               >
                 <LogOut className="w-4 h-4" />
@@ -114,7 +114,7 @@ export function Navbar() {
           ) : (
             <Link
               href="/login"
-              className="inline-flex items-center justify-center rounded-lg border border-[#292E36] bg-[#181C22] px-3 py-1.5 text-xs font-medium text-[#F1F3F5] hover:bg-[#1F242D] hover:border-[#6C8CFF]/50 transition-colors"
+              className="inline-flex items-center justify-center rounded-lg border border-[#232B36] bg-[#12161D] px-3 py-1.5 text-xs font-medium text-[#F8FAFC] hover:bg-[#1A202A] hover:border-[#6C8CFF]/50 transition-colors"
             >
               Sign In
             </Link>
@@ -131,7 +131,7 @@ export function Navbar() {
         {/* Mobile menu button */}
         <button
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          className="lg:hidden rounded-lg p-2 text-[#A7AFBB] hover:bg-[#1B1F25] hover:text-[#F1F3F5]"
+          className="lg:hidden rounded-lg p-2 text-[#94A3B8] hover:bg-[#1A202A] hover:text-[#F8FAFC]"
           aria-label="Toggle Navigation Menu"
         >
           <svg

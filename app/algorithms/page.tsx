@@ -162,16 +162,16 @@ function AlgorithmsExplorerContent() {
             <Sparkles className="w-3.5 h-3.5" />
             <span>Interactive Visualizer Catalog</span>
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-[#F1F3F5] mb-2">
+          <h1 className="text-3xl font-bold tracking-tight text-[#F8FAFC] mb-2">
             Algorithm Explorer
           </h1>
-          <p className="text-sm text-[#A7AFBB] max-w-2xl leading-relaxed">
+          <p className="text-sm text-[#94A3B8] max-w-2xl leading-relaxed">
             Search, categorize, and filter artificial intelligence algorithms. Select any algorithm to launch its live step-by-step visualizer.
           </p>
         </div>
 
         {/* View Mode Tabs: All Algorithms vs Featured */}
-        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#15181D] border border-[#292E36] self-start md:self-auto">
+        <div className="flex items-center gap-1.5 p-1 rounded-xl bg-[#12161D] border border-[#232B36] self-start md:self-auto">
           <button
             type="button"
             onClick={() => {
@@ -180,7 +180,7 @@ function AlgorithmsExplorerContent() {
             className={`px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all ${
               !onlyFeatured
                 ? "bg-[#6C8CFF] text-white shadow-sm"
-                : "text-[#A7AFBB] hover:text-white"
+                : "text-[#94A3B8] hover:text-[#F8FAFC]"
             }`}
           >
             All Algorithms ({ALGORITHMS.length})
@@ -193,10 +193,10 @@ function AlgorithmsExplorerContent() {
             className={`px-3.5 py-1.5 rounded-lg text-xs font-medium flex items-center gap-1.5 transition-all ${
               onlyFeatured
                 ? "bg-[#6C8CFF] text-white shadow-sm"
-                : "text-[#A7AFBB] hover:text-white"
+                : "text-[#94A3B8] hover:text-[#F8FAFC]"
             }`}
           >
-            <Star className={`w-3.5 h-3.5 ${onlyFeatured ? "fill-white text-white" : "text-[#E5A83B]"}`} />
+            <Star className={`w-3.5 h-3.5 ${onlyFeatured ? "fill-white text-white" : "text-[#F59E0B]"}`} />
             Featured ({featuredTotal})
           </button>
         </div>
@@ -206,54 +206,54 @@ function AlgorithmsExplorerContent() {
       {showHowItWorks && (
         <section
           id="how-it-works"
-          className="scroll-mt-24 rounded-2xl bg-[#15181D] border border-[#292E36] p-6 transition-all"
+          className="scroll-mt-24 rounded-2xl bg-[#12161D] border border-[#232B36] p-6 transition-all shadow-sm"
         >
-          <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#292E36]">
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-[#232B36]">
             <div className="flex items-center gap-2">
               <div className="p-1.5 rounded-lg bg-[#6C8CFF]/15 text-[#6C8CFF]">
                 <Play className="w-4 h-4 fill-current" />
               </div>
               <div>
-                <h2 className="text-sm font-bold text-[#F1F3F5]">How ThinkViz Visualizers Work</h2>
-                <p className="text-xs text-[#717885]">Intuitive three-step workflow to master search and optimization models</p>
+                <h2 className="text-sm font-bold text-[#F8FAFC]">How ThinkViz Visualizers Work</h2>
+                <p className="text-xs text-[#828E9E]">Intuitive three-step workflow to master search and optimization models</p>
               </div>
             </div>
             <button
               type="button"
               onClick={() => setShowHowItWorks(false)}
-              className="text-xs text-[#717885] hover:text-white px-2.5 py-1 rounded-lg bg-[#111418] border border-[#292E36] transition-colors"
+              className="text-xs text-[#828E9E] hover:text-[#F8FAFC] px-2.5 py-1 rounded-lg bg-[#090B0E] border border-[#232B36] transition-colors"
             >
               Close Guide
             </button>
           </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
-          <div className="p-4 rounded-xl bg-[#0D0F12] border border-[#292E36]">
+          <div className="p-4 rounded-xl bg-[#090B0E] border border-[#232B36]">
             <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-[#6C8CFF]/15 text-[#6C8CFF] mb-2">
               STEP 01
             </span>
-            <h3 className="text-sm font-semibold text-[#F1F3F5] mb-1">Select and Configure</h3>
-            <p className="text-[#A7AFBB] leading-relaxed text-[11px]">
+            <h3 className="text-sm font-semibold text-[#F8FAFC] mb-1">Select and Configure</h3>
+            <p className="text-[#94A3B8] leading-relaxed text-[11px]">
               Choose an algorithm, adjust heuristic parameters (Manhattan, Euclidean), and generate custom obstacle mazes or TSP coordinate matrices.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#0D0F12] border border-[#292E36]">
+          <div className="p-4 rounded-xl bg-[#090B0E] border border-[#232B36]">
             <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-[#10B981]/15 text-[#10B981] mb-2">
               STEP 02
             </span>
-            <h3 className="text-sm font-semibold text-[#F1F3F5] mb-1">Control Execution</h3>
-            <p className="text-[#A7AFBB] leading-relaxed text-[11px]">
+            <h3 className="text-sm font-semibold text-[#F8FAFC] mb-1">Control Execution</h3>
+            <p className="text-[#94A3B8] leading-relaxed text-[11px]">
               Use Play, Pause, Step Forward, and Step Backward controls to trace node evaluations, priority queues, and line-by-line pseudocode highlighting.
             </p>
           </div>
 
-          <div className="p-4 rounded-xl bg-[#0D0F12] border border-[#292E36]">
-            <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-[#E5A83B]/15 text-[#E5A83B] mb-2">
+          <div className="p-4 rounded-xl bg-[#090B0E] border border-[#232B36]">
+            <span className="inline-block px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-[#F59E0B]/15 text-[#F59E0B] mb-2">
               STEP 03
             </span>
-            <h3 className="text-sm font-semibold text-[#F1F3F5] mb-1">Analyze Telemetry</h3>
-            <p className="text-[#A7AFBB] leading-relaxed text-[11px]">
+            <h3 className="text-sm font-semibold text-[#F8FAFC] mb-1">Analyze Telemetry</h3>
+            <p className="text-[#94A3B8] leading-relaxed text-[11px]">
               Monitor visited node counts, effective path cost, memory consumption, and algorithmic time complexity in real time.
             </p>
           </div>
@@ -269,8 +269,8 @@ function AlgorithmsExplorerContent() {
               <Star className="w-4 h-4 fill-purple-300 text-purple-300" />
             </div>
             <div>
-              <h2 className="text-xs font-bold text-[#F1F3F5]">Viewing Featured Core Algorithms</h2>
-              <p className="text-[11px] text-[#A7AFBB]">
+              <h2 className="text-xs font-bold text-[#F8FAFC]">Viewing Featured Core Algorithms</h2>
+              <p className="text-[11px] text-[#94A3B8]">
                 Foundational curriculum models including A* Search, Genetic TSP, and Minimax Game Trees.
               </p>
             </div>
@@ -286,7 +286,7 @@ function AlgorithmsExplorerContent() {
       )}
 
       {/* Search & Categories Filter Bar */}
-      <div id="categories" className="scroll-mt-24 space-y-4 p-5 rounded-xl bg-[#15181D] border border-[#292E36]">
+      <div id="categories" className="scroll-mt-24 space-y-4 p-5 rounded-xl bg-[#12161D] border border-[#232B36] shadow-sm">
         {/* Search input */}
         <div className="relative">
           <input
@@ -294,15 +294,15 @@ function AlgorithmsExplorerContent() {
             placeholder="Search algorithms by name, keyword, or problem domain (e.g. A*, TSP, heuristic, minimax)..."
             value={searchQuery}
             onChange={(e) => handleSearchChange(e.target.value)}
-            className="w-full rounded-lg bg-[#0D0F12] border border-[#292E36] px-4 py-2.5 pl-10 text-sm text-[#F1F3F5] placeholder-[#737C89] focus:border-[#6C8CFF] focus:outline-none"
+            className="w-full rounded-lg bg-[#090B0E] border border-[#232B36] px-4 py-2.5 pl-10 text-sm text-[#F8FAFC] placeholder-[#828E9E] focus:border-[#6C8CFF] focus:outline-none"
           />
-          <Search className="absolute left-3.5 top-3 h-4 w-4 text-[#737C89]" />
+          <Search className="absolute left-3.5 top-3 h-4 w-4 text-[#828E9E]" />
         </div>
 
-        <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-[#292E36]">
+        <div className="flex flex-wrap items-center justify-between gap-4 pt-2 border-t border-[#232B36]">
           {/* Category pills */}
           <div className="flex flex-wrap items-center gap-2 text-xs">
-            <span className="text-[#737C89] font-medium mr-1 flex items-center gap-1">
+            <span className="text-[#828E9E] font-medium mr-1 flex items-center gap-1">
               <Layers className="w-3.5 h-3.5" /> Category:
             </span>
             <button
@@ -311,7 +311,7 @@ function AlgorithmsExplorerContent() {
               className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
                 selectedCategory === "All"
                   ? "bg-[#6C8CFF] text-white shadow-sm"
-                  : "bg-[#1B1F25] text-[#A7AFBB] hover:text-[#F1F3F5]"
+                  : "bg-[#1A202A] text-[#94A3B8] hover:text-[#F8FAFC] border border-[#232B36]"
               }`}
             >
               All ({ALGORITHMS.length})
@@ -326,7 +326,7 @@ function AlgorithmsExplorerContent() {
                   className={`px-3 py-1.5 rounded-lg font-medium transition-all ${
                     isSelected
                       ? "bg-[#6C8CFF] text-white shadow-sm"
-                      : "bg-[#1B1F25] text-[#A7AFBB] hover:text-[#F1F3F5]"
+                      : "bg-[#1A202A] text-[#94A3B8] hover:text-[#F8FAFC] border border-[#232B36]"
                   }`}
                 >
                   {cat.name} ({cat.algorithmCount})
@@ -337,13 +337,13 @@ function AlgorithmsExplorerContent() {
 
           {/* Difficulty Dropdown */}
           <div className="flex items-center gap-2 text-xs">
-            <span className="text-[#737C89] font-medium flex items-center gap-1">
+            <span className="text-[#828E9E] font-medium flex items-center gap-1">
               <SlidersHorizontal className="w-3 h-3" /> Difficulty:
             </span>
             <select
               value={selectedDifficulty}
               onChange={(e) => handleDifficultySelect(e.target.value)}
-              className="rounded-lg bg-[#0D0F12] border border-[#292E36] px-3 py-1.5 text-xs text-[#F1F3F5] focus:border-[#6C8CFF] focus:outline-none"
+              className="rounded-lg bg-[#090B0E] border border-[#232B36] px-3 py-1.5 text-xs text-[#F8FAFC] focus:border-[#6C8CFF] focus:outline-none"
             >
               <option value="All">All difficulties</option>
               <option value="Beginner">Beginner</option>
@@ -360,50 +360,50 @@ function AlgorithmsExplorerContent() {
           {filteredAlgorithms.map((algo) => (
             <div
               key={algo.id}
-              className="flex flex-col justify-between rounded-xl bg-[#15181D] border border-[#292E36] p-6 hover:border-[#6C8CFF]/50 transition-all group"
+              className="flex flex-col justify-between rounded-xl bg-[#12161D] border border-[#232B36] p-6 hover:border-[#6C8CFF]/50 transition-all group shadow-sm"
             >
               <div>
                 {/* Header tags */}
                 <div className="flex items-center justify-between gap-2 mb-3">
-                  <span className="rounded bg-[#1B1F25] px-2.5 py-0.5 text-xs text-[#A7AFBB] border border-[#292E36]">
+                  <span className="rounded bg-[#1A202A] px-2.5 py-0.5 text-xs text-[#94A3B8] border border-[#232B36]">
                     {algo.category}
                   </span>
                   <div className="flex items-center gap-2">
                     {algo.featured && (
-                      <span className="flex items-center gap-1 text-[10px] font-medium text-[#E5A83B] bg-[#E5A83B]/10 px-2 py-0.5 rounded border border-[#E5A83B]/20">
+                      <span className="flex items-center gap-1 text-[10px] font-medium text-[#F59E0B] bg-[#F59E0B]/10 px-2 py-0.5 rounded border border-[#F59E0B]/20">
                         <Star className="w-2.5 h-2.5 fill-current" /> Featured
                       </span>
                     )}
-                    <span className="text-xs text-[#737C89]">
+                    <span className="text-xs text-[#828E9E]">
                       {algo.difficulty}
                     </span>
                   </div>
                 </div>
 
-                <h3 className="text-lg font-semibold text-[#F1F3F5] group-hover:text-[#6C8CFF] transition-colors mb-2">
-                  {algo.name} <span className="text-xs text-[#737C89]">({algo.shortName})</span>
+                <h3 className="text-lg font-semibold text-[#F8FAFC] group-hover:text-[#6C8CFF] transition-colors mb-2">
+                  {algo.name} <span className="text-xs text-[#828E9E]">({algo.shortName})</span>
                 </h3>
 
-                <p className="text-xs text-[#A7AFBB] leading-relaxed mb-5">
+                <p className="text-xs text-[#94A3B8] leading-relaxed mb-5">
                   {algo.description}
                 </p>
 
                 {/* Complexities */}
                 <div className="grid grid-cols-2 gap-2 mb-6 text-xs font-mono">
-                  <div className="p-2 rounded bg-[#0D0F12] border border-[#292E36]">
-                    <span className="text-[#737C89] block text-[10px] font-sans">TIME</span>
-                    <span className="text-[#F1F3F5]">{algo.timeComplexity}</span>
+                  <div className="p-2 rounded bg-[#090B0E] border border-[#232B36]">
+                    <span className="text-[#828E9E] block text-[10px] font-sans">TIME</span>
+                    <span className="text-[#F8FAFC]">{algo.timeComplexity}</span>
                   </div>
-                  <div className="p-2 rounded bg-[#0D0F12] border border-[#292E36]">
-                    <span className="text-[#737C89] block text-[10px] font-sans">SPACE</span>
-                    <span className="text-[#F1F3F5]">{algo.spaceComplexity}</span>
+                  <div className="p-2 rounded bg-[#090B0E] border border-[#232B36]">
+                    <span className="text-[#828E9E] block text-[10px] font-sans">SPACE</span>
+                    <span className="text-[#F8FAFC]">{algo.spaceComplexity}</span>
                   </div>
                 </div>
               </div>
 
               <Link
                 href={`/algorithms/${algo.id}`}
-                className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[#1B1F25] py-2.5 text-xs font-medium text-[#F1F3F5] hover:bg-[#6C8CFF] hover:text-white transition-all shadow-sm"
+                className="w-full inline-flex items-center justify-center gap-2 rounded-lg bg-[#1A202A] py-2.5 text-xs font-medium text-[#F8FAFC] hover:bg-[#6C8CFF] hover:text-white transition-all shadow-sm"
               >
                 <span>Launch Interactive Visualizer</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -412,21 +412,22 @@ function AlgorithmsExplorerContent() {
           ))}
         </div>
       ) : (
-        <div className="text-center py-16 rounded-xl bg-[#15181D] border border-[#292E36] space-y-3">
-          <p className="text-sm font-semibold text-[#F1F3F5]">No matching algorithms found</p>
-          <p className="text-xs text-[#737C89]">
+        <div className="text-center py-16 rounded-xl bg-[#12161D] border border-[#232B36] space-y-3">
+          <p className="text-sm font-semibold text-[#F8FAFC]">No matching algorithms found</p>
+          <p className="text-xs text-[#828E9E]">
             No algorithms match the current category and filter criteria.
           </p>
           <button
             type="button"
             onClick={resetAllFilters}
-            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#1B1F25] text-xs text-[#6C8CFF] hover:bg-[#292E36] font-medium transition-colors"
+            className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-[#1A202A] text-xs text-[#6C8CFF] hover:bg-[#222A36] border border-[#232B36] font-medium transition-colors"
           >
             <RotateCcw className="w-3.5 h-3.5" />
             Reset All Filters
           </button>
         </div>
       )}
+
     </div>
   );
 }

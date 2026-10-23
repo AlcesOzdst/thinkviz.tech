@@ -31,7 +31,7 @@ export default async function RootLayout({
       lang="en"
       className={`${ibmPlexSans.variable} ${ibmPlexMono.variable} dark h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-[#0D0F12] text-[#F1F3F5] selection:bg-[#6C8CFF]/30 selection:text-white">
+      <body className="min-h-full flex flex-col bg-[#090B0E] text-[#F8FAFC] selection:bg-[#6C8CFF]/30 selection:text-white">
         <Navbar />
         <main className="flex-1">{children}</main>
         <Footer />

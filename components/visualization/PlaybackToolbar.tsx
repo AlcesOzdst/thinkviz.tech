@@ -36,14 +36,14 @@ export function PlaybackToolbar<TState>({
   ];
 
   return (
-    <div className="w-full p-3.5 rounded-xl bg-[#15181D] border border-[#292E36] flex flex-col md:flex-row items-center justify-between gap-4 select-none">
+    <div className="w-full p-3.5 rounded-xl bg-[#12161D] border border-[#232B36] flex flex-col md:flex-row items-center justify-between gap-4 select-none">
       {/* Control Buttons Group */}
       <div className="flex items-center gap-2">
         {/* Reset Button */}
         <button
           onClick={reset}
           disabled={isControlsDisabled || isAtStart}
-          className="p-2 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#F1F3F5] border border-[#292E36] transition-colors disabled:opacity-40 disabled:cursor-not-allowed text-xs font-medium"
+          className="p-2 rounded-lg bg-[#1A202A] hover:bg-[#222A36] text-[#F8FAFC] border border-[#232B36] transition-colors disabled:opacity-40 disabled:cursor-not-allowed text-xs font-medium"
           title="Reset to Step 0"
         >
           ⏮ Reset
@@ -53,7 +53,7 @@ export function PlaybackToolbar<TState>({
         <button
           onClick={stepBackward}
           disabled={isControlsDisabled || isAtStart}
-          className="p-2 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#F1F3F5] border border-[#292E36] transition-colors disabled:opacity-40 disabled:cursor-not-allowed text-xs font-medium"
+          className="p-2 rounded-lg bg-[#1A202A] hover:bg-[#222A36] text-[#F8FAFC] border border-[#232B36] transition-colors disabled:opacity-40 disabled:cursor-not-allowed text-xs font-medium"
           title="Previous Step"
         >
           ◀ Prev
@@ -65,8 +65,8 @@ export function PlaybackToolbar<TState>({
           disabled={isControlsDisabled || (isAtEnd && !isPlaying)}
           className={`px-4 py-2 rounded-lg font-medium text-xs transition-colors flex items-center justify-center gap-1.5 min-w-[95px] ${
             isPlaying
-              ? "bg-[#263352] text-[#6C8CFF] border border-[#6C8CFF]/50"
-              : "bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white"
+              ? "bg-[#1E293B] text-[#6C8CFF] border border-[#6C8CFF]/50"
+              : "bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white shadow-sm"
           } disabled:opacity-40 disabled:cursor-not-allowed`}
         >
           {isPlaying ? (
@@ -88,7 +88,7 @@ export function PlaybackToolbar<TState>({
         <button
           onClick={stepForward}
           disabled={isControlsDisabled || isAtEnd}
-          className="p-2 rounded-lg bg-[#1B1F25] hover:bg-[#292E36] text-[#F1F3F5] border border-[#292E36] transition-colors disabled:opacity-40 disabled:cursor-not-allowed text-xs font-medium"
+          className="p-2 rounded-lg bg-[#1A202A] hover:bg-[#222A36] text-[#F8FAFC] border border-[#232B36] transition-colors disabled:opacity-40 disabled:cursor-not-allowed text-xs font-medium"
           title="Next Step"
         >
           Next ▶
@@ -104,16 +104,16 @@ export function PlaybackToolbar<TState>({
           value={totalSteps === 0 ? 0 : currentStepIndex}
           onChange={(e) => jumpToStep(Number(e.target.value))}
           disabled={isControlsDisabled || totalSteps <= 1}
-          className="w-full h-1.5 bg-[#1B1F25] rounded-lg appearance-none cursor-pointer accent-[#6C8CFF] disabled:opacity-40 disabled:cursor-not-allowed"
+          className="w-full h-1.5 bg-[#1A202A] rounded-lg appearance-none cursor-pointer accent-[#6C8CFF] disabled:opacity-40 disabled:cursor-not-allowed"
         />
-        <span className="text-xs font-mono text-[#A7AFBB] whitespace-nowrap min-w-[70px] text-right">
+        <span className="text-xs font-mono text-[#94A3B8] whitespace-nowrap min-w-[70px] text-right">
           {totalSteps > 0 ? currentStepIndex + 1 : 0} / {totalSteps}
         </span>
       </div>
 
       {/* Speed Presets */}
-      <div className="flex items-center gap-1.5 text-xs text-[#A7AFBB]">
-        <span className="mr-1 text-[#737C89]">Speed:</span>
+      <div className="flex items-center gap-1.5 text-xs text-[#94A3B8]">
+        <span className="mr-1 text-[#828E9E]">Speed:</span>
         {speedPresets.map((preset) => (
           <button
             key={preset.label}
@@ -121,8 +121,8 @@ export function PlaybackToolbar<TState>({
             disabled={disabled}
             className={`px-2.5 py-1 rounded-md text-xs font-medium transition-all ${
               speedMs === preset.valueMs
-                ? "bg-[#6C8CFF] text-white"
-                : "bg-[#1B1F25] text-[#A7AFBB] hover:text-[#F1F3F5] hover:bg-[#292E36]"
+                ? "bg-[#6C8CFF] text-white shadow-sm"
+                : "bg-[#1A202A] text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#222A36] border border-[#232B36]"
             } disabled:opacity-40 disabled:cursor-not-allowed`}
           >
             {preset.label}

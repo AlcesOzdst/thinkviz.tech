@@ -22,7 +22,7 @@ const PSEUDOCODE_LINES = [
 export function StepExplanation({ step }: StepExplanationProps) {
   if (!step) {
     return (
-      <div className="w-full p-4 rounded-xl bg-[#15181D] border border-[#292E36] text-xs text-[#737C89]">
+      <div className="w-full p-4 rounded-xl bg-[#12161D] border border-[#232B36] text-xs text-[#828E9E]">
         No step trace active. Click &quot;Visualize A*&quot; to begin algorithm execution.
       </div>
     );
@@ -39,33 +39,33 @@ export function StepExplanation({ step }: StepExplanationProps) {
   const hasActiveNode = activeNode && activeNode.gCost !== Infinity;
 
   return (
-    <div className="w-full p-4 rounded-xl bg-[#15181D] border border-[#292E36] space-y-4">
+    <div className="w-full p-4 rounded-xl bg-[#12161D] border border-[#232B36] space-y-4">
       {/* Header with Step indicator */}
-      <div className="flex items-center justify-between border-b border-[#292E36] pb-3 text-xs">
-        <span className="font-semibold text-[#F1F3F5]">Step Explanation</span>
-        <span className="font-mono text-[#A7AFBB]">
+      <div className="flex items-center justify-between border-b border-[#232B36] pb-3 text-xs">
+        <span className="font-semibold text-[#F8FAFC]">Step Explanation</span>
+        <span className="font-mono text-[#94A3B8]">
           Step {step.stepIndex + 1} of {step.metrics.totalSteps}
         </span>
       </div>
 
       {/* Narrative Step Description */}
-      <div className="p-3 rounded-lg bg-[#1B1F25] border border-[#292E36] text-xs text-[#F1F3F5] leading-relaxed">
+      <div className="p-3 rounded-lg bg-[#1A202A] border border-[#232B36] text-xs text-[#F8FAFC] leading-relaxed">
         <span className="text-[#6C8CFF] font-medium mr-1.5">Action:</span>
         {step.description}
       </div>
 
       {/* Active Node Costs Badge Group (g, h, f) */}
       {hasActiveNode && (
-        <div className="p-3 rounded-lg bg-[#0D0F12] border border-[#292E36] flex flex-wrap items-center justify-between gap-3 text-xs">
-          <div className="text-[#A7AFBB]">
-            Current Node: <span className="font-mono font-semibold text-[#F1F3F5]">({activeNode.row}, {activeNode.col})</span>
+        <div className="p-3 rounded-lg bg-[#090B0E] border border-[#232B36] flex flex-wrap items-center justify-between gap-3 text-xs">
+          <div className="text-[#94A3B8]">
+            Current Node: <span className="font-mono font-semibold text-[#F8FAFC]">({activeNode.row}, {activeNode.col})</span>
           </div>
           <div className="flex items-center gap-4 font-mono text-xs">
-            <span className="text-[#A7AFBB]">
-              g(n) = <strong className="text-[#F1F3F5] font-normal">{activeNode.gCost}</strong>
+            <span className="text-[#94A3B8]">
+              g(n) = <strong className="text-[#F8FAFC] font-normal">{activeNode.gCost}</strong>
             </span>
-            <span className="text-[#A7AFBB]">
-              h(n) = <strong className="text-[#F1F3F5] font-normal">{activeNode.hCost.toFixed(2)}</strong>
+            <span className="text-[#94A3B8]">
+              h(n) = <strong className="text-[#F8FAFC] font-normal">{activeNode.hCost.toFixed(2)}</strong>
             </span>
             <span className="text-[#6C8CFF] font-semibold">
               f(n) = {activeNode.fCost.toFixed(2)}
@@ -76,10 +76,10 @@ export function StepExplanation({ step }: StepExplanationProps) {
 
       {/* Pseudocode Highlighter Block */}
       <div className="space-y-1">
-        <span className="text-[11px] font-semibold text-[#A7AFBB] block mb-2">
+        <span className="text-[11px] font-semibold text-[#94A3B8] block mb-2">
           A* Pseudocode Execution
         </span>
-        <div className="rounded-lg bg-[#0D0F12] border border-[#292E36] p-2.5 font-mono text-[11px] leading-relaxed text-[#737C89]">
+        <div className="rounded-lg bg-[#090B0E] border border-[#232B36] p-2.5 font-mono text-[11px] leading-relaxed text-[#828E9E]">
           {PSEUDOCODE_LINES.map((item) => {
             const isHighlighted = item.line === activeLine;
 
@@ -88,8 +88,8 @@ export function StepExplanation({ step }: StepExplanationProps) {
                 key={item.line}
                 className={`px-2 py-1 rounded transition-colors ${
                   isHighlighted
-                    ? "bg-[#263352] text-[#F1F3F5] font-medium border-l-2 border-[#6C8CFF]"
-                    : "hover:text-[#A7AFBB]"
+                    ? "bg-[#1E293B] text-[#F8FAFC] font-medium border-l-2 border-[#6C8CFF]"
+                    : "hover:text-[#F8FAFC]"
                 }`}
               >
                 {item.code}
