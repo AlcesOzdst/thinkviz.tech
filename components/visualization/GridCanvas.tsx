@@ -121,7 +121,7 @@ export function GridCanvas({
     >
       {/* Grid Matrix Container */}
       <div
-        className="grid gap-[3px] p-3 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-default)] max-w-full overflow-x-auto shadow-2xl transition-all duration-200"
+        className="grid gap-1.5 sm:gap-2 p-3 sm:p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-default)] shadow-2xl transition-all duration-200"
         style={{
           gridTemplateColumns: `repeat(${numCols}, minmax(0, 1fr))`,
         }}
@@ -145,23 +145,23 @@ export function GridCanvas({
 
             if (isStart) {
               cellClass =
-                "bg-[var(--grid-node-start-bg)] border-[var(--grid-node-start-border)] text-[var(--grid-node-start-text)] shadow-[0_0_10px_rgba(108,140,255,0.35)] z-10 scale-[1.03]";
-              IconComponent = <Flag className="w-3.5 h-3.5 stroke-[2.2]" />;
+                "bg-[var(--grid-node-start-bg)] border-[var(--grid-node-start-border)] text-[var(--grid-node-start-text)] shadow-[0_0_12px_rgba(108,140,255,0.4)] z-10 scale-[1.04]";
+              IconComponent = <Flag className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2]" />;
             } else if (isGoal) {
               cellClass =
-                "bg-[var(--grid-node-goal-bg)] border-[var(--grid-node-goal-border)] text-[var(--grid-node-goal-text)] shadow-[0_0_10px_rgba(224,82,99,0.35)] z-10 scale-[1.03]";
-              IconComponent = <Target className="w-3.5 h-3.5 stroke-[2.2]" />;
+                "bg-[var(--grid-node-goal-bg)] border-[var(--grid-node-goal-border)] text-[var(--grid-node-goal-text)] shadow-[0_0_12px_rgba(224,82,99,0.4)] z-10 scale-[1.04]";
+              IconComponent = <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2]" />;
             } else if (isWall) {
               cellClass =
                 "bg-[var(--grid-node-wall-bg)] border-[var(--grid-node-wall-border)] shadow-inner";
             } else if (isPath) {
               cellClass =
-                "bg-[var(--grid-node-path-bg)] border-[var(--grid-node-path-border)] text-[var(--grid-node-path-text)] shadow-[0_0_12px_rgba(85,184,154,0.45)] z-10 font-bold";
-              IconComponent = <Check className="w-3 h-3 stroke-[3]" />;
+                "bg-[var(--grid-node-path-bg)] border-[var(--grid-node-path-border)] text-[var(--grid-node-path-text)] shadow-[0_0_14px_rgba(85,184,154,0.5)] z-10 font-bold scale-[1.02]";
+              IconComponent = <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[3]" />;
             } else if (isCurrent) {
               cellClass =
-                "bg-[var(--primitive-blue-500)] border-white text-white scale-110 shadow-[0_0_14px_rgba(108,140,255,0.7)] z-20";
-              IconComponent = <Circle className="w-2 h-2 fill-current" />;
+                "bg-[var(--primitive-blue-500)] border-white text-white scale-110 shadow-[0_0_16px_rgba(108,140,255,0.8)] z-20";
+              IconComponent = <Circle className="w-2.5 h-2.5 fill-current" />;
             } else if (isNeighbor) {
               cellClass =
                 "bg-[var(--grid-node-frontier-bg)] border-[var(--grid-node-frontier-border)] text-[var(--grid-node-frontier-text)] scale-105";
@@ -179,7 +179,7 @@ export function GridCanvas({
                 key={posKey}
                 onMouseDown={() => handleMouseDown(rIdx, cIdx)}
                 onMouseEnter={() => handleMouseEnter(rIdx, cIdx)}
-                className={`w-7 h-7 sm:w-8 sm:h-8 md:w-9 md:h-9 flex items-center justify-center rounded-[5px] border text-xs cursor-pointer transition-colors duration-150 active:scale-[0.98] ${cellClass}`}
+                className={`w-full aspect-square min-w-[24px] sm:min-w-[28px] md:min-w-[32px] lg:min-w-[36px] xl:min-w-[40px] max-w-[48px] flex items-center justify-center rounded-[6px] border text-xs cursor-pointer transition-colors duration-150 active:scale-[0.98] ${cellClass}`}
                 title={`Cell (${rIdx}, ${cIdx}) • g: ${
                   node.gCost === Infinity ? "∞" : node.gCost
                 } • h: ${
@@ -192,6 +192,7 @@ export function GridCanvas({
           })
         )}
       </div>
+
     </div>
   );
 }

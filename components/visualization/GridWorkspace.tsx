@@ -40,8 +40,8 @@ interface GridWorkspaceProps {
 
 export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspaceProps) {
   const router = useRouter();
-  const rows = 12;
-  const cols = 22;
+  const rows = 11;
+  const cols = 20;
 
   // Active algorithm metadata
   const currentAlgo = ALGORITHMS.find((a) => a.id === algorithmId) || ALGORITHMS[0];
@@ -52,7 +52,7 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
     initialGridData?.startPos || { row: 5, col: 2 }
   );
   const [goalPos, setGoalPos] = useState<Position>(
-    initialGridData?.goalPos || { row: 5, col: 19 }
+    initialGridData?.goalPos || { row: 5, col: 17 }
   );
   const [walls, setWalls] = useState<Position[]>(initialGridData?.walls || []);
 
@@ -171,17 +171,17 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
   const handleGenerateCorridorPreset = () => {
     handleResetSearch();
     const newWalls: Position[] = [];
-    // Wall 1 at col 6 with opening at row 3
+    // Wall 1 at col 5 with opening at row 3 and 4
     for (let r = 0; r < rows; r++) {
-      if (r !== 3 && r !== 4) newWalls.push({ row: r, col: 6 });
+      if (r !== 3 && r !== 4) newWalls.push({ row: r, col: 5 });
     }
-    // Wall 2 at col 12 with opening at row 8
+    // Wall 2 at col 10 with opening at row 7 and 8
     for (let r = 0; r < rows; r++) {
-      if (r !== 8 && r !== 9) newWalls.push({ row: r, col: 12 });
+      if (r !== 7 && r !== 8) newWalls.push({ row: r, col: 10 });
     }
-    // Wall 3 at col 17 with opening at row 5
+    // Wall 3 at col 15 with opening at row 3 and 4
     for (let r = 0; r < rows; r++) {
-      if (r !== 5 && r !== 6) newWalls.push({ row: r, col: 17 });
+      if (r !== 3 && r !== 4) newWalls.push({ row: r, col: 15 });
     }
     setWalls(newWalls);
   };
@@ -190,7 +190,7 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
   const handleResetEntireGrid = () => {
     playback.reset();
     setStartPos({ row: 5, col: 2 });
-    setGoalPos({ row: 5, col: 19 });
+    setGoalPos({ row: 5, col: 17 });
     setWalls([]);
     setSteps([]);
     setHasGenerated(false);
@@ -333,12 +333,12 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
           3-COLUMN FIXED DESKTOP WORKBENCH: Left Rail (3) | Center Stage (6) | Right Rail (3)
           Falls back to single column on viewports < 1024px (Mobile Override)
           ========================================================================= */}
-      <main className="flex-1 w-full max-w-[1720px] mx-auto p-3 sm:p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-12 gap-5">
+      <main className="flex-1 w-full max-w-[1780px] mx-auto p-3 sm:p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-[250px_1fr_290px] xl:grid-cols-[265px_1fr_315px] gap-5 items-start">
         
         {/* =======================================================================
-            LEFT RAIL (lg:col-span-3): Algorithm Switcher, Parameters, & Presets
+            LEFT RAIL: Algorithm Switcher, Parameters, & Presets
             ======================================================================= */}
-        <aside className="lg:col-span-3 flex flex-col gap-4">
+        <aside className="w-full flex flex-col gap-4">
           
           {/* Algorithm Navigator Section */}
           <div className="rounded-xl bg-[var(--workbench-rail-bg)] border border-[var(--border-default)] p-3.5 space-y-2.5">
@@ -524,9 +524,9 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
         </aside>
 
         {/* =======================================================================
-            CENTER STAGE (lg:col-span-6): Edge-to-Edge Canvas + Pinned Playback Dock
+            CENTER STAGE (1fr): Edge-to-Edge Canvas + Pinned Playback Dock
             ======================================================================= */}
-        <section className="lg:col-span-6 flex flex-col items-center justify-between gap-4 relative">
+        <section className="w-full min-w-0 flex-1 flex flex-col items-center justify-between gap-4 relative">
           
           {/* Legend Banner Strip (No Emojis, Calibrated Josef Albers States) */}
           <div className="w-full px-4 py-2 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-default)] flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--text-secondary)]">
@@ -562,8 +562,8 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
             </div>
           </div>
 
-          {/* Interactive Edge-to-Edge Grid Canvas */}
-          <div className="w-full flex-1 flex items-center justify-center p-2 rounded-xl bg-[var(--bg-primary)] border border-[var(--border-subtle)] overflow-hidden">
+          {/* Interactive Edge-to-Edge Grid Canvas with Generous Breathing Room */}
+          <div className="w-full flex-1 flex items-center justify-center p-3 sm:p-5 lg:p-6 rounded-2xl bg-[var(--bg-surface)]/50 border border-[var(--border-subtle)] overflow-x-auto shadow-inner backdrop-blur-sm">
             <GridCanvas
               gridState={activeGridState}
               onToggleWall={handleToggleWall}
@@ -585,9 +585,9 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
         </section>
 
         {/* =======================================================================
-            RIGHT RAIL (lg:col-span-3): Real-time Telemetry HUD & Execution Tracer
+            RIGHT RAIL: Real-time Telemetry HUD & Execution Tracer
             ======================================================================= */}
-        <aside className="lg:col-span-3 flex flex-col gap-4">
+        <aside className="w-full flex flex-col gap-4">
           {/* Real-time Telemetry HUD (Anti-Slop: Linear Dividers with tabular figures) */}
           <MetricsPanel
             metrics={activeMetrics}
