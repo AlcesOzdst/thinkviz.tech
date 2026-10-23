@@ -30,30 +30,36 @@ export function Navbar() {
   const featuredHref = pathname === "/" ? "#featured" : "/algorithms?filter=featured";
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-[#232B36] bg-[#090B0E]/90 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-[#070A0F]/90 backdrop-blur-md">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group shrink-0">
-          <img src="/logo.jpg" alt="ThinkViz Logo" className="h-8 w-8 object-contain" />
-          <span className="text-lg font-semibold tracking-tight text-[#F8FAFC]">
-            Think<span className="text-sky-400">Viz</span>
+        {/* Brand Logo & CoreNode Telemetry Beacon */}
+        <div className="flex items-center gap-3 shrink-0">
+          <Link href="/" className="flex items-center gap-2.5 group">
+            <img src="/logo.jpg" alt="ThinkViz Logo" className="h-8 w-8 object-contain rounded-lg border border-white/10" />
+            <span className="text-lg font-bold tracking-tight text-white font-mono">
+              Think<span className="text-sky-400">Viz</span>
+            </span>
+          </Link>
+          <span className="hidden md:inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-mono font-semibold text-emerald-400">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            SYS // ONLINE
           </span>
-        </Link>
+        </div>
 
         {/* Desktop Navigation Links (Cleanly spaced, responsive) */}
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-medium text-[#94A3B8]">
+        <nav className="hidden lg:flex items-center gap-6 xl:gap-8 text-xs font-mono font-medium text-slate-300">
           <Link
             href="/algorithms"
-            className={`transition-colors hover:text-[#F8FAFC] shrink-0 ${
-              pathname === "/algorithms" ? "text-white font-semibold" : ""
+            className={`transition-colors hover:text-white shrink-0 uppercase tracking-wider ${
+              pathname === "/algorithms" ? "text-white font-bold" : ""
             }`}
           >
-            Explore Algorithms
+            Algorithms
           </Link>
           <Link
             href="/machine-learning"
-            className={`transition-colors hover:text-emerald-400 shrink-0 flex items-center gap-1.5 ${
-              pathname?.startsWith("/machine-learning") ? "text-emerald-400 font-semibold" : ""
+            className={`transition-colors hover:text-emerald-400 shrink-0 flex items-center gap-1.5 uppercase tracking-wider ${
+              pathname?.startsWith("/machine-learning") ? "text-emerald-400 font-bold" : ""
             }`}
           >
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
@@ -61,60 +67,44 @@ export function Navbar() {
           </Link>
           <Link
             href="/data-center"
-            className={`transition-colors hover:text-sky-400 shrink-0 flex items-center gap-1.5 ${
-              pathname?.startsWith("/data-center") ? "text-sky-400 font-semibold" : ""
+            className={`transition-colors hover:text-sky-400 shrink-0 flex items-center gap-1.5 uppercase tracking-wider ${
+              pathname?.startsWith("/data-center") ? "text-sky-400 font-bold" : ""
             }`}
           >
             <span className="inline-block w-1.5 h-1.5 rounded-full bg-sky-400"></span>
             Data Center
           </Link>
           <Link
-            href={categoriesHref}
-            className="transition-colors hover:text-[#F8FAFC] shrink-0"
+            href="/dashboard"
+            className={`transition-colors hover:text-white shrink-0 uppercase tracking-wider ${
+              pathname === "/dashboard" ? "text-white font-bold" : ""
+            }`}
           >
-            Categories
-          </Link>
-          <Link
-            href={howItWorksHref}
-            className="transition-colors hover:text-[#F8FAFC] shrink-0 hidden xl:inline-block"
-          >
-            Architecture
-          </Link>
-          <Link
-            href={featuredHref}
-            className="transition-colors hover:text-[#F8FAFC] shrink-0 hidden xl:inline-block"
-          >
-            Featured
+            Workspace
           </Link>
         </nav>
 
-        {/* User Session & Visualizer CTA (Calibrated zone with left border divider) */}
-        <div className="hidden sm:flex items-center gap-3 shrink-0 pl-4 border-l border-[#232B36]">
-          <Link
-            href="/dashboard"
-            className="text-sm font-medium text-[#94A3B8] hover:text-[#F8FAFC] transition-colors px-2 py-1"
-          >
-            Dashboard
-          </Link>
+        {/* User Session & Visualizer CTA */}
+        <div className="hidden sm:flex items-center gap-3 shrink-0 pl-4 border-l border-white/10">
 
           {currentUser ? (
             <div className="flex items-center gap-2">
               <Link
                 href="/data-center"
-                className="flex items-center gap-2 px-2.5 py-1.5 rounded-lg bg-[#12161D] border border-[#232B36] hover:border-[#6C8CFF]/50 transition-colors"
+                className="flex items-center gap-2 px-2.5 py-1.5 rounded-xl bg-[#111722] border border-white/10 hover:border-sky-400/50 transition-colors"
               >
-                <span className="w-5 h-5 rounded-full bg-[#6C8CFF] text-white flex items-center justify-center text-[10px] font-semibold">
+                <span className="w-5 h-5 rounded-full bg-sky-500 text-white flex items-center justify-center text-[10px] font-semibold">
                   {currentUser.name.charAt(0)}
                 </span>
-                <span className="text-xs font-medium text-[#F8FAFC] max-w-[100px] truncate">{currentUser.name}</span>
-                <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-[#090B0E] border border-[#232B36] text-[#6C8CFF]">
+                <span className="text-xs font-medium text-white max-w-[100px] truncate">{currentUser.name}</span>
+                <span className="text-[9px] font-mono px-1 py-0.2 rounded bg-[#070A0F] border border-white/10 text-sky-400">
                   {currentUser.role}
                 </span>
               </Link>
               <button
                 type="button"
                 onClick={handleNavbarLogout}
-                className="p-1.5 rounded-lg text-[#828E9E] hover:text-red-400 hover:bg-[#1A202A] transition-colors"
+                className="p-1.5 rounded-lg text-slate-400 hover:text-rose-400 hover:bg-[#162030] transition-colors"
                 title="Sign Out"
               >
                 <LogOut className="w-4 h-4" />
@@ -123,7 +113,7 @@ export function Navbar() {
           ) : (
             <Link
               href="/login"
-              className="inline-flex items-center justify-center rounded-lg border border-[#232B36] bg-[#12161D] px-3 py-1.5 text-xs font-medium text-[#F8FAFC] hover:bg-[#1A202A] hover:border-[#6C8CFF]/50 transition-colors"
+              className="inline-flex items-center justify-center rounded-xl border border-white/10 bg-[#111722] px-3 py-1.5 text-xs font-mono font-medium text-slate-300 hover:text-white hover:bg-[#162030] hover:border-white/20 transition-colors"
             >
               Sign In
             </Link>
@@ -131,7 +121,7 @@ export function Navbar() {
 
           <Link
             href="/algorithms"
-            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-4 py-2 text-xs font-semibold text-white shadow-md shadow-sky-950/40 transition-all hover:from-sky-400 hover:to-blue-500 active:scale-[0.98]"
+            className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-4 py-2 text-xs font-mono font-bold text-white shadow-lg shadow-sky-500/20 border border-sky-400/40 transition-all hover:from-sky-400 hover:to-blue-500 active:scale-[0.98]"
           >
             Launch Visualizer
           </Link>

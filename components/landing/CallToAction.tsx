@@ -1,25 +1,39 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export function CallToAction() {
   return (
-    <section className="py-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      <div className="rounded-2xl bg-[#12161D] border border-[#232B36] p-8 sm:p-12 text-center shadow-sm">
-        <h2 className="text-2xl sm:text-4xl font-bold tracking-tight text-[#F8FAFC] mb-4">
+    <section className="py-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div className="rounded-3xl bg-[#0A0E17] border border-white/10 p-10 sm:p-16 text-center shadow-2xl relative overflow-hidden">
+        {/* Corner Crosshairs */}
+        <div className="absolute top-4 left-4 text-xs font-mono text-white/20 select-none">+</div>
+        <div className="absolute top-4 right-4 text-xs font-mono text-white/20 select-none">+</div>
+        <div className="absolute bottom-4 left-4 text-xs font-mono text-white/20 select-none">+</div>
+        <div className="absolute bottom-4 right-4 text-xs font-mono text-white/20 select-none">+</div>
+
+        <div className="text-xs font-mono font-bold text-sky-400 mb-3 uppercase tracking-widest">
+          05 // SYSTEM INITIATIVE
+        </div>
+        <h2 className="text-3xl sm:text-5xl font-mono font-bold tracking-tight text-white mb-4">
           Start exploring AI algorithms
         </h2>
-        <p className="mx-auto max-w-xl text-sm text-[#94A3B8] mb-8 leading-relaxed">
-          Step through search and optimization algorithms interactively. Build intuitive understanding for coursework and exams.
+        <p className="mx-auto max-w-2xl text-xs sm:text-sm font-mono text-slate-400 mb-8 leading-relaxed">
+          Step through search, heuristic optimization, game trees, and machine learning simulators interactively. Build genuine mathematical intuition with deterministic zero-latency visual engines.
         </p>
 
-        <div className="flex justify-center">
+        <div className="flex flex-wrap items-center justify-center gap-4">
           <Link
             href="/algorithms"
-            className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 px-6 py-3 text-sm font-semibold text-white transition-all hover:from-sky-400 hover:to-blue-500 shadow-md shadow-sky-950/40 active:scale-[0.98]"
+            className="inline-flex items-center gap-2 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 px-7 py-3.5 text-xs font-mono font-bold uppercase tracking-wider text-white transition-all hover:from-sky-400 hover:to-blue-500 shadow-xl shadow-sky-950/40 active:scale-[0.98]"
           >
             <span>Explore All Algorithms</span>
-            <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
+            <ArrowRight className="h-4 w-4" />
+          </Link>
+          <Link
+            href="/machine-learning"
+            className="inline-flex items-center gap-2 rounded-2xl bg-[#111722] hover:bg-[#1A2230] border border-white/10 px-6 py-3.5 text-xs font-mono font-bold uppercase tracking-wider text-slate-300 hover:text-white transition-all active:scale-[0.98]"
+          >
+            <span>Interactive ML Lab</span>
           </Link>
         </div>
       </div>

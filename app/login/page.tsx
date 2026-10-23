@@ -8,6 +8,7 @@ import {
   Sparkles,
   ArrowLeft,
   Loader2,
+  Shield,
 } from "lucide-react";
 import { loginWithCredentialsAction } from "@/app/actions/dms";
 
@@ -80,51 +81,60 @@ function LoginForm() {
   };
 
   return (
-    <div className="w-full max-w-md space-y-6">
+    <div className="w-full max-w-md space-y-6 font-mono">
       {/* Brand Header */}
-      <div className="text-center space-y-2">
+      <div className="text-center space-y-3">
         <Link href="/" className="inline-flex items-center gap-2.5 mb-2 group">
-          <img src="/logo.jpg" alt="ThinkViz Logo" className="h-10 w-10 object-contain rounded-lg" />
-          <span className="text-2xl font-bold tracking-tight text-[#F1F3F5]">
-            Think<span className="text-[#6C8CFF]">Viz</span>
+          <img src="/logo.jpg" alt="ThinkViz Logo" className="h-10 w-10 object-contain rounded-xl border border-white/10" />
+          <span className="text-2xl font-mono font-bold tracking-tight text-white">
+            Think<span className="text-sky-400">Viz</span>
           </span>
         </Link>
-        <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#F1F3F5]">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#111722] border border-white/10 text-[10px] text-sky-400 font-bold uppercase tracking-widest">
+          SYS // AUTHENTICATION PORTAL
+        </div>
+        <h1 className="text-2xl sm:text-3xl font-mono font-bold tracking-tight text-white">
           Sign In to Data Center
         </h1>
-        <p className="text-xs text-[#A7AFBB] max-w-sm mx-auto">
+        <p className="text-xs text-slate-400 max-w-sm mx-auto leading-relaxed">
           Authenticate to manage datasets, collaborative projects, AI syntheses, and institutional governance.
         </p>
       </div>
 
       {/* Public Visualizer Access Notice Banner */}
-      <div className="p-3.5 rounded-xl bg-[#181C22] border border-[#292E36] flex items-center justify-between gap-3 text-xs">
-        <div className="flex items-start gap-2">
-          <Sparkles className="w-4 h-4 text-[#6C8CFF] shrink-0 mt-0.5" />
-          <p className="text-[#A7AFBB] text-[11px] leading-tight">
+      <div className="p-4 rounded-2xl bg-[#0A0E17] border border-white/10 flex items-center justify-between gap-3 text-xs">
+        <div className="flex items-start gap-2.5">
+          <Sparkles className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
+          <p className="text-slate-400 text-xs leading-tight">
             Algorithm visualizers are completely public. No login required to visualize.
           </p>
         </div>
         <Link
           href="/algorithms"
-          className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md bg-[#111418] hover:bg-[#1F242D] border border-[#292E36] text-[#6C8CFF] hover:text-white text-[11px] font-medium shrink-0 transition-colors"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-[#111722] hover:bg-[#1A2230] border border-white/10 text-sky-400 hover:text-white text-xs font-bold shrink-0 transition-colors uppercase tracking-wider"
         >
-          <ArrowLeft className="w-3 h-3" />
-          Explore
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>Explore</span>
         </Link>
       </div>
 
       {/* Main Authentication Form */}
-      <div className="bg-[#15181D] border border-[#292E36] rounded-2xl p-6 sm:p-7 shadow-2xl space-y-5">
+      <div className="bg-[#0A0E17] border border-white/10 rounded-3xl p-7 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
+        {/* Corner Crosshairs */}
+        <div className="absolute top-3 left-3 text-xs font-mono text-white/20 select-none">+</div>
+        <div className="absolute top-3 right-3 text-xs font-mono text-white/20 select-none">+</div>
+        <div className="absolute bottom-3 left-3 text-xs font-mono text-white/20 select-none">+</div>
+        <div className="absolute bottom-3 right-3 text-xs font-mono text-white/20 select-none">+</div>
+
         {errorMsg && (
-          <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20 text-xs text-red-400 text-center font-medium">
+          <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-xs text-rose-300 text-center font-bold">
             {errorMsg}
           </div>
         )}
 
         <form onSubmit={handleCredentialsSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-[#A7AFBB] mb-1.5">Email Address</label>
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
             <input
               type="email"
               required
@@ -132,12 +142,12 @@ function LoginForm() {
               placeholder="name@organization.edu"
               value={emailInput}
               onChange={(e) => setEmailInput(e.target.value)}
-              className="w-full bg-[#111418] text-xs text-[#F1F3F5] px-3.5 py-2.5 rounded-lg border border-[#292E36] focus:border-[#6C8CFF] focus:ring-1 focus:ring-[#6C8CFF] outline-none transition-all placeholder:text-[#525A67]"
+              className="w-full bg-[#111722] text-xs font-mono text-white px-4 py-3 rounded-2xl border border-white/10 focus:border-sky-400/60 focus:outline-none transition-all placeholder:text-slate-500"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-[#A7AFBB] mb-1.5">Password</label>
+            <label className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Password</label>
             <input
               type="password"
               required
@@ -145,14 +155,14 @@ function LoginForm() {
               placeholder="••••••••••••"
               value={passwordInput}
               onChange={(e) => setPasswordInput(e.target.value)}
-              className="w-full bg-[#111418] text-xs text-[#F1F3F5] px-3.5 py-2.5 rounded-lg border border-[#292E36] focus:border-[#6C8CFF] focus:ring-1 focus:ring-[#6C8CFF] outline-none transition-all placeholder:text-[#525A67]"
+              className="w-full bg-[#111722] text-xs font-mono text-white px-4 py-3 rounded-2xl border border-white/10 focus:border-sky-400/60 focus:outline-none transition-all placeholder:text-slate-500"
             />
           </div>
 
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-2.5 px-4 rounded-lg bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white text-xs font-semibold flex items-center justify-center gap-2 transition-all disabled:opacity-50 shadow-md mt-2"
+            className="w-full py-3.5 px-4 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-mono font-bold uppercase tracking-wider flex items-center justify-center gap-2 transition-all disabled:opacity-50 shadow-lg shadow-sky-950/40 mt-3 active:scale-[0.98]"
           >
             {isLoading ? (
               <>
@@ -167,35 +177,35 @@ function LoginForm() {
         </form>
 
         {/* Collapsible Demo / Evaluator Credentials Section */}
-        <div className="pt-3 border-t border-[#292E36]/60">
+        <div className="pt-4 border-t border-white/5">
           <button
             type="button"
             onClick={() => setShowPresets(!showPresets)}
-            className="w-full text-center text-[11px] text-[#717885] hover:text-[#A7AFBB] flex items-center justify-center gap-1 transition-colors"
+            className="w-full text-center text-xs font-mono text-slate-400 hover:text-white flex items-center justify-center gap-1.5 transition-colors uppercase tracking-wider"
           >
             <span>{showPresets ? "Hide Demo Accounts" : "Show Evaluator Demo Accounts"}</span>
           </button>
 
           {showPresets && (
-            <div className="mt-3 space-y-2">
-              <p className="text-[10px] text-[#717885] text-center">
+            <div className="mt-4 space-y-3">
+              <p className="text-[10px] text-slate-500 text-center uppercase tracking-wider">
                 Select a role to autofill its account email into the sign in form.
               </p>
-              <div className="grid grid-cols-2 gap-2">
+              <div className="grid grid-cols-2 gap-2.5">
                 {DEMO_PRESETS.map((p) => (
                   <button
                     key={p.role}
                     type="button"
                     onClick={() => fillPreset(p.email)}
-                    className="p-2 rounded-lg bg-[#111418] border border-[#292E36] hover:border-[#6C8CFF]/50 text-left transition-colors flex flex-col justify-between"
+                    className="p-3 rounded-2xl bg-[#111722] border border-white/10 hover:border-sky-400/40 text-left transition-all flex flex-col justify-between group"
                   >
-                    <div className="flex items-center justify-between w-full mb-1">
-                      <span className="text-[11px] font-semibold text-[#F1F3F5]">{p.role}</span>
-                      <span className={`px-1.5 py-0.2 rounded text-[9px] font-mono border ${p.badge}`}>
+                    <div className="flex items-center justify-between w-full mb-1.5">
+                      <span className="text-xs font-bold text-white group-hover:text-sky-300">{p.role}</span>
+                      <span className={`px-2 py-0.5 rounded text-[9px] font-mono border ${p.badge}`}>
                         {p.role.toUpperCase()}
                       </span>
                     </div>
-                    <span className="text-[10px] text-[#6C8CFF] font-mono truncate">{p.email}</span>
+                    <span className="text-[10px] text-sky-400 font-mono truncate">{p.email}</span>
                   </button>
                 ))}
               </div>
@@ -205,9 +215,9 @@ function LoginForm() {
       </div>
 
       {/* Footer Return Link */}
-      <div className="text-center text-xs text-[#717885]">
+      <div className="text-center text-xs text-slate-500">
         <span>ThinkViz Intelligence Platform • </span>
-        <Link href="/" className="text-[#A7AFBB] hover:text-[#6C8CFF] transition-colors">
+        <Link href="/" className="text-slate-400 hover:text-white transition-colors">
           Return to Home
         </Link>
       </div>
@@ -217,8 +227,8 @@ function LoginForm() {
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen bg-[#0D0F12] text-[#F1F3F5] flex items-center justify-center px-4 py-12">
-      <Suspense fallback={<div className="text-xs text-[#717885]">Loading authentication portal...</div>}>
+    <div className="min-h-screen bg-[#070A0F] text-slate-200 flex items-center justify-center px-4 py-12">
+      <Suspense fallback={<div className="text-xs text-slate-500 font-mono">Loading authentication portal...</div>}>
         <LoginForm />
       </Suspense>
     </div>

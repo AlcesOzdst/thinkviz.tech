@@ -140,75 +140,96 @@ export function RegressionPlayground() {
   }, [model, degree, enableSplit, datasetType, noise, allPoints.length]);
 
   return (
-    <div className="w-full flex flex-col space-y-6">
+    <div className="w-full flex flex-col space-y-8">
       {/* Top Header & Breadcrumbs */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#1E2638]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10">
         <div>
-          <div className="flex items-center gap-2 text-xs text-[#828E9E] mb-1.5">
-            <Link href="/machine-learning" className="hover:text-[#F8FAFC] transition-colors">
-              Machine Learning
+          <div className="flex items-center gap-2 text-xs font-mono text-slate-400 mb-2">
+            <Link href="/machine-learning" className="hover:text-white transition-colors">
+              00 // MACHINE LEARNING
             </Link>
             <span>/</span>
-            <span className="text-[#6C8CFF]">Regression Playground</span>
+            <span className="text-sky-400 font-bold">MODULE 02 // REGRESSION PLAYGROUND</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
-            Regression Playground
+          <h1 className="text-3xl sm:text-4xl font-mono font-bold tracking-tight text-white flex items-center gap-3">
+            <span>Regression Playground</span>
+            <span className="text-xs px-2.5 py-0.5 rounded-full bg-sky-500/10 text-sky-400 border border-sky-500/30 font-mono tracking-widest uppercase">
+              LEAST SQUARES
+            </span>
           </h1>
-          <p className="text-sm text-[#828E9E] mt-1 max-w-2xl">
-            Fit linear and polynomial regression models via exact least-squares and inspect predictions, residual errors, and generalization metrics.
+          <p className="text-sm text-slate-400 mt-2 max-w-2xl font-mono leading-relaxed">
+            Polynomial curve fitting, residual error computation (SS_res), and test-train variance inspection via exact analytical least squares.
           </p>
         </div>
 
         {/* Global Action Buttons */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           {customPoints.length > 0 && (
             <button
               onClick={() => setCustomPoints([])}
-              className="px-3 py-1.5 rounded-lg bg-[#12161D] hover:bg-[#1A2230] text-[#828E9E] hover:text-red-400 border border-[#232B36] text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-[0.98]"
+              className="px-4 py-2 rounded-xl bg-[#111722] hover:bg-rose-950/40 text-slate-300 hover:text-rose-400 border border-white/10 hover:border-rose-500/30 text-xs font-mono font-bold flex items-center gap-2 transition-all active:scale-[0.98]"
               title="Remove custom points"
             >
-              <Trash2 className="w-3.5 h-3.5" />
-              <span>Clear Points ({customPoints.length})</span>
+              <Trash2 className="w-3.5 h-3.5 text-rose-400" />
+              <span>CLEAR POINTS ({customPoints.length})</span>
             </button>
           )}
 
           <button
             onClick={() => setSeed(Math.floor(Math.random() * 10000))}
-            className="px-3.5 py-1.5 rounded-lg bg-[#12161D] hover:bg-[#1A2230] text-[#F8FAFC] border border-[#232B36] text-xs font-semibold flex items-center gap-2 transition-all active:scale-[0.98]"
+            className="px-4 py-2 rounded-xl bg-[#111722] hover:bg-[#1A2230] text-white border border-white/10 text-xs font-mono font-bold flex items-center gap-2 transition-all active:scale-[0.98]"
             title="Randomize data points"
           >
-            <Shuffle className="w-3.5 h-3.5 text-[#6C8CFF]" />
-            <span>Randomize Seed</span>
+            <Shuffle className="w-3.5 h-3.5 text-sky-400" />
+            <span>RANDOMIZE SEED</span>
           </button>
         </div>
       </div>
 
       {/* Main Grid: Visualizer Stage (Left) & Controls/Metrics (Right) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
 
         {/* ===================================================================
             LEFT / MAIN: Regression Cartesian Plot Canvas
             =================================================================== */}
-        <div className="lg:col-span-7 flex flex-col space-y-4">
-          <div className="w-full rounded-2xl bg-[#090D14] border border-[#1E2638] p-4 sm:p-5 shadow-2xl flex flex-col items-center relative overflow-hidden">
-            
+        <div className="lg:col-span-7 flex flex-col space-y-6">
+          <div className="w-full rounded-3xl bg-[#0A0E17] border border-white/10 p-6 sm:p-7 shadow-2xl flex flex-col items-center relative overflow-hidden">
+            {/* Corner Crosshairs */}
+            <div className="absolute top-3 left-3 text-xs font-mono text-white/20 select-none">+</div>
+            <div className="absolute top-3 right-3 text-xs font-mono text-white/20 select-none">+</div>
+            <div className="absolute bottom-3 left-3 text-xs font-mono text-white/20 select-none">+</div>
+            <div className="absolute bottom-3 right-3 text-xs font-mono text-white/20 select-none">+</div>
+
+            <div className="w-full flex items-center justify-between border-b border-white/5 pb-4 mb-4">
+              <div className="flex items-center gap-2.5">
+                <TrendingUp className="w-4 h-4 text-sky-400" />
+                <h3 className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">
+                  03 // Cartesian Regression Stage
+                </h3>
+              </div>
+              <div className="flex items-center gap-2 font-mono text-[10px] text-slate-400">
+                <PlusCircle className="w-3 h-3 text-sky-400" />
+                <span>CLICK CANVAS TO INJECT SAMPLES</span>
+              </div>
+            </div>
+
             {/* Stage HUD / Equation Banner */}
-            <div className="w-full flex flex-wrap items-center justify-between gap-2 mb-3 text-xs">
+            <div className="w-full flex flex-wrap items-center justify-between gap-3 mb-4 text-xs bg-[#111722] p-3 rounded-2xl border border-white/10">
               <div className="flex items-center gap-2">
-                <span className="font-mono text-xs font-bold px-2 py-0.5 rounded bg-[#161D2E] border border-[#6C8CFF]/40 text-[#6C8CFF]">
+                <span className="font-mono text-xs font-bold px-3 py-1 rounded-xl bg-[#0A0E17] border border-sky-400/40 text-sky-300">
                   {model.equationString}
                 </span>
-                <span className="text-[#828E9E] font-mono text-[11px]">
+                <span className="text-slate-400 font-mono text-xs">
                   (Degree {degree})
                 </span>
               </div>
 
               {/* Point Hover Coordinates */}
               {hoveredPoint ? (
-                <div className="flex items-center gap-2 font-mono text-[11px] text-[#828E9E]">
-                  <span>Point:</span>
-                  <span className="text-[#F8FAFC]">({hoveredPoint.x}, {hoveredPoint.y})</span>
-                  <span>Residual:</span>
+                <div className="flex items-center gap-2 font-mono text-xs text-slate-300">
+                  <span className="text-slate-400">Point:</span>
+                  <span className="text-white font-bold">({hoveredPoint.x}, {hoveredPoint.y})</span>
+                  <span className="text-slate-400">Residual:</span>
                   <span
                     className={`font-bold ${
                       hoveredPoint.y >= model.predict(hoveredPoint.x)
@@ -220,15 +241,14 @@ export function RegressionPlayground() {
                   </span>
                 </div>
               ) : (
-                <div className="flex items-center gap-1.5 text-[11px] text-[#828E9E]">
-                  <PlusCircle className="w-3 h-3 text-[#6C8CFF]" />
-                  <span>Click canvas to add points</span>
+                <div className="flex items-center gap-1.5 text-xs text-slate-400 font-mono">
+                  <span>Target Domain: [0, 100] × [0, 100]</span>
                 </div>
               )}
             </div>
 
             {/* SVG Coordinate Plot Stage */}
-            <div className="w-full aspect-square max-w-[500px] flex items-center justify-center relative bg-[#070A0F] rounded-xl border border-[#161D2A] p-2">
+            <div className="w-full aspect-square max-w-[500px] flex items-center justify-center relative bg-[#070A0F] rounded-2xl border border-white/10 p-2 shadow-inner">
               <svg
                 viewBox={`0 0 ${svgSize} ${svgSize}`}
                 className="w-full h-full select-none cursor-crosshair"
@@ -367,34 +387,34 @@ export function RegressionPlayground() {
             </div>
 
             {/* Plot Legend */}
-            <div className="w-full flex flex-wrap items-center justify-center gap-4 mt-3 pt-3 border-t border-[#161D2A] text-xs">
-              <div className="flex items-center gap-1.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#3B82F6]" />
-                <span className="text-[#F8FAFC] font-medium text-[11px]">
-                  Training Points ({model.trainMetrics.count})
+            <div className="w-full flex flex-wrap items-center justify-center gap-6 mt-4 pt-4 border-t border-white/5 text-xs font-mono">
+              <div className="flex items-center gap-2">
+                <span className="w-3 h-3 rounded-full bg-sky-500 shadow-sm" />
+                <span className="text-white font-bold text-xs">
+                  TRAIN ({model.trainMetrics.count})
                 </span>
               </div>
 
               {enableSplit && model.testMetrics && (
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#F59E0B]" />
-                  <span className="text-[#F8FAFC] font-medium text-[11px]">
-                    Testing Points ({model.testMetrics.count})
+                <div className="flex items-center gap-2">
+                  <span className="w-3 h-3 rounded-full bg-amber-400 shadow-sm" />
+                  <span className="text-amber-300 font-bold text-xs">
+                    TEST ({model.testMetrics.count})
                   </span>
                 </div>
               )}
 
-              <div className="flex items-center gap-1.5">
-                <span className="w-4 h-0.5 bg-[#6C8CFF]" />
-                <span className="text-[#6C8CFF] font-semibold text-[11px]">
-                  Fitted Curve
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-0.5 bg-sky-400 rounded-full" />
+                <span className="text-sky-300 font-bold text-xs">
+                  FITTED MODEL
                 </span>
               </div>
 
-              <div className="flex items-center gap-1.5">
-                <span className="w-4 h-0.5 border-b border-dashed border-[#828E9E]" />
-                <span className="text-[#828E9E] text-[11px]">
-                  Residuals (y - ŷ)
+              <div className="flex items-center gap-2">
+                <span className="w-5 h-0.5 border-b border-dashed border-slate-500" />
+                <span className="text-slate-400 text-xs">
+                  RESIDUAL (y − ŷ)
                 </span>
               </div>
             </div>
@@ -404,32 +424,37 @@ export function RegressionPlayground() {
         {/* ===================================================================
             RIGHT: Hyperparameters, Numerical Metrics & Overfitting Telemetry
             =================================================================== */}
-        <div className="lg:col-span-5 flex flex-col space-y-4">
+        <div className="lg:col-span-5 flex flex-col space-y-6">
           
           {/* Regression Parameters Deck */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#090D14] border border-[#1E2638] shadow-xl space-y-4 text-xs">
-            <div className="flex items-center gap-2 pb-2 border-b border-[#161D2A]">
-              <SlidersHorizontal className="w-4 h-4 text-[#6C8CFF]" />
-              <h2 className="font-semibold text-[#F8FAFC] text-sm">Model Parameters</h2>
+          <div className="p-6 sm:p-7 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl space-y-5 text-xs">
+            <div className="flex items-center justify-between border-b border-white/5 pb-4">
+              <div className="flex items-center gap-2.5">
+                <SlidersHorizontal className="w-4 h-4 text-sky-400" />
+                <h2 className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">
+                  01 // Polynomial Model Spec
+                </h2>
+              </div>
+              <span className="text-xs font-mono text-slate-400">Order & Dynamics</span>
             </div>
 
             {/* Degree Selector (1 - 5) */}
-            <div className="space-y-1.5">
-              <div className="flex justify-between">
-                <span className="text-[#828E9E] font-medium">Polynomial Degree:</span>
-                <span className="font-mono font-bold text-[#6C8CFF]">
-                  {degree === 1 ? "1 (Linear)" : degree === 2 ? "2 (Quadratic)" : degree === 3 ? "3 (Cubic)" : degree === 4 ? "4 (Quartic)" : "5 (Quintic)"}
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-xs font-mono text-slate-400">POLYNOMIAL DEGREE (d)</span>
+                <span className="font-mono font-bold text-sky-400 text-xs px-2 py-0.5 rounded bg-sky-500/10 border border-sky-500/20">
+                  {degree === 1 ? "1 // LINEAR" : degree === 2 ? "2 // QUADRATIC" : degree === 3 ? "3 // CUBIC" : degree === 4 ? "4 // QUARTIC" : "5 // QUINTIC"}
                 </span>
               </div>
-              <div className="grid grid-cols-5 gap-1.5">
+              <div className="grid grid-cols-5 gap-2">
                 {[1, 2, 3, 4, 5].map((d) => (
                   <button
                     key={d}
                     onClick={() => setDegree(d)}
-                    className={`py-1.5 rounded-lg text-xs font-mono font-bold transition-all ${
+                    className={`py-2 rounded-xl text-xs font-mono font-bold transition-all ${
                       degree === d
-                        ? "bg-[#6C8CFF] text-white shadow-sm"
-                        : "bg-[#12161D] text-[#828E9E] hover:text-[#F8FAFC] border border-[#232B36]"
+                        ? "bg-[#1A2230] text-white border border-sky-400/40 shadow-sm"
+                        : "bg-[#111722] text-slate-400 hover:text-white border border-white/10"
                     }`}
                   >
                     d = {d}
@@ -439,22 +464,22 @@ export function RegressionPlayground() {
             </div>
 
             {/* Dataset Type Selector */}
-            <div className="space-y-1.5">
-              <span className="text-[#828E9E] font-medium block">Underlying Function:</span>
-              <div className="grid grid-cols-2 gap-1.5">
+            <div className="space-y-2">
+              <span className="text-xs font-mono text-slate-400 block">UNDERLYING SYNTHETIC FUNCTION</span>
+              <div className="grid grid-cols-2 gap-2">
                 {[
                   { id: "linear", label: "Linear Trend" },
                   { id: "quadratic", label: "Parabolic Curve" },
-                  { id: "sine", label: "Sine Wave" },
+                  { id: "sine", label: "Harmonic Wave" },
                   { id: "noisy_cluster", label: "Sigmoid Cluster" },
                 ].map((type) => (
                   <button
                     key={type.id}
                     onClick={() => setDatasetType(type.id as RegressionDatasetType)}
-                    className={`py-1.5 px-2 rounded-lg text-[11px] font-medium transition-all ${
+                    className={`py-2 px-3 rounded-xl text-xs font-mono transition-all text-left ${
                       datasetType === type.id
-                        ? "bg-[#6C8CFF]/20 text-[#6C8CFF] border border-[#6C8CFF]/50 font-semibold"
-                        : "bg-[#12161D] text-[#828E9E] hover:text-[#F8FAFC] border border-[#232B36]"
+                        ? "bg-[#1A2230] text-white border border-sky-400/40 font-bold"
+                        : "bg-[#111722] text-slate-400 hover:text-white border border-white/10"
                     }`}
                   >
                     {type.label}
@@ -464,10 +489,10 @@ export function RegressionPlayground() {
             </div>
 
             {/* Noise Slider */}
-            <div className="space-y-1.5">
-              <div className="flex justify-between">
-                <span className="text-[#828E9E] font-medium">Gaussian Noise (σ):</span>
-                <span className="font-mono font-bold text-[#F8FAFC]">{noise}</span>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center text-xs font-mono">
+                <span className="text-slate-400">GAUSSIAN NOISE (σ)</span>
+                <span className="font-bold text-white px-2 py-0.5 rounded bg-[#111722] border border-white/10">{noise}</span>
               </div>
               <input
                 type="range"
@@ -476,15 +501,15 @@ export function RegressionPlayground() {
                 step="1"
                 value={noise}
                 onChange={(e) => setNoise(Number(e.target.value))}
-                className="w-full h-1.5 bg-[#12161D] rounded-lg appearance-none cursor-pointer accent-[#6C8CFF]"
+                className="w-full h-2 bg-[#111722] rounded-lg appearance-none cursor-pointer accent-sky-400"
               />
             </div>
 
             {/* Sample Size Slider */}
-            <div className="space-y-1.5">
-              <div className="flex justify-between">
-                <span className="text-[#828E9E] font-medium">Sample Points (N):</span>
-                <span className="font-mono font-bold text-[#F8FAFC]">{pointCount}</span>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center text-xs font-mono">
+                <span className="text-slate-400">SAMPLE DENSITY (N)</span>
+                <span className="font-bold text-white px-2 py-0.5 rounded bg-[#111722] border border-white/10">{pointCount}</span>
               </div>
               <input
                 type="range"
@@ -493,61 +518,63 @@ export function RegressionPlayground() {
                 step="5"
                 value={pointCount}
                 onChange={(e) => setPointCount(Number(e.target.value))}
-                className="w-full h-1.5 bg-[#12161D] rounded-lg appearance-none cursor-pointer accent-[#6C8CFF]"
+                className="w-full h-2 bg-[#111722] rounded-lg appearance-none cursor-pointer accent-sky-400"
               />
             </div>
 
             {/* Train / Test Split Toggle */}
-            <div className="flex items-center justify-between pt-2 border-t border-[#161D2A]">
-              <div className="flex items-center gap-1.5">
-                <Split className="w-3.5 h-3.5 text-[#6C8CFF]" />
-                <span className="text-[#828E9E] font-medium">Train / Test Split (75% / 25%):</span>
+            <div className="flex items-center justify-between pt-4 border-t border-white/5 font-mono">
+              <div className="flex items-center gap-2">
+                <Split className="w-4 h-4 text-sky-400" />
+                <span className="text-slate-400 text-xs">TRAIN / TEST SPLIT (75% / 25%)</span>
               </div>
               <button
                 onClick={() => setEnableSplit(!enableSplit)}
-                className={`px-2.5 py-1 rounded-md text-xs font-semibold transition-all ${
+                className={`px-3 py-1.5 rounded-xl text-xs font-mono font-bold transition-all ${
                   enableSplit
-                    ? "bg-emerald-500/20 text-emerald-400 border border-emerald-500/40"
-                    : "bg-[#12161D] text-[#828E9E] border border-[#232B36]"
+                    ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/40"
+                    : "bg-[#111722] text-slate-400 border border-white/10"
                 }`}
               >
-                {enableSplit ? "Active" : "Disabled"}
+                {enableSplit ? "ACTIVE" : "DISABLED"}
               </button>
             </div>
           </div>
 
           {/* Real-Time Metrics & Overfitting Telemetry */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#090D14] border border-[#1E2638] shadow-xl space-y-3 text-xs">
-            <div className="flex items-center justify-between pb-2 border-b border-[#161D2A]">
-              <span className="font-semibold text-[#F8FAFC] text-sm">Performance Metrics</span>
-              <span className="text-[10px] font-mono text-[#828E9E]">Exact Least-Squares</span>
+          <div className="p-6 sm:p-7 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl space-y-4 text-xs">
+            <div className="flex items-center justify-between border-b border-white/5 pb-4">
+              <h3 className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">
+                02 // Residual Telemetry & Gauges
+              </h3>
+              <span className="text-xs font-mono text-slate-400">Analytical Least Squares</span>
             </div>
 
             {/* Split Comparison Cards */}
             {enableSplit && model.testMetrics ? (
-              <div className="grid grid-cols-2 gap-2.5">
+              <div className="grid grid-cols-2 gap-3">
                 {/* Training Set Card */}
-                <div className="p-3 rounded-xl bg-[#0F1420] border border-[#1E2638] space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-[#3B82F6] flex items-center gap-1">
-                      <span className="w-2 h-2 rounded-full bg-[#3B82F6]" />
-                      Training Set
+                <div className="p-4 rounded-2xl bg-[#111722] border border-white/10 space-y-3">
+                  <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                    <span className="text-xs font-mono font-bold text-sky-400 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-sky-400" />
+                      TRAIN
                     </span>
-                    <span className="text-[10px] font-mono text-[#828E9E]">
-                      {model.trainMetrics.count} pts
+                    <span className="text-xs font-mono text-slate-400">
+                      {model.trainMetrics.count} PTS
                     </span>
                   </div>
-                  <div className="space-y-1 font-mono text-xs tabular-nums">
+                  <div className="space-y-1.5 font-mono text-xs tabular-nums">
                     <div className="flex justify-between">
-                      <span className="text-[#828E9E]">MSE:</span>
-                      <span className="font-bold text-[#F8FAFC]">{model.trainMetrics.mse}</span>
+                      <span className="text-slate-400">MSE:</span>
+                      <span className="font-bold text-white">{model.trainMetrics.mse}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#828E9E]">MAE:</span>
-                      <span className="text-[#F8FAFC]">{model.trainMetrics.mae}</span>
+                      <span className="text-slate-400">MAE:</span>
+                      <span className="text-slate-300">{model.trainMetrics.mae}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#828E9E]">R²:</span>
+                      <span className="text-slate-400">R²:</span>
                       <span className="font-bold text-emerald-400">
                         {model.trainMetrics.r2 !== null ? model.trainMetrics.r2 : "N/A"}
                       </span>
@@ -556,27 +583,27 @@ export function RegressionPlayground() {
                 </div>
 
                 {/* Testing Set Card (Held-Out) */}
-                <div className="p-3 rounded-xl bg-[#0F1420] border border-[#1E2638] space-y-2">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-bold text-[#F59E0B] flex items-center gap-1">
-                      <span className="w-2 h-2 rounded-full bg-[#F59E0B]" />
-                      Testing Set
+                <div className="p-4 rounded-2xl bg-[#111722] border border-white/10 space-y-3">
+                  <div className="flex items-center justify-between border-b border-white/5 pb-2">
+                    <span className="text-xs font-mono font-bold text-amber-400 flex items-center gap-1.5">
+                      <span className="w-2 h-2 rounded-full bg-amber-400" />
+                      TEST
                     </span>
-                    <span className="text-[10px] font-mono text-[#828E9E]">
-                      {model.testMetrics.count} pts
+                    <span className="text-xs font-mono text-slate-400">
+                      {model.testMetrics.count} PTS
                     </span>
                   </div>
-                  <div className="space-y-1 font-mono text-xs tabular-nums">
+                  <div className="space-y-1.5 font-mono text-xs tabular-nums">
                     <div className="flex justify-between">
-                      <span className="text-[#828E9E]">MSE:</span>
-                      <span className="font-bold text-[#F8FAFC]">{model.testMetrics.mse}</span>
+                      <span className="text-slate-400">MSE:</span>
+                      <span className="font-bold text-white">{model.testMetrics.mse}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#828E9E]">MAE:</span>
-                      <span className="text-[#F8FAFC]">{model.testMetrics.mae}</span>
+                      <span className="text-slate-400">MAE:</span>
+                      <span className="text-slate-300">{model.testMetrics.mae}</span>
                     </div>
                     <div className="flex justify-between">
-                      <span className="text-[#828E9E]">R²:</span>
+                      <span className="text-slate-400">R²:</span>
                       <span className="font-bold text-amber-300">
                         {model.testMetrics.r2 !== null ? model.testMetrics.r2 : "N/A"}
                       </span>
@@ -586,22 +613,22 @@ export function RegressionPlayground() {
               </div>
             ) : (
               /* Single Metric Summary when Split is Disabled */
-              <div className="grid grid-cols-3 gap-2">
-                <div className="p-3 rounded-xl bg-[#0F1420] border border-[#1E2638]">
-                  <span className="text-[10px] font-medium text-[#828E9E] block">MSE</span>
-                  <span className="font-mono text-base font-bold text-[#F8FAFC] tabular-nums">
+              <div className="grid grid-cols-3 gap-3">
+                <div className="p-4 rounded-2xl bg-[#111722] border border-white/10">
+                  <span className="text-[10px] font-mono font-bold text-slate-400 uppercase block">MSE</span>
+                  <span className="font-mono text-xl font-bold text-white tabular-nums mt-1 block">
                     {model.totalMetrics.mse}
                   </span>
                 </div>
-                <div className="p-3 rounded-xl bg-[#0F1420] border border-[#1E2638]">
-                  <span className="text-[10px] font-medium text-[#828E9E] block">MAE</span>
-                  <span className="font-mono text-base font-bold text-[#F8FAFC] tabular-nums">
+                <div className="p-4 rounded-2xl bg-[#111722] border border-white/10">
+                  <span className="text-[10px] font-mono font-bold text-slate-400 uppercase block">MAE</span>
+                  <span className="font-mono text-xl font-bold text-white tabular-nums mt-1 block">
                     {model.totalMetrics.mae}
                   </span>
                 </div>
-                <div className="p-3 rounded-xl bg-[#0F1420] border border-[#1E2638]">
-                  <span className="text-[10px] font-medium text-[#828E9E] block">R² Score</span>
-                  <span className="font-mono text-base font-bold text-emerald-400 tabular-nums">
+                <div className="p-4 rounded-2xl bg-[#111722] border border-white/10">
+                  <span className="text-[10px] font-mono font-bold text-slate-400 uppercase block">R² Score</span>
+                  <span className="font-mono text-xl font-bold text-emerald-400 tabular-nums mt-1 block">
                     {model.totalMetrics.r2 !== null ? model.totalMetrics.r2 : "N/A"}
                   </span>
                 </div>
@@ -609,13 +636,13 @@ export function RegressionPlayground() {
             )}
 
             {/* Derived Mathematical Observations */}
-            <div className="space-y-2 pt-2 border-t border-[#161D2A]">
+            <div className="space-y-2 pt-3 border-t border-white/5">
               {observations.map((obs, idx) => (
                 <div
                   key={idx}
-                  className="p-3 rounded-xl bg-[#070A0F] border border-[#1A2230] text-[11px] text-[#A7AFBB] leading-relaxed flex items-start gap-2"
+                  className="p-3.5 rounded-2xl bg-[#111722] border border-white/10 text-xs font-mono text-slate-300 leading-relaxed flex items-start gap-2.5"
                 >
-                  <TrendingUp className="w-3.5 h-3.5 text-[#6C8CFF] shrink-0 mt-0.5" />
+                  <TrendingUp className="w-4 h-4 text-sky-400 shrink-0 mt-0.5" />
                   <span>{obs}</span>
                 </div>
               ))}
@@ -623,20 +650,19 @@ export function RegressionPlayground() {
           </div>
 
           {/* R² Zero-Variance Definition Note */}
-          <div className="p-4 rounded-2xl bg-[#0F1420] border border-[#232B36] space-y-2 text-xs">
-            <div className="flex items-center gap-2 text-sky-400 font-semibold text-xs">
+          <div className="p-6 rounded-3xl bg-[#0A0E17] border border-white/10 space-y-2 text-xs">
+            <div className="flex items-center gap-2 text-sky-400 font-mono font-bold text-xs uppercase tracking-wider">
               <Info className="w-4 h-4 shrink-0" />
-              <span>Statistical Rigor: Zero-Variance Target Behavior</span>
+              <span>04 // Statistical Rigor: Zero-Variance Target Behavior</span>
             </div>
-            <p className="text-[11px] text-[#94A3B8] leading-relaxed">
-              R² = 1 - (SS_res / SS_tot). If all target values are identical, the total variance SS_tot = ∑(y_i - ȳ)² = 0.
+            <p className="text-xs text-slate-400 font-mono leading-relaxed">
+              R² = 1 − (SS_res / SS_tot). If all target values are identical, total variance SS_tot = ∑(y_i − ȳ)² = 0.
             </p>
-            <p className="text-[11px] text-[#94A3B8] leading-relaxed">
-              In this degenerate edge case, dividing by zero renders $R^2$ mathematically undefined. ThinkViz explicitly reports <code className="text-[#F8FAFC] font-mono">N/A</code> rather than silently outputting misleading finite numbers.
+            <p className="text-xs text-slate-400 font-mono leading-relaxed">
+              In this degenerate edge case, dividing by zero renders R² mathematically undefined. ThinkViz explicitly reports <code className="text-white font-mono bg-[#111722] px-1.5 py-0.5 rounded border border-white/10">N/A</code> rather than silently outputting misleading finite numbers.
             </p>
           </div>
         </div>
-
       </div>
     </div>
   );

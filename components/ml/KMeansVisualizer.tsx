@@ -25,6 +25,7 @@ import {
   Sparkles,
   Gauge,
   CheckCircle2,
+  Activity,
 } from "lucide-react";
 
 export function KMeansVisualizer() {
@@ -113,99 +114,92 @@ export function KMeansVisualizer() {
 
   return (
     <div className="w-full flex flex-col space-y-6">
-      {/* Top Header & Breadcrumbs */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#1E2638]">
-        <div>
-          <div className="flex items-center gap-2 text-xs text-[#828E9E] mb-1.5">
-            <Link href="/machine-learning" className="hover:text-[#F8FAFC] transition-colors">
-              Machine Learning
-            </Link>
-            <span>/</span>
-            <span className="text-[#6C8CFF]">K-Means Clustering</span>
-          </div>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#F8FAFC]">
-            K-Means Visualizer
-          </h1>
-          <p className="text-sm text-[#828E9E] mt-1 max-w-2xl">
-            Observe how data points are assigned to clusters and how centroids iteratively shift to minimize within-cluster sum of squared errors.
-          </p>
-        </div>
+      {/* Top Header & CoreNode Breadcrumbs */}
+      <div className="relative p-6 sm:p-8 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl overflow-hidden">
+        <div className="absolute top-3 left-4 text-xs font-mono text-white/20 select-none">+</div>
+        <div className="absolute top-3 right-4 text-xs font-mono text-white/20 select-none">+</div>
 
-        {/* Global Regenerate Button */}
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => {
-              const nextSeed = Math.floor(Math.random() * 10000);
-              setSeed(nextSeed);
-              handleRegenerate(k, datasetType, pointCount, nextSeed);
-            }}
-            className="px-3.5 py-1.5 rounded-lg bg-[#12161D] hover:bg-[#1A2230] text-[#F8FAFC] border border-[#232B36] text-xs font-semibold flex items-center gap-2 transition-all active:scale-[0.98]"
-            title="Generate a new random seed"
-          >
-            <Shuffle className="w-3.5 h-3.5 text-[#6C8CFF]" />
-            <span>Randomize Seed</span>
-          </button>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="space-y-1.5">
+            <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">
+              <Link href="/machine-learning" className="hover:text-sky-400 transition-colors">
+                Machine Learning
+              </Link>
+              <span>//</span>
+              <span className="text-sky-400">Module 01</span>
+              <span>//</span>
+              <span className="text-slate-300">Spatial Partitioning</span>
+            </div>
+            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-white font-mono">
+              K-Means Visualizer
+            </h1>
+            <p className="text-xs sm:text-sm text-slate-300 max-w-2xl leading-relaxed">
+              Observe iterative Euclidean Voronoi partitioning, centroid shifts toward cluster means, and Within-Cluster Sum of Squares (WCSS) convergence.
+            </p>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex items-center gap-2 shrink-0">
+            <button
+              onClick={() => {
+                const nextSeed = Math.floor(Math.random() * 10000);
+                setSeed(nextSeed);
+                handleRegenerate(k, datasetType, pointCount, nextSeed);
+              }}
+              className="px-4 py-2 rounded-xl bg-[#111722] hover:bg-[#162030] text-white border border-white/10 hover:border-white/20 text-xs font-mono font-semibold flex items-center gap-2 transition-all active:scale-[0.98] shadow-sm"
+              title="Generate a new random seed"
+            >
+              <Shuffle className="w-3.5 h-3.5 text-sky-400" />
+              <span>Randomize Seed</span>
+            </button>
+          </div>
         </div>
       </div>
 
       {/* Main Grid: Visualizer Stage (Left) & Controls/Metrics (Right) */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         
         {/* ===================================================================
             LEFT / MAIN: Scatter Plot Visualizer Canvas
             =================================================================== */}
         <div className="lg:col-span-7 flex flex-col space-y-4">
-          <div className="w-full rounded-2xl bg-[#090D14] border border-[#1E2638] p-4 sm:p-5 shadow-2xl flex flex-col items-center relative overflow-hidden">
+          <div className="w-full rounded-3xl bg-[#0A0E17] border border-white/10 p-6 sm:p-7 shadow-2xl flex flex-col items-center relative overflow-hidden">
             
-            {/* Stage HUD Pill */}
-            <div className="w-full flex items-center justify-between mb-3 text-xs">
-              <div className="flex items-center gap-2">
+            {/* Stage Header */}
+            <div className="w-full flex items-center justify-between border-b border-white/5 pb-4 mb-4">
+              <div className="flex items-center gap-2.5">
+                <Layers className="w-4 h-4 text-sky-400" />
+                <span className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">
+                  03 // Spatial Partitioning Canvas
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-xs font-mono">
                 <span
                   className={`h-2.5 w-2.5 rounded-full ${
                     activeStep?.converged
                       ? "bg-emerald-400"
                       : isPlaying
-                      ? "bg-[#6C8CFF] animate-pulse"
+                      ? "bg-sky-400 animate-pulse"
                       : "bg-amber-400"
                   }`}
                 />
-                <span className="font-semibold text-[#F8FAFC]">
+                <span className="font-bold text-white">
                   {activeStep?.converged
                     ? "Converged"
                     : activeStep?.phase === "init"
                     ? "Initialized"
                     : activeStep?.phase === "assigned"
-                    ? "Points Assigned"
-                    : "Centroids Shifted"}
+                    ? "Assigned"
+                    : "Shifted"}
                 </span>
-                <span className="text-[#828E9E] font-mono text-[11px] tabular-nums">
-                  • Iteration {activeStep?.iteration || 0}
+                <span className="text-slate-400">
+                  (Iter {activeStep?.iteration || 0})
                 </span>
               </div>
-
-              {/* Point Hover Coordinates */}
-              {hoveredPoint && (
-                <div className="hidden sm:flex items-center gap-1.5 px-2 py-0.5 rounded bg-[#12161D] border border-[#232B36] font-mono text-[11px] text-[#828E9E]">
-                  <span>Point #{hoveredPoint.id}:</span>
-                  <span className="text-[#F8FAFC]">({hoveredPoint.x}, {hoveredPoint.y})</span>
-                  <span>Cluster:</span>
-                  <span
-                    className="font-bold"
-                    style={{
-                      color:
-                        hoveredPoint.cluster >= 0
-                          ? CLUSTER_COLORS[hoveredPoint.cluster % CLUSTER_COLORS.length]
-                          : "#828E9E",
-                    }}
-                  >
-                    {hoveredPoint.cluster >= 0 ? `C${hoveredPoint.cluster + 1}` : "None"}
-                  </span>
-                </div>
-              )}
             </div>
 
             {/* SVG Scatter Plot Stage */}
-            <div className="w-full aspect-square max-w-[500px] flex items-center justify-center relative bg-[#070A0F] rounded-xl border border-[#161D2A] p-2">
+            <div className="w-full aspect-square max-w-[500px] flex items-center justify-center relative bg-[#070A0F] rounded-2xl border border-white/10 p-2 shadow-inner">
               <svg
                 viewBox={`0 0 ${svgSize} ${svgSize}`}
                 className="w-full h-full select-none"
@@ -213,23 +207,21 @@ export function KMeansVisualizer() {
                 {/* Subtle Grid Coordinate Lines */}
                 {[20, 40, 60, 80].map((gridLine) => (
                   <React.Fragment key={gridLine}>
-                    {/* Vertical line */}
                     <line
                       x1={mapX(gridLine)}
                       y1={mapY(0)}
                       x2={mapX(gridLine)}
                       y2={mapY(100)}
-                      stroke="#141C2A"
+                      stroke="#141C2B"
                       strokeWidth="1"
                       strokeDasharray="3 3"
                     />
-                    {/* Horizontal line */}
                     <line
                       x1={mapX(0)}
                       y1={mapY(gridLine)}
                       x2={mapX(100)}
                       y2={mapY(gridLine)}
-                      stroke="#141C2A"
+                      stroke="#141C2B"
                       strokeWidth="1"
                       strokeDasharray="3 3"
                     />
@@ -243,11 +235,11 @@ export function KMeansVisualizer() {
                   width={plotWidth}
                   height={plotHeight}
                   fill="none"
-                  stroke="#1E2638"
+                  stroke="#1E293B"
                   strokeWidth="1.5"
                 />
 
-                {/* Subtle assignment rays from points to centroids when assigned */}
+                {/* Assignment rays from points to centroids */}
                 {activeStep?.phase === "assigned" &&
                   currentPoints.map((p) => {
                     if (p.cluster < 0 || p.cluster >= currentCentroids.length) return null;
@@ -261,7 +253,7 @@ export function KMeansVisualizer() {
                         y2={mapY(c.y)}
                         stroke={CLUSTER_COLORS[p.cluster % CLUSTER_COLORS.length]}
                         strokeWidth="0.75"
-                        strokeOpacity="0.15"
+                        strokeOpacity="0.2"
                       />
                     );
                   })}
@@ -278,7 +270,7 @@ export function KMeansVisualizer() {
                       key={`pt-${p.id}`}
                       cx={mapX(p.x)}
                       cy={mapY(p.y)}
-                      r={hoveredPoint?.id === p.id ? 6.5 : 4.5}
+                      r={hoveredPoint?.id === p.id ? 7 : 4.5}
                       fill={pointColor}
                       stroke={hoveredPoint?.id === p.id ? "#FFFFFF" : "#070A0F"}
                       strokeWidth={hoveredPoint?.id === p.id ? 2 : 1}
@@ -297,24 +289,21 @@ export function KMeansVisualizer() {
 
                   return (
                     <g key={`centroid-${c.id}`} className="cursor-pointer">
-                      {/* Glow halo */}
                       <circle
                         cx={cx}
                         cy={cy}
-                        r="14"
+                        r="15"
                         fill={color}
-                        fillOpacity="0.2"
+                        fillOpacity="0.25"
                         className="animate-pulse"
                       />
-                      {/* Diamond marker */}
                       <polygon
-                        points={`${cx},${cy - 10} ${cx + 10},${cy} ${cx},${cy + 10} ${cx - 10},${cy}`}
+                        points={`${cx},${cy - 11} ${cx + 11},${cy} ${cx},${cy + 11} ${cx - 11},${cy}`}
                         fill={color}
                         stroke="#FFFFFF"
                         strokeWidth="2"
                         filter="drop-shadow(0 0 6px rgba(0,0,0,0.8))"
                       />
-                      {/* Centroid label */}
                       <text
                         x={cx}
                         y={cy + 3.5}
@@ -333,23 +322,23 @@ export function KMeansVisualizer() {
             </div>
 
             {/* Centroids Legend */}
-            <div className="w-full flex flex-wrap items-center justify-center gap-3 mt-3 pt-3 border-t border-[#161D2A] text-xs">
+            <div className="w-full flex flex-wrap items-center justify-center gap-2.5 mt-4 pt-3 border-t border-white/5 text-xs">
               {currentCentroids.map((c) => {
                 const count = clusterCounts[c.id] || 0;
                 const color = CLUSTER_COLORS[c.id % CLUSTER_COLORS.length];
                 return (
                   <div
                     key={`legend-${c.id}`}
-                    className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-[#0C1018] border border-[#1A2230]"
+                    className="flex items-center gap-2 px-3 py-1 rounded-xl bg-[#111722] border border-white/10 font-mono"
                   >
                     <span
-                      className="w-2.5 h-2.5 rounded-sm"
+                      className="w-2.5 h-2.5 rounded-sm shrink-0"
                       style={{ backgroundColor: color }}
                     />
-                    <span className="font-mono text-[#F8FAFC] font-semibold text-[11px]">
+                    <span className="text-white font-semibold text-xs">
                       Cluster {c.id + 1}
                     </span>
-                    <span className="text-[#828E9E] font-mono text-[10px] tabular-nums">
+                    <span className="text-slate-400 text-[11px] tabular-nums">
                       ({count} pts)
                     </span>
                   </div>
@@ -358,16 +347,16 @@ export function KMeansVisualizer() {
             </div>
           </div>
 
-          {/* Dedicated Playback Controller Dock */}
-          <div className="w-full p-3 rounded-xl bg-[#090D14] border border-[#1E2638] flex flex-col sm:flex-row items-center justify-between gap-3 shadow-md">
+          {/* Dedicated CoreNode AI Playback Scrubber Dock */}
+          <div className="w-full p-4 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl flex flex-col sm:flex-row items-center justify-between gap-4">
             {/* Play/Step Buttons */}
-            <div className="flex items-center gap-1.5">
+            <div className="flex items-center gap-2">
               <button
                 onClick={() => handleRegenerate()}
-                className="p-2 rounded-lg bg-[#12161D] hover:bg-[#1A2230] text-[#828E9E] hover:text-[#F8FAFC] border border-[#232B36] transition-all active:scale-[0.98]"
+                className="p-2.5 rounded-xl bg-[#111722] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 transition-all active:scale-[0.98]"
                 title="Reset to Step 0"
               >
-                <RotateCcw className="w-3.5 h-3.5" />
+                <RotateCcw className="w-4 h-4" />
               </button>
 
               <button
@@ -376,7 +365,7 @@ export function KMeansVisualizer() {
                   setCurrentStepIndex((prev) => Math.max(0, prev - 1));
                 }}
                 disabled={isAtStart}
-                className="p-2 rounded-lg bg-[#12161D] hover:bg-[#1A2230] text-[#828E9E] hover:text-[#F8FAFC] border border-[#232B36] transition-all active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed"
+                className="p-2.5 rounded-xl bg-[#111722] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 transition-all active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed"
                 title="Step backward"
               >
                 <ChevronLeft className="w-4 h-4" />
@@ -391,21 +380,21 @@ export function KMeansVisualizer() {
                     setIsPlaying(!isPlaying);
                   }
                 }}
-                className="px-4 py-1.5 rounded-lg bg-[#6C8CFF] hover:bg-[#5A7BEF] text-white text-xs font-semibold flex items-center gap-2 shadow-md transition-all active:scale-[0.98]"
+                className="px-5 py-2 rounded-xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white text-xs font-mono font-bold flex items-center gap-2 shadow-lg shadow-sky-500/20 border border-sky-400/40 transition-all active:scale-[0.98]"
               >
                 {isPlaying ? (
                   <>
-                    <Pause className="w-3.5 h-3.5 fill-current" />
+                    <Pause className="w-4 h-4 fill-current" />
                     <span>Pause</span>
                   </>
                 ) : isAtEnd ? (
                   <>
-                    <RotateCcw className="w-3.5 h-3.5" />
+                    <RotateCcw className="w-4 h-4" />
                     <span>Replay</span>
                   </>
                 ) : (
                   <>
-                    <Play className="w-3.5 h-3.5 fill-current" />
+                    <Play className="w-4 h-4 fill-current" />
                     <span>{isAtStart ? "Run K-Means" : "Resume"}</span>
                   </>
                 )}
@@ -417,7 +406,7 @@ export function KMeansVisualizer() {
                   setCurrentStepIndex((prev) => Math.min(steps.length - 1, prev + 1));
                 }}
                 disabled={isAtEnd}
-                className="p-2 rounded-lg bg-[#12161D] hover:bg-[#1A2230] text-[#828E9E] hover:text-[#F8FAFC] border border-[#232B36] transition-all active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed"
+                className="p-2.5 rounded-xl bg-[#111722] hover:bg-[#162030] text-slate-300 hover:text-white border border-white/10 transition-all active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed"
                 title="Step forward"
               >
                 <ChevronRight className="w-4 h-4" />
@@ -435,16 +424,16 @@ export function KMeansVisualizer() {
                   setIsPlaying(false);
                   setCurrentStepIndex(Number(e.target.value));
                 }}
-                className="w-full h-1.5 bg-[#12161D] rounded-lg appearance-none cursor-pointer accent-[#6C8CFF]"
+                className="w-full h-2 bg-[#070A0F] rounded-lg appearance-none cursor-pointer accent-sky-400 border border-white/10"
               />
-              <span className="text-xs font-mono tabular-nums text-[#828E9E] whitespace-nowrap min-w-[70px] text-right">
-                Step <strong className="text-[#F8FAFC]">{currentStepIndex}</strong>/{steps.length - 1}
+              <span className="text-xs font-mono tabular-nums text-slate-400 whitespace-nowrap min-w-[80px] text-right">
+                Step <strong className="text-white font-bold">{currentStepIndex}</strong>/{steps.length - 1}
               </span>
             </div>
 
             {/* Speed Selector */}
-            <div className="flex items-center gap-1">
-              <Gauge className="w-3.5 h-3.5 text-[#828E9E] mr-0.5" />
+            <div className="flex items-center gap-1.5 font-mono text-xs">
+              <Gauge className="w-4 h-4 text-slate-400 mr-1" />
               {[
                 { label: "Slow", ms: 600 },
                 { label: "1x", ms: 300 },
@@ -454,10 +443,10 @@ export function KMeansVisualizer() {
                 <button
                   key={s.label}
                   onClick={() => setSpeedMs(s.ms)}
-                  className={`px-2 py-0.5 rounded text-[10px] font-mono font-medium transition-all ${
+                  className={`px-2.5 py-1 rounded-lg text-xs font-mono font-medium transition-all ${
                     speedMs === s.ms
-                      ? "bg-[#6C8CFF] text-white"
-                      : "bg-[#12161D] text-[#828E9E] hover:text-[#F8FAFC]"
+                      ? "bg-sky-500 text-white shadow-sm"
+                      : "bg-[#111722] text-slate-400 hover:text-white border border-white/10"
                   }`}
                 >
                   {s.label}
@@ -470,22 +459,27 @@ export function KMeansVisualizer() {
         {/* ===================================================================
             RIGHT: Parameters, Live Metrics & Pedagogical Notes
             =================================================================== */}
-        <div className="lg:col-span-5 flex flex-col space-y-4">
+        <div className="lg:col-span-5 flex flex-col space-y-6">
           
           {/* Parameter Configuration Deck */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#090D14] border border-[#1E2638] shadow-xl space-y-4 text-xs">
-            <div className="flex items-center gap-2 pb-2 border-b border-[#161D2A]">
-              <Layers className="w-4 h-4 text-[#6C8CFF]" />
-              <h2 className="font-semibold text-[#F8FAFC] text-sm">Algorithm Controls</h2>
+          <div className="p-6 sm:p-7 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl space-y-5 text-xs">
+            <div className="flex items-center justify-between border-b border-white/5 pb-4">
+              <div className="flex items-center gap-2.5">
+                <Layers className="w-4 h-4 text-sky-400" />
+                <h2 className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">
+                  01 // Hyperparameter Config
+                </h2>
+              </div>
+              <span className="text-xs font-mono text-sky-400">K-Means++ PRNG</span>
             </div>
 
             {/* Cluster Count (K) */}
-            <div className="space-y-1.5">
-              <div className="flex justify-between">
-                <span className="text-[#828E9E] font-medium">Number of Clusters (K):</span>
-                <span className="font-mono font-bold text-[#6C8CFF]">{k}</span>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-slate-300 font-medium">Number of Clusters (K):</span>
+                <span className="font-mono text-base font-bold text-sky-400">{k}</span>
               </div>
-              <div className="grid grid-cols-8 gap-1">
+              <div className="grid grid-cols-8 gap-1.5">
                 {[1, 2, 3, 4, 5, 6, 7, 8].map((kVal) => (
                   <button
                     key={kVal}
@@ -493,10 +487,10 @@ export function KMeansVisualizer() {
                       setK(kVal);
                       handleRegenerate(kVal, datasetType, pointCount, seed);
                     }}
-                    className={`py-1 rounded text-xs font-mono font-semibold transition-all ${
+                    className={`py-1.5 rounded-xl text-xs font-mono font-bold transition-all ${
                       k === kVal
-                        ? "bg-[#6C8CFF] text-white shadow-sm"
-                        : "bg-[#12161D] text-[#828E9E] hover:text-[#F8FAFC] border border-[#232B36]"
+                        ? "bg-sky-500 text-white shadow-lg shadow-sky-500/20 border border-sky-400/50"
+                        : "bg-[#111722] text-slate-300 hover:text-white border border-white/10"
                     }`}
                   >
                     {kVal}
@@ -506,13 +500,13 @@ export function KMeansVisualizer() {
             </div>
 
             {/* Dataset Type Selector */}
-            <div className="space-y-1.5">
-              <span className="text-[#828E9E] font-medium block">Dataset Distribution:</span>
-              <div className="grid grid-cols-3 gap-1.5">
+            <div className="space-y-2">
+              <span className="text-slate-300 font-medium block">Dataset Distribution:</span>
+              <div className="grid grid-cols-3 gap-2">
                 {[
                   { id: "separated", label: "Separated" },
                   { id: "blobs", label: "Gaussian Blobs" },
-                  { id: "uniform", label: "Random Uniform" },
+                  { id: "uniform", label: "Uniform" },
                 ].map((type) => (
                   <button
                     key={type.id}
@@ -520,10 +514,10 @@ export function KMeansVisualizer() {
                       setDatasetType(type.id as KMeansDatasetType);
                       handleRegenerate(k, type.id as KMeansDatasetType, pointCount, seed);
                     }}
-                    className={`py-1.5 px-2 rounded-lg text-[11px] font-medium transition-all ${
+                    className={`py-2 px-2.5 rounded-xl text-xs font-mono transition-all ${
                       datasetType === type.id
-                        ? "bg-[#6C8CFF]/20 text-[#6C8CFF] border border-[#6C8CFF]/50 font-semibold"
-                        : "bg-[#12161D] text-[#828E9E] hover:text-[#F8FAFC] border border-[#232B36]"
+                        ? "bg-sky-500/20 text-sky-300 border border-sky-400/50 font-bold"
+                        : "bg-[#111722] text-slate-300 hover:text-white border border-white/10"
                     }`}
                   >
                     {type.label}
@@ -533,12 +527,12 @@ export function KMeansVisualizer() {
             </div>
 
             {/* Point Count */}
-            <div className="space-y-1.5">
-              <div className="flex justify-between">
-                <span className="text-[#828E9E] font-medium">Sample Size (N):</span>
-                <span className="font-mono font-bold text-[#F8FAFC]">{pointCount} points</span>
+            <div className="space-y-2">
+              <div className="flex justify-between items-center">
+                <span className="text-slate-300 font-medium">Sample Size (N):</span>
+                <span className="font-mono font-bold text-white">{pointCount} points</span>
               </div>
-              <div className="grid grid-cols-4 gap-1.5">
+              <div className="grid grid-cols-4 gap-2">
                 {[40, 80, 120, 160].map((count) => (
                   <button
                     key={count}
@@ -546,10 +540,10 @@ export function KMeansVisualizer() {
                       setPointCount(count);
                       handleRegenerate(k, datasetType, count, seed);
                     }}
-                    className={`py-1 rounded text-xs font-mono transition-all ${
+                    className={`py-2 rounded-xl text-xs font-mono transition-all ${
                       pointCount === count
-                        ? "bg-[#1A2230] text-[#F8FAFC] border border-[#6C8CFF]/40 font-bold"
-                        : "bg-[#12161D] text-[#828E9E] hover:text-[#F8FAFC] border border-[#232B36]"
+                        ? "bg-[#1A2230] text-white border border-sky-400/40 font-bold"
+                        : "bg-[#111722] text-slate-400 hover:text-white border border-white/10"
                     }`}
                   >
                     {count}
@@ -560,95 +554,102 @@ export function KMeansVisualizer() {
           </div>
 
           {/* Real-Time Mathematical Metrics Panel */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#090D14] border border-[#1E2638] shadow-xl space-y-3 text-xs">
-            <div className="flex items-center justify-between pb-2 border-b border-[#161D2A]">
-              <span className="font-semibold text-[#F8FAFC] text-sm">Cluster Metrics</span>
-              <span className="text-[10px] font-mono text-[#828E9E]">Real-Time Evaluation</span>
+          <div className="p-6 sm:p-7 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl space-y-4 text-xs">
+            <div className="flex items-center justify-between border-b border-white/5 pb-4">
+              <div className="flex items-center gap-2.5">
+                <Activity className="w-4 h-4 text-sky-400" />
+                <h3 className="text-xs font-mono font-bold tracking-widest text-slate-400 uppercase">
+                  02 // Clustering Telemetry
+                </h3>
+              </div>
+              <span className="text-xs font-mono text-slate-400">Live Mathematical Readout</span>
             </div>
 
-            <div className="grid grid-cols-2 gap-2 text-xs">
+            <div className="grid grid-cols-2 gap-3 text-xs">
               {/* Metric 1: WCSS (Inertia) */}
-              <div className="p-3 rounded-xl bg-[#0F1420] border border-[#1E2638]">
-                <span className="text-[10px] font-medium text-[#828E9E] uppercase tracking-wider block">
+              <div className="p-4 rounded-2xl bg-[#111722] border border-white/10">
+                <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider block">
                   Inertia (WCSS)
                 </span>
-                <span className="font-mono text-base font-bold text-amber-300 tabular-nums">
+                <span className="font-mono text-xl sm:text-2xl font-black text-amber-300 tabular-nums mt-1 block">
                   {activeStep ? activeStep.wcss.toLocaleString() : "0"}
                 </span>
-                <span className="text-[10px] text-[#64748B] block mt-0.5">
-                  Σ ||x - c_k||²
+                <span className="text-[10px] text-slate-400 block mt-1 font-mono">
+                  Σ ||x − c_k||²
                 </span>
               </div>
 
               {/* Metric 2: Convergence Status */}
-              <div className="p-3 rounded-xl bg-[#0F1420] border border-[#1E2638]">
-                <span className="text-[10px] font-medium text-[#828E9E] uppercase tracking-wider block">
+              <div className="p-4 rounded-2xl bg-[#111722] border border-white/10">
+                <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider block">
                   Status
                 </span>
                 <span
-                  className={`text-sm font-semibold flex items-center gap-1.5 mt-0.5 ${
-                    activeStep?.converged ? "text-emerald-400" : "text-[#6C8CFF]"
+                  className={`text-sm sm:text-base font-bold flex items-center gap-1.5 mt-1 ${
+                    activeStep?.converged ? "text-emerald-400" : "text-sky-400"
                   }`}
                 >
                   {activeStep?.converged ? (
                     <>
-                      <CheckCircle2 className="w-3.5 h-3.5" />
+                      <CheckCircle2 className="w-4 h-4" />
                       <span>Converged</span>
                     </>
                   ) : (
                     <span>Optimizing...</span>
                   )}
                 </span>
-                <span className="text-[10px] font-mono text-[#64748B] block mt-0.5">
+                <span className="text-[10px] font-mono text-slate-400 block mt-1">
                   Δ = {activeStep?.maxCentroidDelta ?? 0}
                 </span>
               </div>
 
               {/* Metric 3: Iteration */}
-              <div className="p-3 rounded-xl bg-[#0F1420] border border-[#1E2638]">
-                <span className="text-[10px] font-medium text-[#828E9E] uppercase tracking-wider block">
+              <div className="p-4 rounded-2xl bg-[#111722] border border-white/10">
+                <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider block">
                   Iteration
                 </span>
-                <span className="font-mono text-base font-bold text-[#F8FAFC] tabular-nums">
+                <span className="font-mono text-xl sm:text-2xl font-black text-white tabular-nums mt-1 block">
                   {activeStep?.iteration || 0}
                 </span>
-                <span className="text-[10px] text-[#64748B] block mt-0.5">
+                <span className="text-[10px] text-slate-400 block mt-1 font-mono">
                   Step {currentStepIndex}/{steps.length - 1}
                 </span>
               </div>
 
               {/* Metric 4: Reassigned Points */}
-              <div className="p-3 rounded-xl bg-[#0F1420] border border-[#1E2638]">
-                <span className="text-[10px] font-medium text-[#828E9E] uppercase tracking-wider block">
+              <div className="p-4 rounded-2xl bg-[#111722] border border-white/10">
+                <span className="text-[10px] font-mono font-bold text-slate-400 uppercase tracking-wider block">
                   Reassigned
                 </span>
-                <span className="font-mono text-base font-bold text-[#F8FAFC] tabular-nums">
+                <span className="font-mono text-xl sm:text-2xl font-black text-white tabular-nums mt-1 block">
                   {activeStep?.reassignedCount ?? 0}
                 </span>
-                <span className="text-[10px] text-[#64748B] block mt-0.5">
+                <span className="text-[10px] text-slate-400 block mt-1 font-mono">
                   Points shifted
                 </span>
               </div>
             </div>
 
             {/* Live Step Explanation */}
-            <div className="p-3 rounded-xl bg-[#070A0F] border border-[#1A2230] text-[11px] text-[#A7AFBB] leading-relaxed">
-              <span className="text-[#6C8CFF] font-semibold mr-1">Step Trace:</span>
+            <div className="p-4 rounded-2xl bg-[#070A0F] border border-white/10 text-xs text-slate-300 leading-relaxed font-mono">
+              <span className="text-sky-400 font-bold mr-1.5">Step Trace:</span>
               {activeStep?.explanation || "Ready to begin."}
             </div>
           </div>
 
           {/* Pedagogical Note (Elbow Method & WCSS Behavior) */}
-          <div className="p-4 rounded-2xl bg-[#0F1420] border border-[#232B36] space-y-2 text-xs">
-            <div className="flex items-center gap-2 text-amber-400 font-semibold text-xs">
+          <div className="p-6 sm:p-7 rounded-3xl bg-[#0A0E17] border border-white/10 shadow-2xl space-y-3 text-xs">
+            <div className="flex items-center gap-2.5 text-amber-400 font-semibold border-b border-white/5 pb-3">
               <Info className="w-4 h-4 shrink-0" />
-              <span>Pedagogical Insight: The Elbow Method</span>
+              <h3 className="text-xs font-mono font-bold tracking-widest uppercase">
+                04 // Diagnostic: The Elbow Method
+              </h3>
             </div>
-            <p className="text-[11px] text-[#94A3B8] leading-relaxed">
-              Within-cluster sum of squares (WCSS) <strong>strictly decreases as K increases</strong>, eventually hitting 0 when K = N (each point is its own cluster).
+            <p className="text-xs text-slate-300 leading-relaxed">
+              Within-cluster sum of squares (WCSS) <strong>strictly decreases as K increases</strong>, hitting 0 when K = N (each point is its own centroid).
             </p>
-            <p className="text-[11px] text-[#94A3B8] leading-relaxed">
-              Therefore, a lower WCSS does not alone prove that a larger K is superior. In machine learning practice, researchers run multiple K trials and look for the <strong className="text-[#F8FAFC]">"Elbow Point"</strong>—the inflection where adding another centroid yields diminishing returns in variance reduction.
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Therefore, a lower WCSS does not alone prove that a larger K is superior. In machine learning practice, researchers run multiple K trials and look for the <strong className="text-sky-300">"Elbow Point"</strong>—the inflection where adding another centroid yields diminishing returns in variance reduction.
             </p>
           </div>
         </div>

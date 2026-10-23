@@ -12,14 +12,12 @@ import {
   BarChart3,
   Shield,
   HardDrive,
-  UserCheck,
-  ChevronRight,
+  LogOut,
   Menu,
   X,
 } from "lucide-react";
 import { useState } from "react";
 import { switchUserAction, logoutAction } from "@/app/actions/dms";
-import { LogOut } from "lucide-react";
 
 interface DmsSidebarProps {
   currentUser: {
@@ -33,14 +31,14 @@ interface DmsSidebarProps {
 }
 
 const NAV_ITEMS = [
-  { href: "/data-center", label: "Overview", icon: LayoutDashboard, exact: true },
-  { href: "/data-center/files", label: "My Files", icon: FolderOpen },
-  { href: "/data-center/datasets", label: "Datasets", icon: Database },
-  { href: "/data-center/projects", label: "Projects & Tasks", icon: CheckSquare },
-  { href: "/data-center/ai-workspace", label: "AI Workspace", icon: Sparkles },
-  { href: "/data-center/activity", label: "Activity History", icon: History },
-  { href: "/data-center/analytics", label: "My Analytics", icon: BarChart3 },
-  { href: "/data-center/admin", label: "Admin Console", icon: Shield, adminOnly: true },
+  { href: "/data-center", label: "01 // OVERVIEW", icon: LayoutDashboard, exact: true },
+  { href: "/data-center/files", label: "02 // MY FILES", icon: FolderOpen },
+  { href: "/data-center/datasets", label: "03 // DATASETS", icon: Database },
+  { href: "/data-center/projects", label: "04 // PROJECTS & TASKS", icon: CheckSquare },
+  { href: "/data-center/ai-workspace", label: "05 // AI WORKSPACE", icon: Sparkles },
+  { href: "/data-center/activity", label: "06 // ACTIVITY HISTORY", icon: History },
+  { href: "/data-center/analytics", label: "07 // MY ANALYTICS", icon: BarChart3 },
+  { href: "/data-center/admin", label: "08 // ADMIN CONSOLE", icon: Shield, adminOnly: true },
 ];
 
 export function DmsSidebar({ currentUser, storageUsedBytes, storageLimitBytes }: DmsSidebarProps) {
@@ -76,14 +74,14 @@ export function DmsSidebar({ currentUser, storageUsedBytes, storageLimitBytes }:
   return (
     <>
       {/* Mobile Toggle Bar */}
-      <div className="lg:hidden flex items-center justify-between px-4 py-3 bg-[#15181D] border-b border-[#292E36]">
+      <div className="lg:hidden flex items-center justify-between px-4 py-3 bg-[#0A0E17] border-b border-white/10">
         <div className="flex items-center gap-2">
-          <span className="w-2 h-2 rounded-full bg-[#6C8CFF]"></span>
-          <span className="text-sm font-semibold text-[#F1F3F5]">Data Center Navigation</span>
+          <span className="w-2 h-2 rounded-full bg-sky-400"></span>
+          <span className="text-xs font-mono font-bold text-white uppercase tracking-wider">Data Center Menu</span>
         </div>
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="p-1.5 rounded-md text-[#A7AFBB] hover:bg-[#1B1F25] hover:text-[#F1F3F5]"
+          className="p-1.5 rounded-lg text-slate-400 hover:bg-[#111722] hover:text-white"
         >
           {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
         </button>
@@ -91,89 +89,87 @@ export function DmsSidebar({ currentUser, storageUsedBytes, storageLimitBytes }:
 
       {/* Sidebar Container */}
       <aside
-        className={`fixed inset-y-0 left-0 z-40 w-64 bg-[#111418] border-r border-[#292E36] flex flex-col transition-transform duration-200 lg:sticky lg:top-20 lg:h-[calc(100vh-6rem)] lg:translate-x-0 lg:border lg:rounded-xl shadow-xl shrink-0 ${
+        className={`fixed inset-y-0 left-0 z-40 w-64 bg-[#0A0E17] border border-white/10 flex flex-col transition-transform duration-200 lg:sticky lg:top-24 lg:h-[calc(100vh-8rem)] lg:translate-x-0 lg:rounded-3xl shadow-2xl shrink-0 font-mono relative overflow-hidden ${
           mobileOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
         {/* Top Header / Context */}
-        <div className="p-4 border-b border-[#292E36]">
+        <div className="p-5 border-b border-white/10">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-[#6C8CFF]/15 border border-[#6C8CFF]/30 flex items-center justify-center">
-                <Database className="w-4 h-4 text-[#6C8CFF]" />
+            <div className="flex items-center gap-2.5">
+              <div className="w-8 h-8 rounded-xl bg-[#111722] border border-white/10 flex items-center justify-center">
+                <Database className="w-4 h-4 text-sky-400" />
               </div>
               <div>
-                <h2 className="text-sm font-semibold text-[#F1F3F5] tracking-tight">Data Center</h2>
-                <p className="text-[11px] text-[#6C8CFF] font-mono">Release 2 (v2.0)</p>
+                <h2 className="text-xs font-mono font-bold text-white tracking-widest uppercase">Data Center</h2>
+                <p className="text-[10px] text-sky-400 font-mono">SYS // v2.0</p>
               </div>
             </div>
             <button
               onClick={() => setMobileOpen(false)}
-              className="lg:hidden text-[#A7AFBB] hover:text-[#F1F3F5]"
+              className="lg:hidden text-slate-400 hover:text-white"
             >
               <X className="w-4 h-4" />
             </button>
           </div>
 
           {/* Active User Persona Banner */}
-          <div className="mt-3.5 p-2.5 rounded-lg bg-[#181C22] border border-[#292E36]">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2 truncate">
-                <div className="w-7 h-7 rounded-full bg-[#6C8CFF] flex items-center justify-center text-xs font-semibold text-white">
-                  {currentUser.name.charAt(0)}
-                </div>
-                <div className="truncate">
-                  <p className="text-xs font-medium text-[#F1F3F5] truncate">{currentUser.name}</p>
-                  <span
-                    className={`inline-block px-1.5 py-0.2 rounded text-[10px] font-mono uppercase tracking-wider ${
-                      currentUser.role === "ADMIN"
-                        ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
-                        : currentUser.role === "EDUCATOR"
-                        ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
-                        : currentUser.role === "RESEARCHER"
-                        ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
-                        : "bg-amber-500/20 text-amber-300 border border-amber-500/30"
-                    }`}
-                  >
-                    {currentUser.role}
-                  </span>
-                </div>
+          <div className="mt-4 p-3 rounded-2xl bg-[#111722] border border-white/10 space-y-2">
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded-full bg-sky-500/20 text-sky-300 border border-sky-400/40 flex items-center justify-center text-xs font-bold font-mono shrink-0">
+                {currentUser.name.charAt(0)}
+              </div>
+              <div className="truncate">
+                <p className="text-xs font-bold text-white truncate">{currentUser.name}</p>
+                <span
+                  className={`inline-block px-2 py-0.5 rounded text-[9px] font-mono font-bold uppercase tracking-wider ${
+                    currentUser.role === "ADMIN"
+                      ? "bg-purple-500/20 text-purple-300 border border-purple-500/30"
+                      : currentUser.role === "EDUCATOR"
+                      ? "bg-blue-500/20 text-blue-300 border border-blue-500/30"
+                      : currentUser.role === "RESEARCHER"
+                      ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
+                      : "bg-amber-500/20 text-amber-300 border border-amber-500/30"
+                  }`}
+                >
+                  {currentUser.role}
+                </span>
               </div>
             </div>
 
             {/* User Session & Sign Out Controls */}
-            <div className="mt-2.5 pt-2 border-t border-[#292E36]/60 space-y-2">
-              <div className="flex items-center justify-between text-[11px] text-[#717885]">
-                <span className="truncate max-w-[130px] font-mono" title={currentUser.email}>
+            <div className="pt-2 border-t border-white/5 space-y-2">
+              <div className="flex items-center justify-between text-[10px] text-slate-400 font-mono">
+                <span className="truncate max-w-[120px]" title={currentUser.email}>
                   {currentUser.email}
                 </span>
                 <button
                   type="button"
                   onClick={handleLogout}
-                  className="inline-flex items-center gap-1 text-[11px] text-red-400 hover:text-red-300 font-medium transition-colors"
+                  className="inline-flex items-center gap-1 text-[10px] text-rose-400 hover:text-rose-300 font-bold transition-colors"
                   title="Sign Out of Data Center"
                 >
                   <LogOut className="w-3 h-3" />
-                  Sign Out
+                  EXIT
                 </button>
               </div>
 
               {currentUser.role === "ADMIN" && (
-                <div className="pt-2 border-t border-[#292E36]/40">
-                  <span className="block text-[9px] uppercase text-[#717885] mb-1 font-mono tracking-wider">
-                    Admin Test Persona
+                <div className="pt-2 border-t border-white/5">
+                  <span className="block text-[8px] uppercase text-slate-400 mb-1 font-mono tracking-widest font-bold">
+                    Switch Test Persona
                   </span>
                   <select
                     value={currentUser.id}
                     onChange={(e) => handleSwitchUser(e.target.value)}
                     disabled={switchingUser}
                     aria-label="Simulate Persona"
-                    className="w-full text-[11px] bg-[#111418] text-[#F1F3F5] rounded border border-[#292E36] px-2 py-1 outline-none focus:border-[#6C8CFF]"
+                    className="w-full text-[10px] font-mono bg-[#0A0E17] text-white rounded-xl border border-white/10 px-2 py-1 outline-none focus:border-sky-400/60"
                   >
                     <option value="user-admin-1">Parth Doshi (Admin)</option>
-                    <option value="user-educator-1">Prof. S. Jenkins (Educator)</option>
+                    <option value="user-educator-1">Prof. Jenkins (Educator)</option>
                     <option value="user-student-1">Alex Rivera (Student)</option>
-                    <option value="user-researcher-1">Dr. Elena Rostova (Researcher)</option>
+                    <option value="user-researcher-1">Dr. Rostova (Researcher)</option>
                   </select>
                 </div>
               )}
@@ -182,7 +178,7 @@ export function DmsSidebar({ currentUser, storageUsedBytes, storageLimitBytes }:
         </div>
 
         {/* Navigation Items */}
-        <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+        <nav className="flex-1 p-3 space-y-1.5 overflow-y-auto">
           {NAV_ITEMS.map((item) => {
             const isActive = item.exact
               ? pathname === item.href
@@ -198,43 +194,43 @@ export function DmsSidebar({ currentUser, storageUsedBytes, storageLimitBytes }:
                 key={item.href}
                 href={item.href}
                 onClick={() => setMobileOpen(false)}
-                className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all ${
+                className={`flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-mono transition-all ${
                   isActive
-                    ? "bg-[#6C8CFF]/15 text-[#6C8CFF] border border-[#6C8CFF]/30 font-semibold"
-                    : "text-[#A7AFBB] hover:bg-[#181C22] hover:text-[#F1F3F5]"
+                    ? "bg-[#1A2230] text-sky-400 border border-sky-400/40 font-bold"
+                    : "text-slate-400 hover:bg-[#111722] hover:text-white border border-transparent"
                 }`}
               >
                 <div className="flex items-center gap-2.5">
-                  <Icon className={`w-4 h-4 ${isActive ? "text-[#6C8CFF]" : "text-[#717885]"}`} />
-                  <span>{item.label}</span>
+                  <Icon className={`w-3.5 h-3.5 ${isActive ? "text-sky-400" : "text-slate-500"}`} />
+                  <span className="tracking-wider">{item.label}</span>
                 </div>
-                {isActive && <span className="w-1.5 h-1.5 rounded-full bg-[#6C8CFF]"></span>}
+                {isActive && <span className="w-1.5 h-1.5 rounded-full bg-sky-400"></span>}
               </Link>
             );
           })}
         </nav>
 
         {/* Storage Usage Widget */}
-        <div className="p-3 border-t border-[#292E36]">
-          <div className="p-3 rounded-lg bg-[#181C22] border border-[#292E36]/80">
-            <div className="flex items-center justify-between text-xs mb-1.5">
-              <div className="flex items-center gap-1.5 text-[#A7AFBB]">
-                <HardDrive className="w-3.5 h-3.5 text-[#6C8CFF]" />
-                <span className="font-medium text-[11px]">Storage</span>
+        <div className="p-3 border-t border-white/10">
+          <div className="p-3.5 rounded-2xl bg-[#111722] border border-white/10 space-y-1.5">
+            <div className="flex items-center justify-between text-xs font-mono">
+              <div className="flex items-center gap-1.5 text-slate-400">
+                <HardDrive className="w-3.5 h-3.5 text-sky-400" />
+                <span className="text-[10px] font-bold uppercase tracking-wider">Storage</span>
               </div>
-              <span className="text-[11px] text-[#F1F3F5] font-mono">
-                {usedMb} MB / {totalGb} GB
+              <span className="text-[10px] text-white font-bold tabular-nums">
+                {usedMb}MB / {totalGb}GB
               </span>
             </div>
-            <div className="w-full bg-[#111418] rounded-full h-1.5 overflow-hidden">
+            <div className="w-full bg-[#0A0E17] rounded-full h-1.5 overflow-hidden">
               <div
-                className="bg-gradient-to-r from-[#6C8CFF] to-[#10B981] h-1.5 rounded-full"
+                className="bg-gradient-to-r from-sky-400 to-emerald-400 h-1.5 rounded-full"
                 style={{ width: `${percentUsed}%` }}
               ></div>
             </div>
-            <div className="flex items-center justify-between mt-2 text-[10px] text-[#717885]">
-              <span>Physical files & datasets</span>
-              <span className="font-mono">{percentUsed.toFixed(1)}%</span>
+            <div className="flex items-center justify-between text-[9px] text-slate-500 font-mono">
+              <span>Local Volumes</span>
+              <span className="text-slate-400 font-bold">{percentUsed.toFixed(1)}%</span>
             </div>
           </div>
         </div>
@@ -244,7 +240,7 @@ export function DmsSidebar({ currentUser, storageUsedBytes, storageLimitBytes }:
       {mobileOpen && (
         <div
           onClick={() => setMobileOpen(false)}
-          className="fixed inset-0 z-30 bg-black/60 backdrop-blur-xs lg:hidden"
+          className="fixed inset-0 z-30 bg-black/70 backdrop-blur-xs lg:hidden"
         ></div>
       )}
     </>
