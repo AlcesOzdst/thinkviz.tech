@@ -22,15 +22,14 @@ import {
   Play,
   RotateCcw,
   Sparkles,
-  Sliders,
   Shuffle,
-  Grid,
   Trash2,
   Bookmark,
   ChevronRight,
-  ShieldAlert,
-  Flame,
-  CheckCircle2,
+  Code2,
+  X,
+  Gauge,
+  SlidersHorizontal,
 } from "lucide-react";
 
 interface GridWorkspaceProps {
@@ -40,8 +39,10 @@ interface GridWorkspaceProps {
 
 export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspaceProps) {
   const router = useRouter();
+  
+  // Spacious studio dimensions (11 rows x 22 columns)
   const rows = 11;
-  const cols = 20;
+  const cols = 22;
 
   // Active algorithm metadata
   const currentAlgo = ALGORITHMS.find((a) => a.id === algorithmId) || ALGORITHMS[0];
@@ -52,12 +53,15 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
     initialGridData?.startPos || { row: 5, col: 2 }
   );
   const [goalPos, setGoalPos] = useState<Position>(
-    initialGridData?.goalPos || { row: 5, col: 17 }
+    initialGridData?.goalPos || { row: 5, col: 19 }
   );
   const [walls, setWalls] = useState<Position[]>(initialGridData?.walls || []);
 
   // Heuristic Selection (for A* and Greedy BFS)
   const [heuristicType, setHeuristicType] = useState<"manhattan" | "euclidean" | "chebyshev">("manhattan");
+
+  // Collapsible inspector drawer state
+  const [showInspector, setShowInspector] = useState(false);
 
   // Generated algorithm visualization steps
   const [steps, setSteps] = useState<AlgorithmStep<GridState>[]>([]);
@@ -175,13 +179,13 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
     for (let r = 0; r < rows; r++) {
       if (r !== 3 && r !== 4) newWalls.push({ row: r, col: 5 });
     }
-    // Wall 2 at col 10 with opening at row 7 and 8
+    // Wall 2 at col 11 with opening at row 7 and 8
     for (let r = 0; r < rows; r++) {
-      if (r !== 7 && r !== 8) newWalls.push({ row: r, col: 10 });
+      if (r !== 7 && r !== 8) newWalls.push({ row: r, col: 11 });
     }
-    // Wall 3 at col 15 with opening at row 3 and 4
+    // Wall 3 at col 16 with opening at row 3 and 4
     for (let r = 0; r < rows; r++) {
-      if (r !== 3 && r !== 4) newWalls.push({ row: r, col: 15 });
+      if (r !== 3 && r !== 4) newWalls.push({ row: r, col: 16 });
     }
     setWalls(newWalls);
   };
@@ -190,7 +194,7 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
   const handleResetEntireGrid = () => {
     playback.reset();
     setStartPos({ row: 5, col: 2 });
-    setGoalPos({ row: 5, col: 17 });
+    setGoalPos({ row: 5, col: 19 });
     setWalls([]);
     setSteps([]);
     setHasGenerated(false);
@@ -252,7 +256,7 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
     if (!hasGenerated) {
       return {
         label: "Edit Mode",
-        sub: "Interactive Canvas Ready",
+        sub: "Canvas Ready",
         colorClass: "bg-[var(--bg-elevated)] text-[var(--text-secondary)] border-[var(--border-default)]",
         dotClass: "bg-[var(--text-muted)]",
       };
@@ -260,7 +264,7 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
     if (playback.isPlaying) {
       return {
         label: "Executing",
-        sub: `Step ${playback.currentStepIndex + 1} / ${playback.totalSteps}`,
+        sub: `Step ${playback.currentStepIndex + 1}/${playback.totalSteps}`,
         colorClass: "bg-[var(--color-accent-subtle)] text-[var(--color-accent)] border-[var(--color-accent)]/40",
         dotClass: "bg-[var(--color-accent)] animate-pulse",
       };
@@ -270,7 +274,7 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
       if (reachedGoal > 0) {
         return {
           label: "Converged",
-          sub: `Optimal Path Length: ${reachedGoal}`,
+          sub: `Optimal Path: ${reachedGoal} nodes`,
           colorClass: "bg-[rgba(85,184,154,0.18)] text-[var(--color-path)] border-[var(--color-path)]/40",
           dotClass: "bg-[var(--color-path)]",
         };
@@ -284,236 +288,245 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
     }
     return {
       label: "Paused",
-      sub: `Step ${playback.currentStepIndex + 1} of ${playback.totalSteps}`,
+      sub: `Step ${playback.currentStepIndex + 1}/${playback.totalSteps}`,
       colorClass: "bg-[rgba(217,164,65,0.16)] text-[var(--color-frontier)] border-[var(--color-frontier)]/40",
       dotClass: "bg-[var(--color-frontier)]",
     };
   }, [hasGenerated, playback.isPlaying, playback.currentStepIndex, playback.totalSteps, playback.currentStep]);
 
   return (
-    <div className="w-full min-h-[100dvh] flex flex-col bg-[var(--bg-primary)] text-[var(--text-primary)]">
+    <div className="w-full h-[calc(100dvh-64px)] flex flex-col bg-[#070A0F] text-[#F8FAFC] relative select-none overflow-hidden">
       {/* =========================================================================
-          WORKBENCH TOP HEADER STRIP: Minimal, Non-Jitter, Clean Navigation
+          TOP STUDIO CONTROL BAR: Algorithm Tabs, Presets, Heuristics, Inspector
           ========================================================================= */}
-      <header className="w-full border-b border-[var(--border-default)] bg-[var(--bg-surface)] px-4 sm:px-6 py-3">
-        <div className="max-w-[1720px] mx-auto flex flex-wrap items-center justify-between gap-4">
-          {/* Breadcrumb & Algorithm Identity */}
-          <div className="flex items-center gap-3">
+      <header className="shrink-0 w-full border-b border-[#1A2230] bg-[#0B0F17] px-4 sm:px-6 py-2 z-30 shadow-md">
+        <div className="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-3">
+          
+          {/* Algorithm Navigator Tabs (Segmented Clean Pills) */}
+          <div className="flex items-center gap-1.5 overflow-x-auto">
             <Link
               href="/algorithms"
-              className="text-xs text-[var(--text-muted)] hover:text-[var(--text-primary)] transition-colors flex items-center gap-1 font-medium"
+              className="text-xs text-[#828E9E] hover:text-[#F8FAFC] transition-colors mr-2 font-medium flex items-center gap-1 shrink-0"
             >
-              <span>Algorithms</span>
-              <ChevronRight className="w-3.5 h-3.5" />
+              <span>←</span>
+              <span>Explorer</span>
             </Link>
-            <div className="flex items-center gap-2">
-              <h1 className="text-base sm:text-lg font-bold text-[var(--text-primary)] tracking-tight">
-                {currentAlgo.name}
-              </h1>
-              <span className="px-2 py-0.5 rounded text-[10px] font-mono uppercase tracking-wider bg-[var(--color-accent-subtle)] text-[var(--color-accent)] border border-[var(--color-accent)]/30 font-semibold">
-                {currentAlgo.category}
-              </span>
-            </div>
-          </div>
 
-          {/* Status & Telemetry Pill */}
-          <div className="flex items-center gap-3">
-            <div className={`px-3 py-1 rounded-full border text-xs flex items-center gap-2 font-medium ${statusBadge.colorClass}`}>
-              <span className={`h-2 w-2 rounded-full ${statusBadge.dotClass}`} />
-              <span className="font-semibold">{statusBadge.label}</span>
-              <span className="text-[11px] font-mono tabular-nums opacity-85">
-                • {statusBadge.sub}
-              </span>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      {/* =========================================================================
-          3-COLUMN FIXED DESKTOP WORKBENCH: Left Rail (3) | Center Stage (6) | Right Rail (3)
-          Falls back to single column on viewports < 1024px (Mobile Override)
-          ========================================================================= */}
-      <main className="flex-1 w-full max-w-[1780px] mx-auto p-3 sm:p-4 lg:p-6 grid grid-cols-1 lg:grid-cols-[250px_1fr_290px] xl:grid-cols-[265px_1fr_315px] gap-5 items-start">
-        
-        {/* =======================================================================
-            LEFT RAIL: Algorithm Switcher, Parameters, & Presets
-            ======================================================================= */}
-        <aside className="w-full flex flex-col gap-4">
-          
-          {/* Algorithm Navigator Section */}
-          <div className="rounded-xl bg-[var(--workbench-rail-bg)] border border-[var(--border-default)] p-3.5 space-y-2.5">
-            <div className="flex items-center justify-between text-xs text-[var(--text-muted)] font-medium">
-              <span className="flex items-center gap-1.5 uppercase tracking-wider text-[11px]">
-                <Grid className="w-3.5 h-3.5 text-[var(--color-accent)]" />
-                Grid Algorithms
-              </span>
-              <span className="text-[10px] font-mono tabular-nums">
-                5 Solvers
-              </span>
-            </div>
-
-            <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-1 bg-[#070A0F] p-0.5 rounded-lg border border-[#1A2230]">
               {gridAlgorithms.map((algo) => {
                 const isActive = algo.id === algorithmId;
                 return (
                   <button
                     key={algo.id}
                     onClick={() => {
-                      if (!isActive) {
-                        router.push(`/algorithms/${algo.id}`);
-                      }
+                      if (!isActive) router.push(`/algorithms/${algo.id}`);
                     }}
-                    className={`w-full px-3 py-2 rounded-lg text-left text-xs transition-all flex items-center justify-between active:scale-[0.98] ${
+                    className={`px-3 py-1.5 rounded-md text-xs transition-all active:scale-[0.97] whitespace-nowrap ${
                       isActive
-                        ? "bg-[var(--color-accent-subtle)] text-[var(--color-accent)] border border-[var(--color-accent)]/40 font-semibold"
-                        : "bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-overlay)] border border-[var(--border-subtle)]"
+                        ? "bg-[#6C8CFF]/20 text-[#6C8CFF] border border-[#6C8CFF]/50 shadow-xs font-semibold"
+                        : "text-[#828E9E] hover:text-[#F8FAFC] hover:bg-[#12161D]"
                     }`}
                   >
-                    <div className="flex items-center gap-2">
-                      <span className="font-mono text-[11px] font-bold opacity-80">
-                        {algo.shortName}
-                      </span>
-                      <span className="truncate max-w-[140px] text-[11px]">
-                        {algo.name}
-                      </span>
-                    </div>
-                    {isActive && (
-                      <span className="h-1.5 w-1.5 rounded-full bg-[var(--color-accent)]" />
-                    )}
+                    <span className="font-mono text-xs">{algo.shortName}</span>
                   </button>
                 );
               })}
             </div>
           </div>
 
-          {/* Parameter Controls Section */}
-          <div className="rounded-xl bg-[var(--workbench-rail-bg)] border border-[var(--border-default)] p-3.5 space-y-3.5">
-            <div className="flex items-center gap-1.5 text-xs text-[var(--text-primary)] font-semibold border-b border-[var(--border-subtle)] pb-2">
-              <Sliders className="w-3.5 h-3.5 text-[var(--color-accent)]" />
-              <span>Parameter Controls</span>
-            </div>
-
-            {/* Heuristic Distance Selector (for A* / Greedy) */}
+          {/* Studio Controls: Heuristic, Maze Presets, Inspector */}
+          <div className="flex items-center gap-2">
+            {/* Heuristic Selector (for A* / Greedy) */}
             {(algorithmId === "a-star" || algorithmId === "greedy-bfs") && (
-              <div className="space-y-1.5">
-                <label className="text-[11px] font-medium text-[var(--text-secondary)] flex items-center justify-between">
-                  <span>Heuristic Metric h(n)</span>
-                  <span className="text-[10px] text-[var(--text-muted)] font-mono">
-                    {heuristicType === "manhattan" ? "L1 Norm" : heuristicType === "euclidean" ? "L2 Norm" : "L∞ Norm"}
-                  </span>
-                </label>
-                <div className="grid grid-cols-3 gap-1">
-                  {(["manhattan", "euclidean", "chebyshev"] as const).map((h) => (
-                    <button
-                      key={h}
-                      onClick={() => {
-                        setHeuristicType(h);
-                        if (hasGenerated) handleResetSearch();
-                      }}
-                      className={`px-2 py-1.5 rounded-md text-[10px] font-mono capitalize transition-all active:scale-[0.96] ${
-                        heuristicType === h
-                          ? "bg-[var(--color-accent)] text-white font-bold shadow-sm"
-                          : "bg-[var(--bg-elevated)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-subtle)]"
-                      }`}
-                    >
-                      {h}
-                    </button>
-                  ))}
-                </div>
+              <div className="hidden sm:flex items-center gap-1 bg-[#070A0F] p-1 rounded-lg border border-[#1A2230] text-xs">
+                <span className="text-[10px] font-mono uppercase text-[#828E9E] px-1.5">Heuristic:</span>
+                {(["manhattan", "euclidean", "chebyshev"] as const).map((h) => (
+                  <button
+                    key={h}
+                    onClick={() => {
+                      setHeuristicType(h);
+                      if (hasGenerated) handleResetSearch();
+                    }}
+                    className={`px-2 py-0.5 rounded text-[11px] font-mono capitalize transition-all ${
+                      heuristicType === h
+                        ? "bg-[#6C8CFF] text-white font-semibold shadow-xs"
+                        : "text-[#828E9E] hover:text-[#F8FAFC]"
+                    }`}
+                  >
+                    {h}
+                  </button>
+                ))}
               </div>
             )}
 
-            {/* Maze Topology Presets */}
-            <div className="space-y-1.5">
-              <label className="text-[11px] font-medium text-[var(--text-secondary)] flex items-center justify-between">
-                <span>Obstacle Presets</span>
-                <span className="text-[10px] font-mono tabular-nums text-[var(--text-muted)]">
-                  {walls.length} walls active
-                </span>
-              </label>
-              <div className="grid grid-cols-2 gap-1.5">
-                <button
-                  onClick={handleGenerateRandomMaze}
-                  disabled={hasGenerated}
-                  className="px-2.5 py-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--bg-overlay)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-subtle)] text-[11px] flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed"
-                >
-                  <Shuffle className="w-3 h-3 text-[var(--text-muted)]" />
-                  <span>Random (30%)</span>
-                </button>
-                <button
-                  onClick={handleGenerateCorridorPreset}
-                  disabled={hasGenerated}
-                  className="px-2.5 py-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--bg-overlay)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-subtle)] text-[11px] flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed"
-                >
-                  <Sparkles className="w-3 h-3 text-[var(--text-muted)]" />
-                  <span>Corridors</span>
-                </button>
-              </div>
+            {/* Maze Presets */}
+            <div className="flex items-center gap-1">
+              <button
+                onClick={handleGenerateRandomMaze}
+                disabled={hasGenerated}
+                className="px-2.5 py-1.5 rounded-lg bg-[#12161D] hover:bg-[#1A2230] text-[#94A3B8] hover:text-[#F8FAFC] border border-[#232B36] text-xs font-medium flex items-center gap-1.5 transition-all active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed"
+                title="Generate 28% Random Wall Density"
+              >
+                <Shuffle className="w-3.5 h-3.5 text-[#828E9E]" />
+                <span className="hidden sm:inline">Random Maze</span>
+              </button>
+
+              <button
+                onClick={handleGenerateCorridorPreset}
+                disabled={hasGenerated}
+                className="px-2.5 py-1.5 rounded-lg bg-[#12161D] hover:bg-[#1A2230] text-[#94A3B8] hover:text-[#F8FAFC] border border-[#232B36] text-xs font-medium flex items-center gap-1.5 transition-all active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed"
+                title="Generate Corridor Barrier Labyrinth"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-[#828E9E]" />
+                <span className="hidden sm:inline">Corridors</span>
+              </button>
+
+              <button
+                onClick={handleClearWalls}
+                disabled={walls.length === 0 || hasGenerated}
+                className="p-1.5 rounded-lg bg-[#12161D] hover:bg-[#1A2230] text-[#828E9E] hover:text-red-400 border border-[#232B36] text-xs transition-all active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed"
+                title="Clear all walls"
+              >
+                <Trash2 className="w-3.5 h-3.5" />
+              </button>
             </div>
 
-            {/* Grid Editing Actions */}
-            <div className="pt-2 border-t border-[var(--border-subtle)] space-y-2">
-              {!hasGenerated ? (
-                <button
-                  onClick={handleVisualize}
-                  className="w-full py-2.5 rounded-lg bg-[var(--color-accent)] hover:bg-[var(--color-accent-hover)] text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-md transition-all active:scale-[0.98]"
-                >
-                  <Play className="w-3.5 h-3.5 fill-current" />
-                  <span>Execute {currentAlgo.shortName} Search</span>
-                </button>
-              ) : (
-                <button
-                  onClick={handleResetSearch}
-                  className="w-full py-2 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--bg-overlay)] text-[var(--text-primary)] border border-[var(--border-default)] text-xs font-medium flex items-center justify-center gap-2 transition-all active:scale-[0.98]"
-                >
-                  <RotateCcw className="w-3.5 h-3.5" />
-                  <span>Return to Grid Edit Mode</span>
-                </button>
-              )}
+            {/* Inspector Drawer Toggle Button */}
+            <button
+              onClick={() => setShowInspector(!showInspector)}
+              className={`px-2.5 py-1.5 rounded-lg text-xs font-medium border transition-all active:scale-[0.98] flex items-center gap-1.5 ${
+                showInspector
+                  ? "bg-[#6C8CFF]/20 text-[#6C8CFF] border-[#6C8CFF]/50"
+                  : "bg-[#12161D] text-[#94A3B8] hover:text-[#F8FAFC] border-[#232B36]"
+              }`}
+              title="Toggle Code Tracer & Specs"
+            >
+              <Code2 className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline text-xs">Tracer & Specs</span>
+            </button>
+          </div>
+        </div>
+      </header>
 
-              <div className="grid grid-cols-2 gap-1.5">
-                <button
-                  onClick={handleClearWalls}
-                  disabled={walls.length === 0}
-                  className="px-2.5 py-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--bg-overlay)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-subtle)] text-[11px] flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed"
-                >
-                  <Trash2 className="w-3 h-3 text-[var(--text-muted)]" />
-                  <span>Clear Walls</span>
-                </button>
-
-                <button
-                  onClick={handleSaveMaze}
-                  disabled={isSaving}
-                  className="px-2.5 py-1.5 rounded-lg bg-[var(--bg-elevated)] hover:bg-[var(--bg-overlay)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] border border-[var(--border-subtle)] text-[11px] flex items-center justify-center gap-1.5 transition-all active:scale-[0.98] disabled:opacity-30 disabled:cursor-not-allowed"
-                >
-                  <Bookmark className="w-3 h-3 text-[var(--text-muted)]" />
-                  <span>{isSaving ? "Saving..." : "Save Maze"}</span>
-                </button>
-              </div>
-            </div>
+      {/* =========================================================================
+          HORIZONTAL TELEMETRY & STATUS STRIP (Directly Above the Canvas)
+          ========================================================================= */}
+      <section className="shrink-0 w-full border-b border-[#161D2A] bg-[#090D14] px-4 sm:px-6 py-2">
+        <div className="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-4 text-xs">
+          
+          {/* Status Badge */}
+          <div className={`px-2.5 py-1 rounded-full border text-xs flex items-center gap-2 font-medium ${statusBadge.colorClass}`}>
+            <span className={`h-2 w-2 rounded-full ${statusBadge.dotClass}`} />
+            <span className="font-semibold">{statusBadge.label}</span>
+            <span className="text-[11px] font-mono tabular-nums opacity-85">
+              • {statusBadge.sub}
+            </span>
           </div>
 
-          {/* Algorithm Complexity Card */}
-          <div className="rounded-xl bg-[var(--workbench-rail-bg)] border border-[var(--border-default)] p-3.5 text-xs space-y-2">
-            <span className="text-[11px] font-semibold text-[var(--text-primary)] block">
+          {/* Interactive Legend (Start, Goal, Wall, Visited, Frontier, Solution) */}
+          <div className="hidden md:flex items-center gap-3.5 text-[11px] text-[#828E9E]">
+            <span className="flex items-center gap-1.5">
+              <span className="h-3 w-3 rounded-[3px] border border-[#93C5FD] bg-[#2563EB] shadow-[0_0_8px_rgba(37,99,235,0.4)]" />
+              <span className="text-[#F8FAFC]">Start</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="h-3 w-3 rounded-[3px] border border-[#FDA4AF] bg-[#E11D48] shadow-[0_0_8px_rgba(225,29,72,0.4)]" />
+              <span className="text-[#F8FAFC]">Goal</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="h-3 w-3 rounded-[3px] border border-[#32405A] bg-[#222B3D]" />
+              <span>Wall</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="h-3 w-3 rounded-[3px] border border-[#222E46] bg-[#131B2C]" />
+              <span>Visited</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="h-3 w-3 rounded-[3px] border border-[#F59E0B] bg-[#D97706]/20" />
+              <span className="text-amber-300">Frontier</span>
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="h-3 w-3 rounded-[3px] border border-[#34D399] bg-[#059669] shadow-[0_0_8px_rgba(52,211,153,0.4)]" />
+              <span className="text-emerald-400 font-semibold">Solution</span>
+            </span>
+          </div>
+
+          {/* Horizontal Telemetry Numbers */}
+          <MetricsPanel
+            metrics={activeMetrics}
+            currentNode={activeNodeInfo}
+            variant="horizontal"
+          />
+        </div>
+      </section>
+
+      {/* =========================================================================
+          THE CANVAS HERO: Full-Width, Expansive, Breathing Grid Stage
+          ========================================================================= */}
+      <main className="flex-1 min-h-0 w-full max-w-[1600px] mx-auto px-4 sm:px-6 py-2 flex items-center justify-center overflow-auto">
+        <GridCanvas
+          gridState={activeGridState}
+          onToggleWall={handleToggleWall}
+          onMoveStart={handleMoveStart}
+          onMoveGoal={handleMoveGoal}
+          isInteractive={!hasGenerated}
+        />
+      </main>
+
+      {/* =========================================================================
+          PINNED BOTTOM CONTROL DOCK: Zero Overlap with Canvas
+          ========================================================================= */}
+      <footer className="shrink-0 w-full border-t border-[#1A2230] bg-[#0B0F17] px-4 py-2.5 flex justify-center z-20 shadow-xl">
+        <PlaybackToolbar
+          playback={playback}
+          disabled={false}
+          hasGenerated={hasGenerated}
+          onExecute={handleVisualize}
+        />
+      </footer>
+
+      {/* =========================================================================
+          COLLAPSIBLE SLIDE-OUT INSPECTOR DRAWER (Pedagogical Pseudocode & Specs)
+          ========================================================================= */}
+      {showInspector && (
+        <div className="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-[#0D121B] border-l border-[#232B3C] shadow-2xl flex flex-col p-5 space-y-4 overflow-y-auto animate-in slide-in-from-right duration-200">
+          {/* Drawer Header */}
+          <div className="flex items-center justify-between border-b border-[#1A2230] pb-3">
+            <div className="flex items-center gap-2">
+              <Code2 className="w-4 h-4 text-[#6C8CFF]" />
+              <h3 className="text-sm font-bold text-[#F8FAFC]">
+                {currentAlgo.name} Inspector
+              </h3>
+            </div>
+            <button
+              onClick={() => setShowInspector(false)}
+              className="p-1 rounded-lg hover:bg-[#1A2230] text-[#828E9E] hover:text-[#F8FAFC] transition-all"
+            >
+              <X className="w-4 h-4" />
+            </button>
+          </div>
+
+          {/* Complexity Specs */}
+          <div className="p-3 rounded-xl bg-[#12161D] border border-[#232B36] text-xs space-y-2">
+            <span className="text-[11px] font-semibold text-[#F8FAFC] block">
               Complexity Profile
             </span>
-            <div className="space-y-1 text-[11px] text-[var(--text-secondary)]">
-              <div className="flex justify-between py-0.5 border-b border-[var(--border-subtle)]">
-                <span className="text-[var(--text-muted)]">Time Complexity:</span>
-                <span className="font-mono tabular-nums text-[var(--text-primary)] font-medium">
+            <div className="space-y-1 text-[11px] text-[#828E9E]">
+              <div className="flex justify-between py-0.5 border-b border-[#1A2230]">
+                <span>Time Complexity:</span>
+                <span className="font-mono tabular-nums text-[#F8FAFC] font-medium">
                   {currentAlgo.timeComplexity}
                 </span>
               </div>
-              <div className="flex justify-between py-0.5 border-b border-[var(--border-subtle)]">
-                <span className="text-[var(--text-muted)]">Space Complexity:</span>
-                <span className="font-mono tabular-nums text-[var(--text-primary)] font-medium">
+              <div className="flex justify-between py-0.5 border-b border-[#1A2230]">
+                <span>Space Complexity:</span>
+                <span className="font-mono tabular-nums text-[#F8FAFC] font-medium">
                   {currentAlgo.spaceComplexity}
                 </span>
               </div>
               <div className="flex justify-between py-0.5">
-                <span className="text-[var(--text-muted)]">Shortest Path:</span>
-                <span className="font-medium text-[var(--color-path)]">
+                <span>Shortest Path:</span>
+                <span className="font-medium text-emerald-400">
                   {algorithmId === "bfs" || algorithmId === "ucs" || algorithmId === "a-star"
                     ? "Guaranteed Optimal"
                     : "Heuristic Dependent"}
@@ -521,86 +534,12 @@ export function GridWorkspace({ algorithmId, initialGridData }: GridWorkspacePro
               </div>
             </div>
           </div>
-        </aside>
-
-        {/* =======================================================================
-            CENTER STAGE (1fr): Edge-to-Edge Canvas + Pinned Playback Dock
-            ======================================================================= */}
-        <section className="w-full min-w-0 flex-1 flex flex-col items-center justify-between gap-4 relative">
-          
-          {/* Legend Banner Strip (No Emojis, Calibrated Josef Albers States) */}
-          <div className="w-full px-4 py-2 rounded-xl bg-[var(--bg-surface)] border border-[var(--border-default)] flex flex-wrap items-center justify-between gap-3 text-xs text-[var(--text-secondary)]">
-            <div className="flex flex-wrap items-center gap-3 text-[11px]">
-              <span className="flex items-center gap-1.5">
-                <span className="h-3 w-3 rounded-[3px] border border-[var(--grid-node-start-border)] bg-[var(--grid-node-start-bg)]" />
-                <span className="text-[var(--text-primary)]">Start (S)</span>
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="h-3 w-3 rounded-[3px] border border-[var(--grid-node-goal-border)] bg-[var(--grid-node-goal-bg)]" />
-                <span className="text-[var(--text-primary)]">Goal (G)</span>
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="h-3 w-3 rounded-[3px] border border-[var(--grid-node-wall-border)] bg-[var(--grid-node-wall-bg)]" />
-                <span>Wall</span>
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="h-3 w-3 rounded-[3px] border border-[var(--grid-node-visited-border)] bg-[var(--grid-node-visited-bg)]" />
-                <span>Visited</span>
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="h-3 w-3 rounded-[3px] border border-[var(--grid-node-frontier-border)] bg-[var(--grid-node-frontier-bg)]" />
-                <span className="text-[var(--primitive-gold-300)]">Frontier</span>
-              </span>
-              <span className="flex items-center gap-1.5">
-                <span className="h-3 w-3 rounded-[3px] border border-[var(--grid-node-path-border)] bg-[var(--grid-node-path-bg)] shadow-[0_0_8px_rgba(85,184,154,0.35)]" />
-                <span className="text-[var(--primitive-teal-300)] font-semibold">Solution</span>
-              </span>
-            </div>
-
-            <div className="text-[11px] font-mono tabular-nums text-[var(--text-muted)]">
-              {rows}×{cols} Matrix
-            </div>
-          </div>
-
-          {/* Interactive Edge-to-Edge Grid Canvas with Generous Breathing Room */}
-          <div className="w-full flex-1 flex items-center justify-center p-3 sm:p-5 lg:p-6 rounded-2xl bg-[var(--bg-surface)]/50 border border-[var(--border-subtle)] overflow-x-auto shadow-inner backdrop-blur-sm">
-            <GridCanvas
-              gridState={activeGridState}
-              onToggleWall={handleToggleWall}
-              onMoveStart={handleMoveStart}
-              onMoveGoal={handleMoveGoal}
-              isInteractive={!hasGenerated}
-            />
-          </div>
-
-          {/* Pinned Bottom Playback Dock (Sticky at Bottom of Stage) */}
-          <div className="w-full sticky bottom-3 z-20 flex justify-center pt-2">
-            <PlaybackToolbar
-              playback={playback}
-              disabled={false}
-              hasGenerated={hasGenerated}
-              onExecute={handleVisualize}
-            />
-          </div>
-        </section>
-
-        {/* =======================================================================
-            RIGHT RAIL: Real-time Telemetry HUD & Execution Tracer
-            ======================================================================= */}
-        <aside className="w-full flex flex-col gap-4">
-          {/* Real-time Telemetry HUD (Anti-Slop: Linear Dividers with tabular figures) */}
-          <MetricsPanel
-            metrics={activeMetrics}
-            currentNode={activeNodeInfo}
-          />
 
           {/* Live Pseudocode Execution Tracer */}
-          <StepExplanation
-            step={playback.currentStep}
-          />
-        </aside>
-
-      </main>
+          <StepExplanation step={playback.currentStep} />
+        </div>
+      )}
     </div>
   );
 }
+

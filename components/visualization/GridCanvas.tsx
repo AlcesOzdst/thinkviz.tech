@@ -115,13 +115,13 @@ export function GridCanvas({
 
   return (
     <div
-      className="w-full flex flex-col items-center justify-center select-none"
+      className="w-full flex items-center justify-center select-none overflow-x-auto py-2"
       onMouseLeave={handleMouseUp}
       onMouseUp={handleMouseUp}
     >
       {/* Grid Matrix Container */}
       <div
-        className="grid gap-1.5 sm:gap-2 p-3 sm:p-5 rounded-2xl bg-[var(--bg-surface)] border border-[var(--border-default)] shadow-2xl transition-all duration-200"
+        className="w-fit mx-auto grid gap-1 sm:gap-1.5 p-3 sm:p-5 rounded-2xl bg-[#090D14] border border-[#1E2638] shadow-2xl transition-all duration-200"
         style={{
           gridTemplateColumns: `repeat(${numCols}, minmax(0, 1fr))`,
         }}
@@ -140,38 +140,37 @@ export function GridCanvas({
             const isWall = node.type === "wall";
 
             let cellClass =
-              "bg-[var(--grid-node-unvisited-bg)] border-[var(--grid-node-unvisited-border)] text-[var(--text-muted)] hover:border-[var(--border-hover)]";
+              "bg-[#0D121D] border-[#1C2538] text-[var(--text-muted)] hover:border-[#3B82F6] hover:bg-[#151E32]";
             let IconComponent: React.ReactNode = null;
 
             if (isStart) {
               cellClass =
-                "bg-[var(--grid-node-start-bg)] border-[var(--grid-node-start-border)] text-[var(--grid-node-start-text)] shadow-[0_0_12px_rgba(108,140,255,0.4)] z-10 scale-[1.04]";
-              IconComponent = <Flag className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2]" />;
+                "bg-[#2563EB] border-2 border-[#93C5FD] text-white shadow-[0_0_16px_rgba(37,99,235,0.7)] z-10 scale-[1.05]";
+              IconComponent = <Flag className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />;
             } else if (isGoal) {
               cellClass =
-                "bg-[var(--grid-node-goal-bg)] border-[var(--grid-node-goal-border)] text-[var(--grid-node-goal-text)] shadow-[0_0_12px_rgba(224,82,99,0.4)] z-10 scale-[1.04]";
-              IconComponent = <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.2]" />;
+                "bg-[#E11D48] border-2 border-[#FDA4AF] text-white shadow-[0_0_16px_rgba(225,29,72,0.7)] z-10 scale-[1.05]";
+              IconComponent = <Target className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[2.5]" />;
             } else if (isWall) {
               cellClass =
-                "bg-[var(--grid-node-wall-bg)] border-[var(--grid-node-wall-border)] shadow-inner";
+                "bg-[#222B3D] border-[#32405A] shadow-inner";
             } else if (isPath) {
               cellClass =
-                "bg-[var(--grid-node-path-bg)] border-[var(--grid-node-path-border)] text-[var(--grid-node-path-text)] shadow-[0_0_14px_rgba(85,184,154,0.5)] z-10 font-bold scale-[1.02]";
+                "bg-[#059669] border border-[#34D399] text-white shadow-[0_0_16px_rgba(52,211,153,0.6)] z-10 font-bold scale-[1.03]";
               IconComponent = <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4 stroke-[3]" />;
             } else if (isCurrent) {
               cellClass =
-                "bg-[var(--primitive-blue-500)] border-white text-white scale-110 shadow-[0_0_16px_rgba(108,140,255,0.8)] z-20";
+                "bg-[#06B6D4] border-2 border-white text-white scale-110 shadow-[0_0_20px_rgba(6,182,212,0.9)] z-20";
               IconComponent = <Circle className="w-2.5 h-2.5 fill-current" />;
             } else if (isNeighbor) {
               cellClass =
-                "bg-[var(--grid-node-frontier-bg)] border-[var(--grid-node-frontier-border)] text-[var(--grid-node-frontier-text)] scale-105";
+                "bg-[#D97706]/25 border border-[#F59E0B] text-[#FDE68A] scale-105";
             } else if (isFrontier) {
               cellClass =
-                "bg-[var(--grid-node-frontier-bg)] border-[var(--grid-node-frontier-border)] text-[var(--grid-node-frontier-text)]";
+                "bg-[#D97706]/20 border border-[#F59E0B] text-[#FDE68A] shadow-[0_0_8px_rgba(245,158,11,0.25)]";
             } else if (isVisited) {
-              // Calibrated low-saturation visited state (Josef Albers simultaneous contrast preservation)
               cellClass =
-                "bg-[var(--grid-node-visited-bg)] border-[var(--grid-node-visited-border)] text-[var(--text-muted)]";
+                "bg-[#131B2C] border border-[#222E46] text-[#64748B]";
             }
 
             return (
@@ -179,7 +178,7 @@ export function GridCanvas({
                 key={posKey}
                 onMouseDown={() => handleMouseDown(rIdx, cIdx)}
                 onMouseEnter={() => handleMouseEnter(rIdx, cIdx)}
-                className={`w-full aspect-square min-w-[24px] sm:min-w-[28px] md:min-w-[32px] lg:min-w-[36px] xl:min-w-[40px] max-w-[48px] flex items-center justify-center rounded-[6px] border text-xs cursor-pointer transition-colors duration-150 active:scale-[0.98] ${cellClass}`}
+                className={`aspect-square w-6 h-6 sm:w-8 sm:h-8 md:w-9 md:h-9 lg:w-10 lg:h-10 xl:w-11 xl:h-11 flex items-center justify-center rounded-[5px] border text-xs cursor-pointer select-none transition-all duration-150 active:scale-[0.96] ${cellClass}`}
                 title={`Cell (${rIdx}, ${cIdx}) • g: ${
                   node.gCost === Infinity ? "∞" : node.gCost
                 } • h: ${
@@ -192,7 +191,6 @@ export function GridCanvas({
           })
         )}
       </div>
-
     </div>
   );
 }

@@ -1,6 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export function Footer() {
+  const pathname = usePathname();
+
+  // On interactive algorithm visualizer workbenches, hide marketing footer to give full viewport to the canvas
+  if (pathname && /^\/algorithms\/[^\/]+$/.test(pathname)) {
+    return null;
+  }
+
   return (
     <footer className="border-t border-[#232B36] bg-[#090B0E] text-[#94A3B8]">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">

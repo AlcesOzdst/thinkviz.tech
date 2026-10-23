@@ -7,9 +7,10 @@ import { Activity, Compass, Network, Layers } from "lucide-react";
 export interface MetricsPanelProps {
   metrics: AlgorithmMetrics | null;
   currentNode?: { row: number; col: number; gCost: number; hCost: number; fCost: number } | null;
+  variant?: "horizontal" | "vertical";
 }
 
-export function MetricsPanel({ metrics, currentNode }: MetricsPanelProps) {
+export function MetricsPanel({ metrics, currentNode, variant = "vertical" }: MetricsPanelProps) {
   const nodesExplored = metrics ? metrics.nodesExplored : 0;
   const frontierSize = metrics ? metrics.frontierSize : 0;
   const totalSteps = metrics ? metrics.totalSteps : 0;
@@ -17,6 +18,50 @@ export function MetricsPanel({ metrics, currentNode }: MetricsPanelProps) {
   let pathCostDisplay = "—";
   if (metrics && metrics.pathCost > 0 && metrics.pathCost !== Infinity) {
     pathCostDisplay = metrics.pathCost.toFixed(2);
+  }
+
+  if (variant === "horizontal") {
+    return (
+      <div className="flex flex-wrap items-center gap-3 sm:gap-6 text-xs">
+        {/* Nodes Explored */}
+        <div className="flex items-center gap-1.5 font-mono tabular-nums">
+          <Layers className="w-3.5 h-3.5 text-[var(--text-muted)]" />
+          <span className="text-[var(--text-secondary)] font-sans text-[11px]">Explored:</span>
+          <span className="font-bold text-[var(--text-primary)]">{nodesExplored}</span>
+        </div>
+
+        {/* Frontier */}
+        <div className="flex items-center gap-1.5 font-mono tabular-nums">
+          <Compass className="w-3.5 h-3.5 text-[var(--color-frontier)]" />
+          <span className="text-[var(--text-secondary)] font-sans text-[11px]">Frontier:</span>
+          <span className="font-bold text-[var(--color-frontier)]">{frontierSize}</span>
+        </div>
+
+        {/* Path Cost */}
+        <div className="flex items-center gap-1.5 font-mono tabular-nums">
+          <Network className="w-3.5 h-3.5 text-[var(--color-path)]" />
+          <span className="text-[var(--text-secondary)] font-sans text-[11px]">Cost g(n):</span>
+          <span className="font-bold text-[var(--color-path)]">{pathCostDisplay}</span>
+        </div>
+
+        {/* Total Steps */}
+        <div className="flex items-center gap-1.5 font-mono tabular-nums">
+          <Activity className="w-3.5 h-3.5 text-[var(--color-accent)]" />
+          <span className="text-[var(--text-secondary)] font-sans text-[11px]">Frames:</span>
+          <span className="font-semibold text-[var(--text-primary)]">{totalSteps}</span>
+        </div>
+
+        {/* Active Node Evaluation */}
+        {currentNode && currentNode.gCost !== Infinity && (
+          <div className="flex items-center gap-2 px-2 py-0.5 rounded bg-[var(--bg-elevated)] border border-[var(--border-subtle)] font-mono tabular-nums text-[11px]">
+            <span className="text-[var(--text-muted)]">({currentNode.row},{currentNode.col})</span>
+            <span className="text-[var(--text-secondary)]">g:{currentNode.gCost}</span>
+            <span className="text-[var(--text-secondary)]">h:{currentNode.hCost.toFixed(1)}</span>
+            <span className="font-bold text-[var(--color-accent)]">f:{currentNode.fCost.toFixed(1)}</span>
+          </div>
+        )}
+      </div>
+    );
   }
 
   return (
@@ -32,7 +77,7 @@ export function MetricsPanel({ metrics, currentNode }: MetricsPanelProps) {
         </span>
       </div>
 
-      {/* Telemetry Metric Rows (Anti-Slop: Linear dividers instead of generic bento cards) */}
+      {/* Telemetry Metric Rows */}
       <div className="divide-y divide-[var(--border-subtle)] text-xs">
         {/* Nodes Explored */}
         <div className="px-4 py-2.5 flex items-center justify-between">
