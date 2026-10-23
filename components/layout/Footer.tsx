@@ -14,9 +14,9 @@ export function Footer() {
   return (
     <footer className="border-t border-[#232B36] bg-[#090B0E] text-[#94A3B8]">
       <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 mb-12">
           {/* Brand Col */}
-          <div className="space-y-4 md:col-span-1">
+          <div className="space-y-4 sm:col-span-2 lg:col-span-1">
             <Link href="/" className="flex items-center gap-2">
               <img src="/logo.jpg" alt="ThinkViz Logo" className="h-8 w-8 object-contain" />
               <span className="text-lg font-semibold tracking-tight text-[#F8FAFC]">
@@ -57,6 +57,36 @@ export function Footer() {
               <li>
                 <Link href="/algorithms/minimax" className="hover:text-[#F1F3F5] transition-colors">
                   Minimax
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Machine Learning */}
+          <div>
+            <h3 className="text-xs font-semibold text-[#F8FAFC] mb-4">
+              Machine Learning
+            </h3>
+            <ul className="space-y-2 text-sm">
+              <li>
+                <Link href="/machine-learning" className="hover:text-[#F1F3F5] transition-colors flex items-center gap-1.5 text-emerald-400">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block"></span>
+                  ML Overview
+                </Link>
+              </li>
+              <li>
+                <Link href="/machine-learning/k-means" className="hover:text-[#F1F3F5] transition-colors">
+                  K-Means Visualizer
+                </Link>
+              </li>
+              <li>
+                <Link href="/machine-learning/regression" className="hover:text-[#F1F3F5] transition-colors">
+                  Regression Playground
+                </Link>
+              </li>
+              <li>
+                <Link href="/machine-learning/confusion-matrix" className="hover:text-[#F1F3F5] transition-colors">
+                  Confusion Matrix
                 </Link>
               </li>
             </ul>

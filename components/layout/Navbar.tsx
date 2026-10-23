@@ -51,6 +51,15 @@ export function Navbar() {
             Explore Algorithms
           </Link>
           <Link
+            href="/machine-learning"
+            className={`transition-colors hover:text-emerald-400 shrink-0 flex items-center gap-1.5 ${
+              pathname?.startsWith("/machine-learning") ? "text-emerald-400 font-semibold" : ""
+            }`}
+          >
+            <span className="inline-block w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+            Machine Learning
+          </Link>
+          <Link
             href="/data-center"
             className={`transition-colors hover:text-sky-400 shrink-0 flex items-center gap-1.5 ${
               pathname?.startsWith("/data-center") ? "text-sky-400 font-semibold" : ""
@@ -168,6 +177,13 @@ export function Navbar() {
             onClick={() => setIsMobileMenuOpen(false)}
           >
             Explore Algorithms
+          </Link>
+          <Link
+            href="/machine-learning"
+            className="block px-3 py-2 rounded-md font-medium text-emerald-400 hover:bg-[#1B1F25] hover:text-emerald-300"
+            onClick={() => setIsMobileMenuOpen(false)}
+          >
+            Machine Learning
           </Link>
           <Link
             href="/data-center"
